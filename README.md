@@ -1,5 +1,4 @@
-<img src="http://dl.dropboxusercontent.com/s/ue01x17cs51y9mb/salsa.jpg" width="150"></img>
+<img src="http://dl.dropboxusercontent.com/s/ue01x17cs51y9mb/salsa.jpg" width="150" align="middle"></img>
 
-# SALSA.jl
-**S**oftware Lab for **A**dvanced Machine **L**earning and **S**tochastic **A**lgorithms in Julia
+### Software Lab for Advanced Machine Learning and Stochastic Algorithms in Julia
 
