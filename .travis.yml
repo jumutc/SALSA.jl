@@ -5,7 +5,7 @@ os:
 notifications:
  email: false
 script:
- - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.pin("SALSA"); Pkg.resolve(); Pkg.build("HDF5")'
+ - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.pin("SALSA"); Pkg.resolve()'
  - julia -e 'using SALSA; @assert isdefined(:SALSA); @assert typeof(SALSA) === Module'
  - julia --code-coverage test/runtests.jl
  - julia -e 'Pkg.update(); Pkg.add("Lint"); using Lint; lintpkg("SALSA",returnMsgs=true)'
