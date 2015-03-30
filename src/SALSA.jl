@@ -8,6 +8,7 @@ typealias YVar Vector{Float64}
 
 using Distributions
 
+
 # Calculate the misclassification rate
 misclass(y, yhat) = 1-mean(y.==yhat)
 # Calculate the sum of squared differences between two vectors
@@ -52,6 +53,7 @@ include(joinpath("support", "ds.jl"))
 include("SALSAModel.jl")
 include("loss_derivative.jl")
 include("model_ext.jl")
+include("predict.jl")
 # main algorithmic files
 include(joinpath("algorithms", "l1rda_alg.jl"))
 include(joinpath("algorithms", "adaptive_l1rda_alg.jl"))
@@ -113,17 +115,17 @@ salsa(X::SparseMatrixCSC, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,
 	
 function salsa(X, Y, model::SALSAModel, Xtest)
     if model.normalized && isempty(Xtest) 
-	    (X,~,~) = mapstd(X)
+	    (X, model.X_mean, model.X_std) = mapstd(X)
 	elseif model.normalized
-	    (X, mean, std) = mapstd(X)
-	    Xtest = mapstd(Xtest,mean,std)
+	    (X, model.X_mean, model.X_std) = mapstd(X)
+	    Xtest = mapstd(Xtest,model.X_mean,model.X_std)
 	end
 
 	if model.mode == LINEAR
 	    model = tune_algorithm(X,Y,model)
 	    (model.w, model.b) = run_algorithm(X,Y,model)
 	    # run simulation on Xtest data if availble
-	    if !isempty(Xtest) model.Ytest = sign(Xtest*model.w.+model.b) end
+	    if !isempty(Xtest) model.Ytest = predict(model,Xtest) end
 	else
 	    model = tune_algorithm_AFEm(X,Y,model); X_subset = X[model.subset,:] 
 	    # find actual Nystrom-approximated feature map and run Pegasos
@@ -131,7 +133,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	    (model.w, model.b) = run_algorithm(AFEm(X_subset,k,X),Y,model)
 	    # run simulation on Nystrom approximated Xtest data if availble
 	    if !isempty(Xtest)
-	        model.Ytest = sign(AFEm(X_subset,k,Xtest)*model.w.+model.b)
+	        model.Ytest = predict(model,AFEm(X_subset,k,Xtest))
 	    end
 	end
 

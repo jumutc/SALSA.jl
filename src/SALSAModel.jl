@@ -44,6 +44,8 @@ type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     dfunc::Function
     alg_params::YVar
     k_params::YVar
+    X_mean
+    X_std
     Ytest
     w
     b

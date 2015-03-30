@@ -1,2 +1,2 @@
-validation_criteria(model::SALSAModel,X,Y,w,b,val_idx) = validation_criteria(model,X[val_idx,:],Y[val_idx],w,b)
-validation_criteria(model::SALSAModel,X,Y,w,b) = (model.sparsity_cv*mean(w .!= 0) + (1-model.sparsity_cv)*misclass(Y, sign(X* w .+ b))) / model.num_cv_folds
+validation_criteria(model::SALSAModel,X,Y,val_idx) = validation_criteria(model,X[val_idx,:],Y[val_idx])
+validation_criteria(model::SALSAModel,X,Y) = (model.sparsity_cv*mean(model.w .!= 0) + (1-model.sparsity_cv)*misclass(Y, predict(model,X))) / model.num_cv_folds

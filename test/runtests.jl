@@ -1,4 +1,5 @@
-tests = ["unit/test_pegasos"]
+tests = ["unit/test_pegasos", 
+		 "functional/test"]
 
 print_with_color(:blue, "Running tests:\n")
 
