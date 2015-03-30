@@ -2,6 +2,7 @@
 
 # SALSA.jl
 [![Build Status](https://travis-ci.org/jumutc/SALSA.jl.svg)](https://travis-ci.org/jumutc/SALSA.jl)
+[![Coverage Status](https://coveralls.io/r/jumutc/SALSA.jl/badge.png)](https://coveralls.io/r/jumutc/SALSA.jl)
 
 ## Software Lab
 **SALSA**: **S**oftware Lab for **A**dvanced Machine **L**earning and **S**tochastic **A**lgorithms is a native Julia implementation of the well known stochastic algorithms for linear and non-linear **Support Vector Machines**. It is stemmed from the following algorithmic approaches:
@@ -30,9 +31,9 @@ data = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
 # and evaluate it on the test data provided as the last function argument
 model = salsa(data["X"], data["Y"], data["Xt"]);
 
-# Compute accuracy %
+# Compute accuracy in %
 @printf "Accuracy: %.2f%%\n" mean(model.Ytest .== data["Yt"])*100
 
-# Or use predict function and map data beforehand by the extracted mean/std (default) 
+# Or use map_predict function and map data beforehand by the extracted mean/std (default) 
 @printf "Accuracy: %.2f%%\n" mean(map_predict(model, data["Xt"]) .== data["Yt"])*100
 ```
