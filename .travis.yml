@@ -1,4 +1,4 @@
-llanguage: julia
+language: julia
 os:
  - linux
  - osx
