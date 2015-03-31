@@ -49,10 +49,9 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
         # do not perform transpose(::SparceMatrixCSC) and other operations 
         # because Garbage Collection performs realy badly in the tight loops
         eval = map(i->sum(At[:,i].*w),1:1:k).*yt
-        idx1 = find(eval .< 1)
 
         # calculate dual average: gradient
-        g = ((t-1)/t).*g - (1/(t)).*dfunc(At,yt,idx1)
+        g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,eval)
         
         # find a close form solution
         # update re-weighting vector

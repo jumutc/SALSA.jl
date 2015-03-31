@@ -48,10 +48,9 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
         # because Garbage Collection performs realy badly in the tight loops
         eval = map(i->sum(At[:,i].*w),1:1:k).*yt
         λ_rda = λ+(ρ*γ)/sqrt(t)
-        idx1 = find(eval .< 1)
 
         # calculate dual average: gradient
-        g = ((t-1)/t).*g - (1/(t)).*dfunc(At,yt,idx1)
+        g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,eval)
         
         # find a close form solution
         if check

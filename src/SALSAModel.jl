@@ -1,12 +1,14 @@
 export SALSAModel, 
-       HINGE, PINBALL, 
+       HINGE, PINBALL, LOGISTIC,
        PEGASOS, L1RDA, ADA_L1RDA, R_L1RDA, R_L2RDA, DROP_OUT, RDA, SGD,
        LINEAR, NONLINEAR
 
 abstract Model
 
 abstract Loss 
-immutable HINGE <: Loss end
+abstract NonParametricLoss <: Loss
+immutable HINGE <: NonParametricLoss end
+immutable LOGISTIC <: NonParametricLoss end
 immutable PINBALL <: Loss end
 
 abstract Algorithm 

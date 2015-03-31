@@ -46,12 +46,11 @@ function pegasos_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         # do not perform transpose(::SparceMatrixCSC) and other operations 
         # because Garbage Collection performs realy badly in the tight loops
         eval = map(i->sum(At[:,i].*w),1:1:k).*yt
-        idx1 = find(eval .< 1)
         η_t = 1/(λ*t)
         
         # do a gradient descent step
         w = (1 - η_t*λ).*w
-        w = w + (η_t/k).*dfunc(At,yt,idx1)
+        w = w - (η_t/k).*dfunc(At,yt,eval)
         # project back to the set B: w \in convex set B
         w = min(1,1/(sqrt(λ)*vecnorm(w))).*w
         

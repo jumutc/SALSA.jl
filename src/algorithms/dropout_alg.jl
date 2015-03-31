@@ -46,7 +46,6 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         # do not perform transpose(::SparceMatrixCSC) and other operations 
         # because Garbage Collection performs realy badly in the tight loops
         eval = map(i->sum(At[:,i].*w),1:1:k).*yt
-        idx1 = find(eval .< 1)
 
         # define samples
         if ~check
@@ -59,9 +58,9 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         end
 
         # do a gradient descent step
-        grad = dfunc(At,yt,idx1)
+        grad = dfunc(At,yt,eval)
         w = w - (dropout.*w)./t
-        w = w + (λ/(t*k))*grad
+        w = w - (λ/(t*k))*grad
 
         if ~check
             rw = 1 ./ (1 + w.^2)
