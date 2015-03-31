@@ -124,17 +124,15 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	if model.mode == LINEAR
 	    model = tune_algorithm(X,Y,model)
 	    (model.w, model.b) = run_algorithm(X,Y,model)
-	    # run simulation on Xtest data if availble
-	    if !isempty(Xtest) model.Ytest = predict(model,Xtest) end
 	else
-	    model = tune_algorithm_AFEm(X,Y,model); X_subset = X[model.subset,:] 
+	    model = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
 	    k = kernel_from_parameters(model.kernel,model.k_params)
-	    (model.w, model.b) = run_algorithm(AFEm(X_subset,k,X),Y,model)
-	    # run simulation on Nystrom approximated Xtest data if availble
-	    if !isempty(Xtest)
-	        model.Ytest = predict(model,AFEm(X_subset,k,Xtest))
-	    end
+	    (model.w, model.b) = run_algorithm(AFEm(model.X_subset,k,X),Y,model)	    
+	end
+
+	if !isempty(Xtest)
+	    model.Ytest = predict(model,Xtest)
 	end
 
 	model

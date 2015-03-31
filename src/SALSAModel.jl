@@ -42,10 +42,10 @@ type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     sparsity_cv::Float64
     kernel::Type{K}
     # internals and output
-    subset::YVar
     dfunc::Function
     alg_params::YVar
     k_params::YVar
+    X_subset
     X_mean
     X_std
     Ytest

@@ -2,7 +2,7 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     # Renyi entropy calculations
     k = kernel_from_data_model(model.kernel,X)    
     rp = ceil(sqrt(size(X,1)*model.subset_size))
-    model.subset = entropysubset(X,k,rp)
+    model.X_subset = X[entropysubset(X,k,rp),:]
     num_k = length(model.kernel.names)
     
     cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k)
@@ -28,14 +28,14 @@ end
 
 function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k)
     k = kernel_from_parameters(model.kernel,exp(x0[end-num_k+1:end]))    
-    Xs = X[model.subset,:]; (eigvals,eigvec) = eig_AFEm(Xs, k)
+    (eigvals,eigvec) = eig_AFEm(model.X_subset, k)
     # generate model from the parameters
     model = model_from_parameters(model,x0)
     # perform cross-validation by a generic and parallelizable function
     gen_cross_validate(X, Y, folds=model.num_cv_folds) do Xtr, Ytr, Xval, Yval
         # perform Automatic Feature Extraction by Nystrom method 
-        features_train = AFEm(eigvals,eigvec,Xs,k,Xtr)
-        features_valid = AFEm(eigvals,eigvec,Xs,k,Xval)        
+        features_train = AFEm(eigvals,eigvec,model.X_subset,k,Xtr)
+        features_valid = AFEm(eigvals,eigvec,model.X_subset,k,Xval)        
         # run algorithm        
         (model.w, model.b) = run_algorithm(features_train,Ytr,model)
         validation_criteria(model,features_valid,Yval)
