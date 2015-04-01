@@ -2,10 +2,6 @@ module SALSA
 
 export salsa, mapstd, make_sparse, entropysubset, AFEm, gen_cross_validate
 
-# MVar can be used instead of the longer Matrix{Float64}
-typealias MVar Matrix{Float64}
-typealias YVar Vector{Float64}
-
 using Distributions
 
 

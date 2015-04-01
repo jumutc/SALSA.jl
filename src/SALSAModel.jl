@@ -43,8 +43,8 @@ type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     kernel::Type{K}
     # internals and output
     dfunc::Function
-    alg_params::YVar
-    k_params::YVar
+    alg_params::Vector
+    k_params::Vector
     X_subset
     X_mean
     X_std

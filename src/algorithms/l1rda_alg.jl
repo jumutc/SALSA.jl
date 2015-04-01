@@ -44,13 +44,9 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
         yt = Y[idx]
         At = A[:,idx]
 
-        # do not perform transpose(::SparceMatrixCSC) and other operations 
-        # because Garbage Collection performs realy badly in the tight loops
-        eval = map(i->sum(At[:,i].*w),1:1:k).*yt
-        λ_rda = λ+(ρ*γ)/sqrt(t)
-
         # calculate dual average: gradient
-        g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,eval)
+        g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,w)
+        λ_rda = λ+(ρ*γ)/sqrt(t)
         
         # find a close form solution
         if check

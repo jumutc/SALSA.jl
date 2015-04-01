@@ -8,7 +8,7 @@ immutable PolynomialKernel <: Kernel
     end
 end
 
-function kernel_matrix(k::PolynomialKernel, Xr::MVar, Xc::MVar)
+function kernel_matrix(k::PolynomialKernel, Xr::Matrix, Xc::Matrix)
     nXr = size(Xr,1);
     nXc = size(Xc,1);
     K = Xr*Xc';

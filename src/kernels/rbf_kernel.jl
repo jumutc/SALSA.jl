@@ -19,7 +19,7 @@ function kernel_from_data_model(k::Type{RBFKernel}, X)
 end
 
 
-function kernel_matrix(k::RBFKernel, X::MVar)
+function kernel_matrix(k::RBFKernel, X::Matrix)
     n = size(X,1)
     K = X*X'
     dX = diag(K)
@@ -29,7 +29,7 @@ function kernel_matrix(k::RBFKernel, X::MVar)
     K
 end
 
-function kernel_matrix(k::RBFKernel, Xr::MVar, Xc::MVar) 
+function kernel_matrix(k::RBFKernel, Xr::Matrix, Xc::Matrix) 
     nXr = size(Xr, 1)
     nXc = size(Xc, 1)
     K = Xr*Xc'

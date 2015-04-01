@@ -1,7 +1,7 @@
 export Kernel
 abstract Kernel
 
-kernel_matrix(k::Kernel, X::MVar) = kernel_matrix(k, X, X)
+kernel_matrix(k::Kernel, X::Matrix) = kernel_matrix(k, X, X)
 kernel_matrix(k::Kernel, X::Array{Float64,1}) = kernel_matrix(k, X'')
 
 kernel_matrix(k::Kernel, X::Array{Float64,1}, Xn::Array{Float64,2}) = kernel_matrix(k, X'', Xn)

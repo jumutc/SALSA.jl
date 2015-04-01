@@ -46,12 +46,8 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         yt = Y[idx]
         At = A[:,idx]
 
-        # do not perform transpose(::SparceMatrixCSC) and other operations 
-        # because Garbage Collection performs realy badly in the tight loops
-        eval = map(i->sum(At[:,i].*w),1:1:k).*yt
-
         # calculate dual average: (cumulative) gradient
-        g_new = dfunc(At,yt,eval)
+        g_new = dfunc(At,yt,w)
         g = ((t-1)/t).*g + (1/(t)).*g_new
   
         # find a close form solution
