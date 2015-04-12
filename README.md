@@ -17,8 +17,8 @@
 
 
 ## Installation within Julia interpreter
- - ```Pkg.clone("https://github.com/jumutc/SALSA.jl.git"); Pkg.pin("SALSA"); Pkg.resolve()```
- - ```run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.pin("SALSA"); Pkg.resolve()``` (from the unzipped source folder)
+ - ```Pkg.clone("https://github.com/jumutc/SALSA.jl.git")```
+ - ```run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.resolve()``` (from the unzipped source folder)
 
 ## Knowledge agnostic usage
 ```julia
