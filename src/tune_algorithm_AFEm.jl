@@ -21,10 +21,10 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
         error("Please specify model.global_opt")
     end
     
-    # generate model from the parameters
-    model_from_parameters(model,par)
     # set the output model mode correctly
     model.output.mode = NONLINEAR(exp(par[end-num_k+1:end]),X_subset)
+    # generate model from the parameters
+    model_from_parameters(model,par)
 end
 
 function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
