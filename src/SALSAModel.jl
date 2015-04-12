@@ -33,8 +33,8 @@ type OutputModel{M <: Mode}
     alg_params::Vector
     X_mean::Matrix
     X_std::Matrix
-    Ytest::Vector
     mode::M
+    Ytest
     w
     b
 
