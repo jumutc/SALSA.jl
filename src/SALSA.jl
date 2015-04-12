@@ -110,7 +110,7 @@ salsa(X::SparseMatrixCSC, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,
     # Hong Kong and Macao, China, November 28 – December 1, 2014, pp. 232–242.
 	
 function salsa(X, Y, model::SALSAModel, Xtest)
-	model.output = OutputModel()
+	model.output = OutputModel{model.mode}()
 
     if model.normalized && isempty(Xtest) 
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
