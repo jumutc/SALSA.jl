@@ -37,6 +37,8 @@ type OutputModel{M <: Mode}
     mode::M
     w
     b
+
+    OutputModel() = new()
 end
 
 type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
