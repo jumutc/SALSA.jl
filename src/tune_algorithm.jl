@@ -26,7 +26,7 @@ function cross_validate_algorithm(x0, X, Y, model)
 
     gen_cross_validate(length(Y), folds=model.num_cv_folds) do train_idx, val_idx    
         # run Pegasos algorithm for the excluded subset of validation indices        
-        (model.w, model.b) = run_algorithm(X,Y,model,train_idx)
+        (model.output.w, model.output.b) = run_algorithm(X,Y,model,train_idx)
         validation_criteria(model,X,Y,val_idx)
     end
 end

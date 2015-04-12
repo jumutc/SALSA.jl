@@ -38,7 +38,7 @@ function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
         features_train = AFEm(eigvals,eigvec,X_subset,k,Xtr)
         features_valid = AFEm(eigvals,eigvec,X_subset,k,Xval)        
         # run algorithm        
-        (model.w, model.b) = run_algorithm(features_train,Ytr,model)
+        (model.output.w, model.output.b) = run_algorithm(features_train,Ytr,model)
         validation_criteria(model,features_valid,Yval)
     end
 end
