@@ -1,14 +1,14 @@
 export predict, map_predict
 
 # Predict by evaluating a simple linear model
-predict_raw(model::SALSAModel,X) = sign(X*model.w .+ model.b)
+predict_raw(model::SALSAModel,X) = sign(X*model.output.w .+ model.output.b)
 
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR
   		predict_raw(model,X)
   	else
-  		k = kernel_from_parameters(model.kernel,model.k_params)
-  		predict_raw(model,AFEm(model.X_subset,k,X))
+  		k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
+  		predict_raw(model,AFEm(model.output.mode.X_subset,k,X))
   	end	
 end
 

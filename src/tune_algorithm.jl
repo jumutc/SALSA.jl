@@ -17,6 +17,7 @@ function tune_algorithm(X, Y, model::SALSAModel)
     
     # generate model from the parameters
     model_from_parameters(model,par)
+    model.output.mode = LINEAR()
 end
 
 function cross_validate_algorithm(x0, X, Y, model)

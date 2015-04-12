@@ -110,25 +110,28 @@ salsa(X::SparseMatrixCSC, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,
     # Hong Kong and Macao, China, November 28 – December 1, 2014, pp. 232–242.
 	
 function salsa(X, Y, model::SALSAModel, Xtest)
+	model.output = OutputModel()
+
     if model.normalized && isempty(Xtest) 
-	    (X, model.X_mean, model.X_std) = mapstd(X)
+	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
 	elseif model.normalized
-	    (X, model.X_mean, model.X_std) = mapstd(X)
+	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
 	    Xtest = mapstd(Xtest,model.X_mean,model.X_std)
 	end
 
 	if model.mode == LINEAR
 	    model = tune_algorithm(X,Y,model)
-	    (model.w, model.b) = run_algorithm(X,Y,model)
+	    (model.output.w, model.output.b) = run_algorithm(X,Y,model)
 	else
 	    model = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
-	    k = kernel_from_parameters(model.kernel,model.k_params)
-	    (model.w, model.b) = run_algorithm(AFEm(model.X_subset,k,X),Y,model)	    
+	    k = kernel_from_parameters(model.kernel,model.mode.k_params)
+	    features = AFEm(model.mode.X_subset,k,X)
+	    (model.output.w, model.output.b) = run_algorithm(features,Y,model)	    
 	end
 
 	if !isempty(Xtest)
-	    model.Ytest = predict(model,Xtest)
+	    model.output.Ytest = predict(model,Xtest)
 	end
 
 	model

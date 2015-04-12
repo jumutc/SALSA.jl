@@ -23,7 +23,21 @@ immutable DROP_OUT <: SGD end
 
 abstract Mode
 immutable LINEAR <: Mode end
-immutable NONLINEAR{K <: Kernel} <: Mode end
+immutable NONLINEAR <: Mode
+    k_params::Vector
+    X_subset::Matrix 
+end
+
+type OutputModel{M <: Mode}
+    dfunc::Function
+    alg_params::Vector
+    X_mean::Matrix
+    X_std::Matrix
+    Ytest::Vector
+    mode::M
+    w
+    b
+end
 
 type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     mode::Type{M}
@@ -42,15 +56,7 @@ type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     sparsity_cv::Float64
     kernel::Type{K}
     # internals and output
-    dfunc::Function
-    alg_params::Vector
-    k_params::Vector
-    X_subset
-    X_mean
-    X_std
-    Ytest
-    w
-    b
+    output::OutputModel{M}
      
     SALSAModel() = new(M,A,L,CSA,5e-1,nfolds(),1000,1000,1,1,false,true,1e-5,2e-1,K)
 end
