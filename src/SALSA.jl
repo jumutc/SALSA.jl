@@ -116,7 +116,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
 	elseif model.normalized
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
-	    Xtest = mapstd(Xtest,model.X_mean,model.X_std)
+	    Xtest = mapstd(Xtest,model.output.X_mean,model.output.X_std)
 	end
 
 	if model.mode == LINEAR
