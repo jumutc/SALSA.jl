@@ -62,5 +62,5 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     cv_gen::Nullable{CVG}
     output::OutputModel{M}
      
-    SALSAModel() = new(M,A,L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-1,K,Nullable{CVG}())
+    SALSAModel() = new(M,A,L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K,Nullable{CVG}())
 end

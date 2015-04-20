@@ -15,16 +15,16 @@ mse(y, yhat) = sse(y, yhat)/length(yhat)
 nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
 
 function gen_cross_validate{T}(evalfun::Function, X, Y, cv_gen::Nullable{T})
-	gen = isnull(cv_gen) ? Kfold(length(Y),nfolds()) : get(cv_gen)
-    @parallel (+) for train_idx in collect(gen)
+	indices = isnull(cv_gen) ? Kfold(length(Y),nfolds()) : get(cv_gen)
+    @parallel (+) for train_idx in collect(indices)
 		val_idx = setdiff(1:length(Y), train_idx)
         evalfun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])
     end
 end
 
 function gen_cross_validate{T}(evalfun::Function, n, cv_gen::Nullable{T})
-	gen = isnull(cv_gen) ? Kfold(n,nfolds()) : get(cv_gen)
-    @parallel (+) for train_idx in collect(gen)
+	indices = isnull(cv_gen) ? Kfold(n,nfolds()) : get(cv_gen) 
+    @parallel (+) for train_idx in collect(indices)
 		val_idx = setdiff(1:n, train_idx)
         evalfun(train_idx, val_idx)
     end
