@@ -1,4 +1,6 @@
 language: julia
+julia:
+  - nightly
 os:
  - linux
  - osx
