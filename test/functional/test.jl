@@ -10,3 +10,15 @@ model = salsa(PEGASOS,LINEAR,PINBALL,data["X"],data["Y"],data["Xt"])
 
 model = salsa(PEGASOS,LINEAR,LOGISTIC,data["X"],data["Y"],data["Xt"])
 @test_approx_eq_eps mean(data["Yt"] .== model.output.Ytest) 0.88 5e-2
+
+model = salsa(DROP_OUT,LINEAR,HINGE,data["X"],data["Y"],data["Xt"])
+@test_approx_eq_eps mean(data["Yt"] .== model.output.Ytest) 0.88 5e-2
+
+model = salsa(R_L1RDA,LINEAR,HINGE,data["X"],data["Y"],data["Xt"])
+@test_approx_eq_eps mean(data["Yt"] .== model.output.Ytest) 0.88 5e-2
+
+model = salsa(R_L2RDA,LINEAR,HINGE,data["X"],data["Y"],data["Xt"])
+@test_approx_eq_eps mean(data["Yt"] .== model.output.Ytest) 0.88 5e-2
+
+model = salsa(ADA_L1RDA,LINEAR,HINGE,data["X"],data["Y"],data["Xt"])
+@test_approx_eq_eps mean(data["Yt"] .== model.output.Ytest) 0.88 5e-2

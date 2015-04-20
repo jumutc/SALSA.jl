@@ -2,7 +2,7 @@ module SALSA
 
 export salsa, mapstd, make_sparse, entropysubset, AFEm, gen_cross_validate
 
-using Distributions
+using Distributions, MLBase
 
 
 # Calculate the misclassification rate
@@ -14,26 +14,20 @@ mse(y, yhat) = sse(y, yhat)/length(yhat)
 # provide convenient function for parallalizing cross-validation
 nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
 
-function gen_cross_validate(fun::Function, X, Y; folds=nfolds(), space=randperm(size(X,1)))
-    @parallel (+) for fold=1:folds
-        (train_idx, val_idx) = indices(size(X,1), fold, folds, space)
-        fun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])
+function gen_cross_validate{T}(evalfun::Function, X, Y, cv_gen::Nullable{T})
+	gen = isnull(cv_gen) ? Kfold(length(Y),nfolds()) : get(cv_gen)
+    @parallel (+) for train_idx in collect(gen)
+		val_idx = setdiff(1:length(Y), train_idx)
+        evalfun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])
     end
 end
 
-function gen_cross_validate(fun::Function, N::Int; folds=nfolds(), space=randperm(N))
-    @parallel (+) for fold=1:folds
-    	(train_idx, val_idx) = indices(N, fold, folds, space)
-        fun(train_idx, val_idx)
+function gen_cross_validate{T}(evalfun::Function, n, cv_gen::Nullable{T})
+	gen = isnull(cv_gen) ? Kfold(n,nfolds()) : get(cv_gen)
+    @parallel (+) for train_idx in collect(gen)
+		val_idx = setdiff(1:n, train_idx)
+        evalfun(train_idx, val_idx)
     end
-end
-
-function indices(N, fold, folds, space)
-	training_instances = trues(N)
-    training_instances[fold:folds:end] = false
-    train_idx = space[find(training_instances)]
-    val_idx = space[find(~training_instances)]
-    train_idx, val_idx
 end
 
 # needed support files
@@ -64,19 +58,19 @@ include("tune_algorithm.jl")
 include("tune_algorithm_AFEm.jl")
 
 # extensive set of multiplicated aliases for different algorithms and models /// dense matrices
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel}(),Xtest)
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel}(),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel}(),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel}(),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
+salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel,Kfold}(),Xtest)
+salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel,Kfold}(),Xtest)
 salsa(X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::Array{Float64,2}, Y::Array{Float64,1}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,[])
 salsa(X::Array{Float64,2}, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,[])
 # extensive set of multiplicated aliases for different algorithms and models /// sparse matrices
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel}(),Xtest)
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel}(),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel}(),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel}(),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
+salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel,Kfold}(),Xtest)
+salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel,Kfold}(),Xtest)
 salsa(X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::SparseMatrixCSC, Y::Array{Float64,1}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,sparse([]))

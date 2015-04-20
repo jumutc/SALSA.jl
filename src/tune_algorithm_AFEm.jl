@@ -32,8 +32,8 @@ function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
     (eigvals,eigvec) = eig_AFEm(X_subset, k)
     # generate model from the parameters
     model = model_from_parameters(model,x0)
-    # perform cross-validation by a generic and parallelizable function
-    gen_cross_validate(X, Y, folds=model.num_cv_folds) do Xtr, Ytr, Xval, Yval
+    # perform Kfold cross-validation by a generic and parallelizable function
+    gen_cross_validate(X, Y, model.cv_gen) do Xtr, Ytr, Xval, Yval
         # perform Automatic Feature Extraction by Nystrom method 
         features_train = AFEm(eigvals,eigvec,X_subset,k,Xtr)
         features_valid = AFEm(eigvals,eigvec,X_subset,k,Xval)        

@@ -41,13 +41,14 @@ type OutputModel{M <: Mode}
     OutputModel() = new()
 end
 
-type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
+type SALSAModel{L <: Loss, A <: Algorithm, 
+                M <: Mode, K <: Kernel, 
+                CVG <: CrossValGenerator} <: Model
     mode::Type{M}
     algorithm::Type{A}
     loss_function::Type{L}
     global_opt::GlobalOpt
     subset_size::Float64
-    num_cv_folds::Int
     max_cv_iter::Int
     max_iter::Int 
     max_cv_k::Int 
@@ -58,7 +59,8 @@ type SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel} <: Model
     sparsity_cv::Float64
     kernel::Type{K}
     # internals and output
+    cv_gen::Nullable{CVG}
     output::OutputModel{M}
      
-    SALSAModel() = new(M,A,L,CSA,5e-1,nfolds(),1000,1000,1,1,false,true,1e-5,2e-1,K)
+    SALSAModel() = new(M,A,L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-1,K,Nullable{CVG}())
 end
