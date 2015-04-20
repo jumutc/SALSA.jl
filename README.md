@@ -32,7 +32,7 @@ data = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
 model = salsa(data["X"], data["Y"], data["Xt"]);
 
 # Compute accuracy in %
-@printf "Accuracy: %.2f%%\n" mean(model.Ytest .== data["Yt"])*100
+@printf "Accuracy: %.2f%%\n" mean(model.output.Ytest .== data["Yt"])*100
 
 # Or use map_predict function and map data beforehand by the extracted mean/std (default) 
 @printf "Accuracy: %.2f%%\n" mean(map_predict(model, data["Xt"]) .== data["Yt"])*100

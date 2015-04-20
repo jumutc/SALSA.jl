@@ -64,8 +64,8 @@ salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,1}, Xt
 salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel{HINGE,alg,LINEAR,RBFKernel,Kfold}(),Xtest)
 salsa(X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
-salsa(X::Array{Float64,2}, Y::Array{Float64,1}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,[])
-salsa(X::Array{Float64,2}, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,[])
+salsa(X::Array{Float64,2}, Y::Array{Float64,1}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Array{Float64}(0,0))
+salsa(X::Array{Float64,2}, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Array{Float64}(0,0))
 # extensive set of multiplicated aliases for different algorithms and models /// sparse matrices
 salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
 salsa{L <: Loss, A <: Algorithm, M <: Mode}(alg::Type{A}, mode::Type{M}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel{loss,alg,mode,RBFKernel,Kfold}(),Xtest)
@@ -119,8 +119,8 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	else
 	    model = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
-	    k = kernel_from_parameters(model.kernel,model.mode.k_params)
-	    features = AFEm(model.mode.X_subset,k,X)
+	    k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
+	    features = AFEm(model.output.mode.X_subset,k,X)
 	    (model.output.w, model.output.b) = run_algorithm(features,Y,model)	    
 	end
 

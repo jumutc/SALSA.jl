@@ -5,7 +5,7 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     X_subset = X[entropysubset(X,k,rp),:]
     num_k = length(model.kernel.names)
     
-    cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k)
+    cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k,X_subset)
     eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
 
     if model.global_opt == CSA 
