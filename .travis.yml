@@ -6,9 +6,7 @@ os:
 notifications:
  email: false
 script:
- - julia -e 'Pkg.init(); Pkg.update(); run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.pin("SALSA"); Pkg.resolve()'
- - julia -e 'using SALSA; @assert isdefined(:SALSA); @assert typeof(SALSA) === Module'
- - julia --code-coverage test/runtests.jl
+ - julia -e 'Pkg.clone(pwd()); Pkg.build("SALSA"); Pkg.test("SALSA"; coverage=true)'
  - julia -e 'Pkg.add("Lint"); using Lint; lintpkg("SALSA",returnMsgs=true)'
 after_success:
  - julia -e 'cd(Pkg.dir("SALSA")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
