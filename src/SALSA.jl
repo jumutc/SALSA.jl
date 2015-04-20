@@ -2,7 +2,7 @@ module SALSA
 
 export salsa, mapstd, make_sparse, entropysubset, AFEm, gen_cross_validate
 
-using Distributions, MLBase
+using MLBase, Distributions
 
 
 # Calculate the misclassification rate
