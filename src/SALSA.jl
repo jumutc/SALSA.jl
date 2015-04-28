@@ -14,22 +14,6 @@ mse(y, yhat) = sse(y, yhat)/length(yhat)
 # provide convenient function for parallalizing cross-validation
 nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
 
-function gen_cross_validate{T}(evalfun::Function, X, Y, cv_gen::Nullable{T})
-	indices = isnull(cv_gen) ? Kfold(length(Y),nfolds()) : get(cv_gen)
-    @parallel (+) for train_idx in collect(indices)
-		val_idx = setdiff(1:length(Y), train_idx)
-        evalfun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])
-    end
-end
-
-function gen_cross_validate{T}(evalfun::Function, n, cv_gen::Nullable{T})
-	indices = isnull(cv_gen) ? Kfold(n,nfolds()) : get(cv_gen) 
-    @parallel (+) for train_idx in collect(indices)
-		val_idx = setdiff(1:n, train_idx)
-        evalfun(train_idx, val_idx)
-    end
-end
-
 # needed support files
 include(joinpath("kernels", "kernels.jl"))
 include(joinpath("support", "constants.jl"))
@@ -75,6 +59,23 @@ salsa(X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(P
 salsa(X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(PEGASOS,LINEAR,HINGE,X,Y,Xtest)
 salsa(X::SparseMatrixCSC, Y::Array{Float64,1}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,sparse([]))
 salsa(X::SparseMatrixCSC, Y::Array{Float64,2}) = salsa(PEGASOS,LINEAR,HINGE,X,Y,sparse([]))
+
+
+function gen_cross_validate(evalfun::Function, X, Y, model::SALSAModel)
+	indices = isdefined(model,:cv_gen) ? model.cv_gen : Kfold(length(Y),nfolds())
+    @parallel (+) for train_idx in collect(indices)
+		val_idx = setdiff(1:length(Y), train_idx)
+        evalfun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])
+    end
+end
+
+function gen_cross_validate(evalfun::Function, n::Int64, model::SALSAModel)
+	indices = isdefined(model,:cv_gen) ? model.cv_gen : Kfold(n,nfolds()) 
+    @parallel (+) for train_idx in collect(indices)
+		val_idx = setdiff(1:n, train_idx)
+        evalfun(train_idx, val_idx)
+    end
+end
 
 
 # External function for a complete stochastic learning routine with cross-validation

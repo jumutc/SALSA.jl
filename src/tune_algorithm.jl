@@ -24,7 +24,7 @@ function cross_validate_algorithm(x0, X, Y, model)
     # generate model from parameters
     model = model_from_parameters(model,x0)
     # perform Kfold cross-validation by a generic and parallelizable function
-    gen_cross_validate(length(Y), model.cv_gen) do train_idx, val_idx    
+    gen_cross_validate(length(Y), model) do train_idx, val_idx    
         # run Pegasos algorithm for the excluded subset of validation indices        
         (model.output.w, model.output.b) = run_algorithm(X,Y,model,train_idx)
         validation_criteria(model,X,Y,val_idx)

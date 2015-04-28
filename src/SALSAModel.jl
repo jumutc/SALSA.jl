@@ -59,8 +59,8 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     sparsity_cv::Float64
     kernel::Type{K}
     # internals and output
-    cv_gen::Nullable{CVG}
+    cv_gen::CVG
     output::OutputModel{M}
      
-    SALSAModel() = new(M,A,L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K,Nullable{CVG}())
+    SALSAModel() = new(M,A,L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K)
 end
