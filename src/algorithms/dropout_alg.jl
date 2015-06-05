@@ -1,10 +1,10 @@
 export dropout_alg 
 
-function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx = [])
+function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
     # Internal function for a simple Dropout Pegasos routine
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
-    # http://www.esat.kuleuven.be/sista/pegasoslab
+    # http://www.esat.kuleuven.be/stadius/ADB/jumutc/softwareSALSA.php
 
     N = size(X,1)
     d = size(X,2) + 1

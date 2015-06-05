@@ -1,12 +1,12 @@
 export l1rda_alg 
 
 function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64, 
-                   k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx = [])
+                   k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
 
     # Internal function for a simple l1-RDA routine
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
-    # http://www.esat.kuleuven.be/sista/pegasoslab
+    # http://www.esat.kuleuven.be/stadius/ADB/jumutc/softwareSALSA.php
 
     N = size(X,1)
     d = size(X,2) + 1

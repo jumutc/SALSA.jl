@@ -1,12 +1,12 @@
 export reweighted_l2rda_alg 
 
 function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, varɛ::Float64, 
-                              k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx = [])
+                              k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
 
     # Internal function for a simple Reweighted l2-RDA routine
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
-    # http://www.esat.kuleuven.be/sista/pegasoslab
+    # http://www.esat.kuleuven.be/stadius/ADB/jumutc/softwareSALSA.php
 
     N = size(X,1)
     d = size(X,2) + 1
