@@ -68,9 +68,7 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     cv_gen::CVG
     output::OutputModel{M}
      
-    SALSAModel() = new(M,A(),L,CSA,default_model_params()...,K)
+    SALSAModel() = new(M,A(),L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K)
     SALSAModel(support_alg::Type{A},k_clusters::Int) = 
-       new(M,A(support_alg,k_clusters),L,CSA,default_model_params()...,K)
+       new(M,A(support_alg,k_clusters),L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K)
 end
-
-default_model_params() = [5e-1,1000,1000,1,1,false,true,1e-5,2e-2]
