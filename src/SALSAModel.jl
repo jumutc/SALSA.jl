@@ -52,6 +52,7 @@ type SALSAModel{L <: Loss, A <: Algorithm,
                 CVG <: CrossValGenerator} <: Model
     mode::Type{M}
     algorithm::A
+    kernel::Type{K}
     loss_function::Type{L}
     global_opt::GlobalOpt
     subset_size::Float64
@@ -63,12 +64,28 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     normalized::Bool
     tolerance::Float64
     sparsity_cv::Float64
-    kernel::Type{K}
+    cv_gen::@compat Nullable{CVG}
+    
     # internals and output
-    cv_gen::CVG
     output::OutputModel{M}
-     
-    SALSAModel() = new(M,A(),L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K)
-    SALSAModel(support_alg::Type{A},k_clusters::Int) = 
-       new(M,A(support_alg,k_clusters),L,CSA,5e-1,1000,1000,1,1,false,true,1e-5,2e-2,K)
 end
+
+# outer constructor to alleviate instantiation of a SLASAModel
+SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
+            mode::Type{M},
+            alg::Type{A},
+            loss_function::Type{L};
+            kernel::Type{K} = RBFKernel,
+            global_opt::GlobalOpt = CSA(),
+            subset_size::Float64 = 5e-1,
+            max_cv_iter::Int = 1000,
+            max_iter::Int = 1000,
+            max_cv_k::Int = 1,
+            max_k::Int = 1,
+            online_pass::Bool = false,
+            normalized::Bool = true,
+            tolerance::Float64 = 1e-5,
+            sparsity_cv::Float64 = 2e-2,
+            cv_gen = @compat Nullable{CrossValGenerator}()) = 
+        SALSAModel(mode,alg(),kernel,loss_function,global_opt,subset_size,max_cv_iter,
+                   max_iter,max_cv_k,max_k,online_pass,normalized,tolerance,sparsity_cv,cv_gen,OutputModel{mode}())

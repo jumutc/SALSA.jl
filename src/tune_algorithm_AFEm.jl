@@ -6,20 +6,7 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     num_k = length(model.kernel.names)
     
     cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k,X_subset)
-    eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
-
-    if model.global_opt == CSA 
-        # Coupled Simulated Annealing calculations
-        (fval, par) = csa(eval_fun, randn(5+num_k,5))
-        @printf "CSA results: fval=%.5f\n" fval 
-    elseif model.global_opt == DS 
-        # Randomized Directional Search calculations
-        init_params = ds_parameters_from_model(model)
-        (fval, par) = ds(cost_fun, init_params)
-        @printf "DS results: fval=%.5f\n" fval 
-    else
-        error("Please specify model.global_opt")
-    end
+    par = run_global_opt(model,cost_fun,model.global_opt)
     
     # set the output model mode correctly
     model.output.mode = NONLINEAR(exp(par[end-num_k+1:end]),X_subset)

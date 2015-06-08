@@ -1,4 +1,9 @@
 include("enum.jl")
+export CSA, DS, GlobalOpt
 
 # enums
-@enum GlobalOpt CSA DS
+abstract GlobalOpt 
+immutable CSA <: GlobalOpt end 
+immutable DS <: GlobalOpt
+	init_params::Vector 
+end

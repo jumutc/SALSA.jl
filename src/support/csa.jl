@@ -19,9 +19,7 @@ function csa(obj_fun, pn)
     NT = ceil(FEmax/FTsteps/pnum);  # max. number of cooling cycles
     NI = FTsteps;  #steps per temperature
 
-    #rand('twister',sum(pn(1)*clock))
-    #randn('state',sum(pn(2)*clock))
-    srand(hash(sum(pn)*time()))
+    #srand(hash(sum(pn)*time()))
 
     e0 = float(obj_fun(pn))
 

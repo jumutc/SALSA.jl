@@ -1,19 +1,6 @@
 function tune_algorithm(X, Y, model::SALSAModel)
     cost_fun = x0 -> cross_validate_algorithm(x0,X,Y,model)
-    eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
-
-    if model.global_opt == CSA 
-        # Coupled Simulated Annealing calculations
-        (fval, par) = csa(eval_fun, randn(5,5))
-        @printf "CSA results: fval=%.5f\n" fval 
-    elseif model.global_opt == DS 
-        # Randomized Directional Search calculations
-        init_params = ds_parameters_from_model(model)
-        (fval, par) = ds(cost_fun, init_params)
-        @printf "DS results: fval=%.5f\n" fval 
-    else
-        error("Please specify model.global_opt")
-    end
+    par = run_global_opt(model,cost_fun, model.global_opt)
     
     # generate model from the parameters
     model.output.mode = LINEAR()
@@ -30,3 +17,18 @@ function cross_validate_algorithm(x0, X, Y, model)
         validation_criteria(model,X,Y,val_idx)
     end
 end
+
+function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::CSA)
+    # Coupled Simulated Annealing calculations
+    eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
+    (fval, par) = csa(eval_fun, randn(5,5))
+    @printf "CSA results: optimal %s = %.3f\n" validation_criteria(model) fval
+    return par
+end 
+
+function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::DS)
+    # Randomized Directional Search calculations
+    (fval, par) = ds(cost_fun, global_opt.init_params)
+    @printf "DS results: optimal %s = %.3f\n" validation_criteria(model) fval
+    return par
+end 
