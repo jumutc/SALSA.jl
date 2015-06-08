@@ -44,4 +44,4 @@ model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
 srand(1234)
 model = SALSAModel(LINEAR,ADA_L1RDA,HINGE,global_opt=DS([-5,0,0]))
 model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
-@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.893 0.01
+@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
