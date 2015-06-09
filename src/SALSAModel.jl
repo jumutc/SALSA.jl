@@ -72,8 +72,7 @@ end
 
 # outer constructor to alleviate instantiation of a SLASAModel
 SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
-            mode::Type{M},
-            alg::Type{A},
+            mode::Type{M}, alg::A,
             loss_function::Type{L};
             kernel::Type{K} = RBFKernel,
             global_opt::GlobalOpt = CSA(),
@@ -87,5 +86,5 @@ SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             tolerance::Float64 = 1e-5,
             sparsity_cv::Float64 = 2e-2,
             cv_gen = @compat Nullable{CrossValGenerator}()) = 
-        SALSAModel(mode,alg(),kernel,loss_function,global_opt,subset_size,max_cv_iter,
+        SALSAModel(mode,alg,kernel,loss_function,global_opt,subset_size,max_cv_iter,
                    max_iter,max_cv_k,max_k,online_pass,normalized,tolerance,sparsity_cv,cv_gen,OutputModel{mode}())
