@@ -25,6 +25,7 @@ immutable DROP_OUT <: SGD end
 immutable K_MEANS{A <: Algorithm} <: Algorithm 
     support_alg::Type{A}
     k_clusters::Int
+    max_iter::Int
 end
 
 abstract Mode

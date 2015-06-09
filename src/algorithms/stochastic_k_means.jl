@@ -1,6 +1,6 @@
 export stochastic_k_means
 
-# extensive set of multiplicated aliases for different supporting  algorithms 
+# extensive set of multiplicated aliases for different supporting algorithms 
 run_algorithm(::Type{PEGASOS}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
 			  pegasos_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx) 
 run_algorithm(::Type{L1RDA}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
@@ -38,21 +38,25 @@ function stochastic_k_means{A <: Algorithm}(dfunc::Function, X, k_means::K_MEANS
     	train_idx = 1:1:N
     end
 
-    eval = abs(X[train_idx,:]*w+repmat(b,N,1)); Y = zeros(N)
-    cluster_mappings = findn(eval.==minimum(eval,2))[2]
+    cluster_mappings = zeros(length(train_idx)); Y = zeros(N)
 
-    while ~is_converged
-    	result = @parallel (hcat) for cluster_id in unique(cluster_mappings)
-    		cluster_idx = train_idx[cluster_mappings.==cluster_id]
-    		(w,b) = run_algorithm(k_means.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)
-    		[w;b]
-    	end 
-    	w = result[1:end-1,:]; b = result[end,:]
-    	# check cluster mappings has changed
+    for t=1:k_means.max_iter
     	eval = abs(X[train_idx,:]*w+repmat(b,N,1))
-    	new_mappings = findn(eval.==minimum(eval,2))[2]
-    	is_converged = all(cluster_mappings.==new_mappings)
-    	cluster_mappings = new_mappings
+    	mappings = findn(eval.==minimum(eval,2))[2]
+    	print(size(eval))
+
+    	if all(cluster_mappings.==mappings)
+    		break # check cluster mappings has not changed and exit
+    	else
+	    	result = @parallel (hcat) for cluster_id in unique(mappings)
+	    		cluster_idx = train_idx[find(mappings.==cluster_id)]
+	    		(w,b) = run_algorithm(k_means.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)
+	    		[w;b]
+	    	end
+	    	# assign the result of parallel execution
+	    	w = result[1:end-1,:]; b = result[end,:]
+	    	cluster_mappings = mappings
+    	end 
     end    	
 
     w, b
