@@ -1,6 +1,6 @@
 export SALSAModel, 
        HINGE, PINBALL, LOGISTIC, LEAST_SQUARES,
-       PEGASOS, L1RDA, ADA_L1RDA, R_L1RDA, R_L2RDA, DROP_OUT, RDA, SGD, K_MEANS,
+       PEGASOS, L1RDA, ADA_L1RDA, R_L1RDA, R_L2RDA, DROP_OUT, RDA, SGD, PPC,
        LINEAR, NONLINEAR
 
 abstract Model
@@ -21,8 +21,8 @@ immutable R_L1RDA <: RDA end
 immutable R_L2RDA <: RDA end
 immutable ADA_L1RDA <: RDA end
 immutable DROP_OUT <: SGD end
-# special algorithm type for clustering
-immutable K_MEANS{A <: Algorithm} <: Algorithm 
+# special algorithm type for Proximal Plane Clustering
+immutable PPC{A <: Algorithm} <: Algorithm 
     support_alg::Type{A}
     k_clusters::Int
     max_iter::Int

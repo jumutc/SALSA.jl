@@ -14,12 +14,13 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
     rw = ones(d)
     
     if check
-        w = zeros(d)
-        g = zeros(d)
+        g = zeros(d,1)
+        w = rand(d,1)/100
         A = [X'; ones(1,N)]
     else      
-        w = spzeros(d,1)
         g = spzeros(d,1)
+        total = length(X.nzval)
+        w = sprand(d,1,total/(N*d))/100
         A = [X'; sparse(ones(1,N))]
         fg = i -> -1./(λ .+ rw[i])
     end

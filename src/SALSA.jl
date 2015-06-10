@@ -33,7 +33,7 @@ include(joinpath("algorithms", "l1rda_alg.jl"))
 include(joinpath("algorithms", "adaptive_l1rda_alg.jl"))
 include(joinpath("algorithms", "reweighted_l1rda_alg.jl"))
 include(joinpath("algorithms", "reweighted_l2rda_alg.jl"))
-include(joinpath("algorithms", "stochastic_k_means.jl"))
+include(joinpath("algorithms", "stochastic_ppc.jl"))
 include(joinpath("algorithms", "pegasos_alg.jl"))
 include(joinpath("algorithms", "dropout_alg.jl"))
 # tuning + validation

@@ -13,14 +13,15 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
     check = ~issparse(X) 
     
     if check
-        w = zeros(d,1)
         g = zeros(d,1)
         h = zeros(d,1)
+        w = rand(d,1)/100
         A = [X'; ones(1,N)]
     else 
-        w = spzeros(d,1)
         g = spzeros(d,1)
         h = spzeros(d,1)
+        total = length(X.nzval)
+        w = sprand(d,1,total/(N*d))/100
         A = [X'; sparse(ones(1,N))]
     end
 
