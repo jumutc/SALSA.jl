@@ -7,21 +7,6 @@ model = salsa(NONLINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
 
 srand(1234)
-model = SALSAModel(NONLINEAR,PEGASOS(),PINBALL,global_opt=DS([0,-1,1]))
-model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
-@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.81 0.01
-
-srand(1234)
-model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,global_opt=DS([-1,1]))
-model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
-@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.88 0.01
-
-srand(1234)
-model = SALSAModel(NONLINEAR,PEGASOS(),LOGISTIC,global_opt=DS([-1,1]))
-model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
-@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.87 0.01
-
-srand(1234)
 model = SALSAModel(NONLINEAR,PEGASOS(),LOGISTIC,global_opt=DS([-1,-1,1]),kernel=PolynomialKernel)
 model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.888 0.01
