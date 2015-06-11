@@ -4,7 +4,7 @@ ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
 
 srand(1234)
 model = salsa(NONLINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
-@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.88 0.01
+@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
 
 srand(1234)
 model = SALSAModel(NONLINEAR,PEGASOS(),PINBALL,global_opt=DS([0,-1,1]))
