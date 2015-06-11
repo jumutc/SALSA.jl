@@ -6,4 +6,4 @@ validation_criteria{L <: Loss, A <: SGD}(model::SALSAModel{L,A}) = typeof(model.
 validation_criteria{L <: Loss, A <: RDA}(model::SALSAModel{L,A}) = "weighted combination of: error/sparisty"
 
 validation_criteria(criteria::MISCLASS,model,X,Y) = misclass(Y, predict_raw(model,X))
-validation_criteria(criteria::AUC,model,X,Y) = 1 - auc(Y, predict_latent(model,X), n=criteria.n_thresholds)
+validation_criteria(criteria::AUC,model,X,Y) = 1 - auc(Y, predict_latent_raw(model,X), n=criteria.n_thresholds)

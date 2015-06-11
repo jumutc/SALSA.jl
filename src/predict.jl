@@ -2,6 +2,7 @@ export predict, predict_latent, map_predict, map_predict_latent
 
 # Predict by evaluating a simple linear model
 predict_raw(model::SALSAModel,X) = sign(predict_latent(model,X))
+predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ model.output.b
 
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR
@@ -14,10 +15,10 @@ end
 
 function predict_latent(model::SALSAModel,X)
 	if model.mode == LINEAR
-  		X*model.output.w .+ model.output.b
+  		predict_latent_raw(model,X)
   	else
   		k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
-  		AFEm(model.output.mode.X_subset,k,X)*model.output.w .+ model.output.b
+  		predict_latent_raw(model,AFEm(model.output.mode.X_subset,k,X))
   	end	
 end
 
