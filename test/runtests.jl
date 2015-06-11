@@ -1,5 +1,6 @@
 tests = ["unit/test_pegasos", 
-		 "functional/test"]
+		 "functional/test_linear",
+		 "functional/test_nonlinear"]
 
 print_with_color(:blue, "Running tests:\n")
 

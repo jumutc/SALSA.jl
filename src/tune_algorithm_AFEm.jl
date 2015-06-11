@@ -2,20 +2,22 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     # Renyi entropy calculations
     k = kernel_from_data_model(model.kernel,X)    
     rp = ceil(sqrt(size(X,1)*model.subset_size))
+    num_k = length(fieldnames(model.kernel))
     X_subset = X[entropysubset(X,k,rp),:]
-    num_k = length(model.kernel.names)
     
     cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k,X_subset)
-    par = run_global_opt(model,cost_fun,model.global_opt)
+    par = run_global_opt(model,cost_fun,model.global_opt,n_params=5+num_k)
     
     # set the output model mode correctly
-    model.output.mode = NONLINEAR(exp(par[end-num_k+1:end]),X_subset)
+    pars = num_k > 0 ? exp(par[end-num_k+1:end]) : []
+    model.output.mode = NONLINEAR(pars,X_subset)
     # generate model from the parameters
     model_from_parameters(model,par)
 end
 
 function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
-    k = kernel_from_parameters(model.kernel,exp(x0[end-num_k+1:end]))    
+    pars = num_k > 0 ? exp(x0[end-num_k+1:end]) : []
+    k = kernel_from_parameters(model.kernel,pars)    
     (eigvals,eigvec) = eig_AFEm(X_subset, k)
     # generate model from the parameters
     model = model_from_parameters(model,x0)

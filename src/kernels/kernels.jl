@@ -13,4 +13,4 @@ include("polynomial_kernel.jl")
 include("linear_kernel.jl")
 
 kernel_from_parameters{T<:Kernel}(k::Type{T}, parameters) = k(parameters...)
-kernel_from_data_model{T<:Kernel}(k::Type{T}, X) = k(randn(length(k.names)))
+kernel_from_data_model{T<:Kernel}(k::Type{T}, X) = isempty(fieldnames(k)) ? k() : k(rand(length(fieldnames(k)))...)

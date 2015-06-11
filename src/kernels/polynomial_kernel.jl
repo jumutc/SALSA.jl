@@ -3,9 +3,6 @@ export PolynomialKernel
 immutable PolynomialKernel <: Kernel
     tau::Float64
     d::Float64
-    function PolynomialKernel(tau, d)
-        new(tau, d)
-    end
 end
 
 function kernel_matrix(k::PolynomialKernel, Xr::Matrix, Xc::Matrix)
@@ -13,7 +10,7 @@ function kernel_matrix(k::PolynomialKernel, Xr::Matrix, Xc::Matrix)
     nXc = size(Xc,1);
     K = Xr*Xc';
     for j=1:nXc, i=1:nXr
-        K[i,j] = (K[i,j] + k.tau)^k.d
+        K[i,j] = (K[i,j] + k.tau)^ceil(k.d)
     end
     K
 end
