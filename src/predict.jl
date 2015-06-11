@@ -1,7 +1,7 @@
 export predict, predict_latent, map_predict, map_predict_latent
 
 # Predict by evaluating a simple linear model
-predict_raw(model::SALSAModel,X) = sign(predict_latent(model,X))
+predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
 predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ model.output.b
 
 function predict(model::SALSAModel,X)
