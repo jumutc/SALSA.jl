@@ -65,6 +65,7 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     normalized::Bool
     tolerance::Float64
     sparsity_cv::Float64
+    validation_criteria::Criteria
     cv_gen::@compat Nullable{CVG}
     
     # internals and output
@@ -86,6 +87,7 @@ SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             normalized::Bool = true,
             tolerance::Float64 = 1e-5,
             sparsity_cv::Float64 = 2e-2,
+            validation_criteria = MISCLASS(),
             cv_gen = @compat Nullable{CrossValGenerator}()) = 
-        SALSAModel(mode,alg,kernel,loss_function,global_opt,subset_size,max_cv_iter,
-                   max_iter,max_cv_k,max_k,online_pass,normalized,tolerance,sparsity_cv,cv_gen,OutputModel{mode}())
+        SALSAModel(mode,alg,kernel,loss_function,global_opt,subset_size,max_cv_iter,max_iter,max_cv_k,
+                   max_k,online_pass,normalized,tolerance,sparsity_cv,validation_criteria,cv_gen,OutputModel{mode}())

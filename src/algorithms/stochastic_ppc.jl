@@ -76,7 +76,7 @@ function stochastic_ppc{A <: Algorithm}(dfunc::Function, X, ppc::PPC{A}, alg_par
     		w = result[1:end-1,:]; b = result[end,:]
     	end
 
-    	cluster_mappings = mappings; t = t + 1
+    	cluster_mappings = mappings; t += 1
     end    	
 
     w, b
