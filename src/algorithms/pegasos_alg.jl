@@ -1,6 +1,6 @@
 export pegasos_alg
 
-function pegasos_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
+function pegasos_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
     # Internal function for a simple Pegasos routine
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
@@ -28,9 +28,12 @@ function pegasos_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         space = 1:1:N
     end
 
-    if online_pass
-        max_iter = N
-        smpl = (t,k) -> t
+    if online_pass > 0
+        max_iter = N*online_pass
+        smpl = (t,k) -> begin
+            s = t % N 
+            s > 0 ? s : N
+        end
     else
         pd = Categorical(N)
         smpl = (t,k) -> rand(pd,k)
@@ -46,12 +49,12 @@ function pegasos_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         # do a gradient descent step
         η_t = 1/(λ*t)
         w = (1 - η_t*λ).*w
-        w = w - (η_t/k).*dfunc(At,yt,w_prev)
+        w = w - (η_t/k).*dfunc(At,yt,w_prev)#*class_weight[yt]
         # project back to the set B: w \in convex set B
         w = min(1,1/(sqrt(λ)*vecnorm(w))).*w
         
         # check the stopping criteria w.r.t. Tolerance, check, online_pass
-        if ~online_pass && ~check && vecnorm(w - w_prev) < tolerance
+        if online_pass == 0 && ~check && vecnorm(w - w_prev) < tolerance
             break
         end
     end

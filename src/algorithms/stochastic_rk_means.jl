@@ -1,8 +1,10 @@
-export stochastic_ppc
+export stochastic_rk_means
 
 # extensive set of multiplicated aliases for different supporting algorithms 
 run_algorithm(::Type{PEGASOS}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
 			  pegasos_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx) 
+run_algorithm(::Type{SGD}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
+			  sgd_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx) 
 run_algorithm(::Type{L1RDA}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
 			  l1rda_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx) 
 run_algorithm(::Type{R_L1RDA}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
@@ -15,22 +17,20 @@ run_algorithm(::Type{ADA_L1RDA}, X, Y, dfunc::Function, alg_params::Vector, k::I
 			  adaptive_l1rda_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx)
 
 # core algorithmic part
-function stochastic_ppc{A <: Algorithm}(dfunc::Function, X, ppc::PPC{A}, alg_params::Vector, 
-							k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
-	# Internal function for a simple stochastic Proximal Plane Clustering
+function stochastic_rk_means{A <: Algorithm}(X, ppc::RK_MEANS{A}, alg_params::Vector, k::Int, max_iter::Int, 
+											 tolerance::Float64, online_pass=0, train_idx=[])
+	# Internal function for a simple Stochastic Regularized K-means
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
     # http://www.esat.kuleuven.be/stadius/ADB/jumutc/softwareSALSA.php
 
 	N, d  = size(X)
     check = issparse(X)
-    is_converged = false 
+    dfunc = loss_derivative(RK_MEANS)
     
     if ~check
-    	b = zeros(1,ppc.k_clusters)
         w = rand(d,ppc.k_clusters)
     else 
-    	b = spzeros(1,ppc.k_clusters)
         w = sprand(d,ppc.k_clusters,length(X.nzval)/(N*d))
     end
 
@@ -38,17 +38,16 @@ function stochastic_ppc{A <: Algorithm}(dfunc::Function, X, ppc::PPC{A}, alg_par
     	train_idx = 1:1:N
     end
 
-    cluster_mappings = zeros(length(train_idx)) 
-    failed_mapping = false
-    Y = zeros(N); t = 1
+    failed_mapping = false; t = 1; Y = ones(N)
 
     while true
-    	eval = abs(X[train_idx,:]*w + repmat(b,N,1))
-    	mappings = findn(eval .== minimum(eval,2))[2]
-    	mappings_not_changed = all(cluster_mappings .== mappings)
+    	eval = pairwise(Euclidean(), X[train_idx,:]', w)
+    	(x,y) = findn(eval .== minimum(eval,2))
+    	mappings = zeros(length(train_idx))
+    	mappings[x] = y
 
-    	if ~failed_mapping && (mappings_not_changed || t > ppc.max_iter) 
-    		break # check cluster mappings has not changed and exit
+    	if ~failed_mapping &&  t > ppc.max_iter
+    		break 
     	end
 
     	if t > ppc.max_iter*10
@@ -56,28 +55,25 @@ function stochastic_ppc{A <: Algorithm}(dfunc::Function, X, ppc::PPC{A}, alg_par
     	end
     	
     	result = @parallel (hcat) for cluster_id in unique(mappings)
-    		cluster_idx = train_idx[find(mappings .== cluster_id)]
-    		(w,b) = run_algorithm(ppc.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)
-    		[w;b]
+    		cluster_idx = find(mappings .== cluster_id)
+    		run_algorithm(ppc.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)[1]
     	end
     	
     	# assign and check the result of parallel execution
     	if all(result .== 0) || all(isnan(result))
     		failed_mapping = true
     		w = rand(d,ppc.k_clusters)
-    		b = zeros(1,ppc.k_clusters)
     	elseif size(result,2) != size(w,2)
     		failed_mapping = true
     		diff = size(w,2) - size(result,2) 
-    		w = [result[1:end-1,:] rand(d,diff)]
-    		b = [result[end,:] rand(1,diff)]
+    		w = [result rand(d,diff)]
     	else
     		failed_mapping = false
-    		w = result[1:end-1,:]; b = result[end,:]
+    		w = result 
     	end
 
-    	cluster_mappings = mappings; t += 1
+    	t += 1
     end    	
 
-    w, b
+    w
 end 

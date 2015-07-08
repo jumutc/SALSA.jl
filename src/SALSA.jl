@@ -2,7 +2,7 @@ module SALSA
 
 export salsa, mapstd, make_sparse, entropysubset, AFEm, gen_cross_validate
 
-using MLBase, Distributions, Compat
+using MLBase, Distributions, Compat, Distances
 
 
 # Calculate the misclassification rate
@@ -12,7 +12,7 @@ sse(y, yhat) = norm(y-yhat)^2
 # Calculates the average squared difference between the corresponding elements of two vectors
 mse(y, yhat) = sse(y, yhat)/length(yhat)
 # Area Under ROC surve with latent output y
-auc(y, ylat; n=100) = auc(roc(int(y)[:], ylat[:], n))
+auc(y, ylat; n=100) = std(ylat[:]) == 0 ? 0.0 : auc(roc(int(y)[:], ylat[:], n))
 # provide convenient function for parallalizing cross-validation
 nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
 # helper function for AUC calculus
@@ -45,9 +45,10 @@ include(joinpath("algorithms", "l1rda_alg.jl"))
 include(joinpath("algorithms", "adaptive_l1rda_alg.jl"))
 include(joinpath("algorithms", "reweighted_l1rda_alg.jl"))
 include(joinpath("algorithms", "reweighted_l2rda_alg.jl"))
-include(joinpath("algorithms", "stochastic_ppc.jl"))
+include(joinpath("algorithms", "stochastic_rk_means.jl"))
 include(joinpath("algorithms", "pegasos_alg.jl"))
 include(joinpath("algorithms", "dropout_alg.jl"))
+include(joinpath("algorithms", "sgd_alg.jl"))
 # tuning + validation
 include("run_algorithm.jl")
 include("validation_criteria.jl")

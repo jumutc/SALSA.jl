@@ -1,24 +1,22 @@
-export dropout_alg 
+export sgd_alg
 
-function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
-    # Internal function for a simple Dropout Pegasos routine
+function sgd_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
+    # Internal function for a simple SGD routine for λ-strongly convex functions
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
     # http://www.esat.kuleuven.be/stadius/ADB/jumutc/softwareSALSA.php
 
     N = size(X,1)
     d = size(X,2) + 1
-    check = issparse(X)
+    check = issparse(X) 
     
     if ~check
         w = rand(d)
-        rw = ones(d)/d 
         A = [X'; ones(1,N)]
     else 
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))
         A = [X'; sparse(ones(1,N))]
-        f_sample = (p) -> rand(Bernoulli(p^2/(1+p^2))) 
     end
 
     if ~isempty(train_idx)
@@ -45,31 +43,17 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         
         yt = Y[idx]
         At = A[:,idx]
-
-        # define samples
-        if ~check
-            prob = map(p -> Bernoulli(1-p),rw)
-            dropout = map(rand, prob) 
-        else
-            bern_vars = map(f_sample,w.nzval)
-            dropout = SparseMatrixCSC(d,1,w.colptr,w.rowval,bern_vars)
-            dropout = reduce_sparsevec(dropout,find(bern_vars))
-        end
-
+       
         # do a gradient descent step
-        grad = dfunc(At,yt,w)
-        w = w - (dropout.*w)./t
-        w = w - (1/(λ*t*k))*grad
-
-        if ~check
-            rw = 1 ./ (1 + w.^2)
-        end
-
+        η_t = 1/(λ*t)
+        w = (1 - λ*η_t).*w
+        w = w - (η_t/k).*dfunc(At,yt,w_prev)
+        
         # check the stopping criteria w.r.t. Tolerance, check, online_pass
         if online_pass == 0 && ~check && vecnorm(w - w_prev) < tolerance
             break
         end
     end
 
-    w[1:end-1], w[end]
+    w[1:end-1,:], w[end,:]
 end

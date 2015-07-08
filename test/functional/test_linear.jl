@@ -7,6 +7,10 @@ model = salsa(LINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
 
 srand(1234)
+model = salsa(LINEAR,SIMPLE_SGD,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
+@test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
+
+srand(1234)
 model = SALSAModel(LINEAR,PEGASOS(),PINBALL,global_opt=DS([0,-1]))
 model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01

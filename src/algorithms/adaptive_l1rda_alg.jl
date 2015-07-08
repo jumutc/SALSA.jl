@@ -1,7 +1,7 @@
 export adaptive_l1rda_alg 
 
 function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64, 
-                   k::Int, max_iter::Int, tolerance::Float64, online_pass=false, train_idx=[])
+                   k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
 
     # Internal function for a simple Adaptive l1-RDA routine
     #
@@ -32,9 +32,12 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         space = 1:1:N
     end
 
-    if online_pass
-        max_iter = N
-        smpl = (t,k) -> t
+    if online_pass > 0
+        max_iter = N*online_pass
+        smpl = (t,k) -> begin
+            s = t % N 
+            s > 0 ? s : N
+        end
     else
         pd = Categorical(N)
         smpl = (t,k) -> rand(pd,k)
@@ -67,7 +70,7 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         end
 
         # check the stopping criteria w.r.t. Tolerance, check, online_pass
-        if ~online_pass && check && vecnorm(w - w_prev) < tolerance
+        if online_pass == 0 && check && vecnorm(w - w_prev) < tolerance
             break
         end
     end
