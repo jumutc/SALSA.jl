@@ -13,12 +13,13 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
     if ~check
         w = rand(d)
         rw = ones(d)/d 
-        A = [X'; ones(1,N)]
+        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
     else 
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))
-        A = [X'; sparse(ones(1,N))]
+        X = [X'; sparse(ones(1,N))]
         f_sample = (p) -> rand(Bernoulli(p^2/(1+p^2))) 
+        sub_arr = (I) -> X[:,I]
     end
 
     if ~isempty(train_idx)
@@ -44,7 +45,7 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         w_prev = w
         
         yt = Y[idx]
-        At = A[:,idx]
+        At = sub_arr(idx)
 
         # define samples
         if ~check

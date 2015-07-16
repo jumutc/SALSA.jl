@@ -1,8 +1,9 @@
 module SALSA
 
-export salsa, mapstd, make_sparse, entropysubset, AFEm, gen_cross_validate
+export salsa, mapstd, make_sparse, entropy_subset, AFEm, gen_cross_validate
 
 using MLBase, Distributions, Compat, Distances
+import Base: size, getindex, issparse, sub
 
 
 # Calculate the misclassification rate
@@ -29,7 +30,8 @@ end
 # needed support files
 include(joinpath("kernels", "kernels.jl"))
 include(joinpath("support", "constants.jl"))
-include(joinpath("support", "entropysubset.jl"))
+include(joinpath("support", "entropy_subset.jl"))
+include(joinpath("support", "data_wrapper.jl"))
 include(joinpath("support", "sparse.jl"))
 include(joinpath("support", "mapstd.jl"))
 include(joinpath("support", "AFEm.jl"))
@@ -79,7 +81,7 @@ function gen_cross_validate(evalfun::Function, X, Y, model::SALSAModel)
 	indices = get(model.cv_gen, Kfold(length(Y),nfolds()))
     @parallel (+) for train_idx in collect(indices)
 		val_idx = setdiff(1:length(Y), train_idx)
-        evalfun(X[train_idx,:], Y[train_idx], X[val_idx,:], Y[val_idx])/nfolds()
+        evalfun(sub(X,train_idx,:), Y[train_idx], sub(X,val_idx,:), Y[val_idx])/nfolds()
     end
 end
 
@@ -123,9 +125,9 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 		model.output = OutputModel{model.mode}()
 	end
 
-    if model.normalized && isempty(Xtest) 
+    if model.normalized && isempty(Xtest) && typeof(X) <: Array
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
-	elseif model.normalized
+	elseif model.normalized && typeof(X) <: Array
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
 	    Xtest = mapstd(Xtest,model.output.X_mean,model.output.X_std)
 	end

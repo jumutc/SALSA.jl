@@ -12,11 +12,12 @@ function sgd_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tole
     
     if ~check
         w = rand(d)
-        A = [X'; ones(1,N)]
+        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
     else 
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))
-        A = [X'; sparse(ones(1,N))]
+        X = [X'; sparse(ones(1,N))]
+        sub_arr = (I) -> X[:,I]
     end
 
     if ~isempty(train_idx)
@@ -42,7 +43,7 @@ function sgd_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tole
         w_prev = w
         
         yt = Y[idx]
-        At = A[:,idx]
+        At = sub_arr(idx)
        
         # do a gradient descent step
         η_t = 1/(λ*t)

@@ -15,12 +15,13 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
     if check
         g = zeros(d,1)
         w = rand(d,1)/100
-        A = [X'; ones(1,N)]
+        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
     else 
         g = spzeros(d,1)
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))/100
-        A = [X'; sparse(ones(1,N))]
+        X = [X'; sparse(ones(1,N))]
+        sub_arr = (I) -> X[:,I]
     end
 
     if ~isempty(train_idx)
@@ -46,8 +47,8 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
         w_prev = w
 
         yt = Y[idx]
-        At = A[:,idx]
-
+        At = sub_arr(idx)
+        
         # calculate dual average: gradient
         g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,w)
         λ_rda = λ+(ρ*γ)/sqrt(t)

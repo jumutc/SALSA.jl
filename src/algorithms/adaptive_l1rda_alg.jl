@@ -16,13 +16,14 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         g = zeros(d,1)
         h = zeros(d,1)
         w = rand(d,1)/100
-        A = [X'; ones(1,N)]
+        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
     else 
         g = spzeros(d,1)
         h = spzeros(d,1)
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))/100
-        A = [X'; sparse(ones(1,N))]
+        X = [X'; sparse(ones(1,N))]
+        sub_arr = (I) -> X[:,I]
     end
 
     if ~isempty(train_idx)
@@ -48,7 +49,7 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         w_prev = w
 
         yt = Y[idx]
-        At = A[:,idx]
+        At = sub_arr(idx)
 
         # calculate dual average: (cumulative) gradient
         g_new = dfunc(At,yt,w)

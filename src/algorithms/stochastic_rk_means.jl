@@ -41,7 +41,7 @@ function stochastic_rk_means{A <: Algorithm}(X, ppc::RK_MEANS{A}, alg_params::Ve
     failed_mapping = false; t = 1; Y = ones(N)
 
     while true
-    	eval = pairwise(Euclidean(), X[train_idx,:]', w)
+    	eval = pairwise(Euclidean(), getindex(X,train_idx,:)', w)
     	(x,y) = findn(eval .== minimum(eval,2))
     	mappings = zeros(length(train_idx))
     	mappings[x] = y

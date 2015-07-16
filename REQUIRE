@@ -3,3 +3,5 @@ MLBase
 Compat
 Distances
 Distributions
+DataArrays
+DataFrames

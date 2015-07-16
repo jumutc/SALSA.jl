@@ -3,14 +3,14 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     k = kernel_from_data_model(model.kernel,X)    
     rp = ceil(sqrt(size(X,1)*model.subset_size))
     num_k = length(fieldnames(model.kernel))
-    X_subset = X[entropysubset(X,k,rp),:]
+    X_subset = sub(X,entropy_subset(X,k,rp),:)
     
     cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k,X_subset)
     par = run_global_opt(model,cost_fun,model.global_opt,n_params=5+num_k)
     
     # set the output model mode correctly
     pars = num_k > 0 ? exp(par[end-num_k+1:end]) : []
-    model.output.mode = NONLINEAR(pars,X_subset)
+    model.output.mode = NONLINEAR(pars,X_subset[:,:])
     # generate model from the parameters
     model_from_parameters(model,par)
 end
