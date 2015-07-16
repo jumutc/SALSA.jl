@@ -1,6 +1,6 @@
 language: julia
 julia:
- - nightly
+ - release
 os:
  - linux
 notifications:

@@ -21,6 +21,9 @@ function sub(f::DelimitedFile, I::AbstractVector, ::Colon)
 	vcat([convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header)) for i in I]...)
 end
 
+# fix for julia release where this function is absent, TODO: remove when MLBase is fixed
+sub(a::Matrix, I::AbstractVector, ::Colon) = a[I,:]
+
 function size(f::DelimitedFile, n::Int=0)
 	if n == 0
 		nrows = open(countlines, f.name, "r")
