@@ -11,7 +11,7 @@ end
 
 issparse(f::DelimitedFile) = false
 
-getindex(f::DelimitedFile, I::Tuple{Integer,Integer}) = getindex(f, I[1], I[2])
+getindex(f::DelimitedFile, I::(@compat Tuple{Integer,Integer})) = getindex(f, I[1], I[2])
 
 function getindex(f::DelimitedFile, i0::Integer, i1::Integer)
 	readtable(f.name, separator=f.delim, skipstart=(i0-1), nrows=1, header=f.header)[1,i1]
