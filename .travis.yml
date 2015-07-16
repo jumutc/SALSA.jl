@@ -7,7 +7,7 @@ notifications:
  email: false
 script:
  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - julia -e 'Pkg.update(); Pkg.clone(pwd()); Pkg.build("SALSA"); Pkg.test("SALSA"; coverage=true)'
+ - julia -e 'Pkg.checkout("MLBase"); Pkg.clone(pwd()); Pkg.build("SALSA"); Pkg.test("SALSA"; coverage=true)'
  - julia -e 'Pkg.add("Lint"); using Lint; lintpkg("SALSA",returnMsgs=true)'
 after_success:
  - julia -e 'cd(Pkg.dir("SALSA")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
