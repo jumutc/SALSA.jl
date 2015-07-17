@@ -12,4 +12,4 @@ model = SALSAModel(LINEAR,RK_MEANS(PEGASOS,3,20,Euclidean()),LEAST_SQUARES,
 model = salsa(X,dummy,model,X)
 mappings = model.output.Ytest
 
-@test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .65 0.05
+@test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .7 0.05
