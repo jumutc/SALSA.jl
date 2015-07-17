@@ -1,7 +1,9 @@
 tests = ["unit/test_pegasos", 
 		 "unit/test_wrapper", 
-		 "functional/test_linear",
-		 "functional/test_nonlinear",
+		 "functional/regression/test_fsinc",
+		 "functional/clustering/test_clustering",
+		 "functional/classification/test_linear",
+		 "functional/classification/test_nonlinear",
 		 "functional/test_wrapper"]
 
 print_with_color(:blue, "Running tests:\n")

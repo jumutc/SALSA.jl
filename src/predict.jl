@@ -3,6 +3,10 @@ export predict, predict_latent, map_predict, map_predict_latent
 # Predict by evaluating a simple linear model
 predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
 predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ model.output.b
+# aliases to predict according to validation criteria and task: regression/classification
+predict(criteria::AUC, model::SALSAModel, X) = predict(model, X)
+predict(criteria::MISCLASS, model::SALSAModel, X) = predict(model, X)
+predict(criteria::MSE, model::SALSAModel, X) = predict_latent(model, X)
 
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR

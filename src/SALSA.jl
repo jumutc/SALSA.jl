@@ -1,6 +1,6 @@
 module SALSA
 
-export salsa, mapstd, make_sparse, entropy_subset, AFEm, gen_cross_validate
+export salsa, mapstd, make_sparse, entropy_subset, AFEm, gen_cross_validate, mse, misclass, auc
 
 using MLBase, Distributions, Compat, Distances
 import Base: size, getindex, issparse, sub
@@ -144,7 +144,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	end
 
 	if !isempty(Xtest)
-	    model.output.Ytest = predict(model,Xtest)
+	    model.output.Ytest = predict(model.validation_criteria,model,Xtest)
 	end
 
 	model
