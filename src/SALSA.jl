@@ -1,8 +1,8 @@
 module SALSA
 
-export salsa, mapstd, make_sparse, entropy_subset, AFEm, gen_cross_validate, mse, misclass, auc
+export salsa, salsa_qa, mapstd, make_sparse, entropy_subset, AFEm, gen_cross_validate, mse, misclass, auc
 
-using MLBase, Distributions, Compat, Distances
+using MLBase, StatsBase, Distributions, Compat, Distances, Clustering
 import Base: size, getindex, issparse, sub
 
 
@@ -42,6 +42,8 @@ include("SALSAModel.jl")
 include("loss_derivative.jl")
 include("model_ext.jl")
 include("predict.jl")
+# Q/A tables 
+include(joinpath("qa_tables", "salsa_qa.jl"))
 # main algorithmic files
 include(joinpath("algorithms", "l1rda_alg.jl"))
 include(joinpath("algorithms", "adaptive_l1rda_alg.jl"))

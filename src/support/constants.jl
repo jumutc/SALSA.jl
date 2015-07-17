@@ -1,10 +1,11 @@
 include("enum.jl")
 export CSA, DS, GlobalOpt,
-	   MISCLASS, AUC, MSE, Criteria
+	   MISCLASS, AUC, MSE, SILHOUETTE, Criteria
 
 # enums
 abstract Criteria 
-immutable MSE <: Criteria end 
+immutable MSE <: Criteria end
+immutable SILHOUETTE <: Criteria end 
 immutable MISCLASS <: Criteria end 
 immutable AUC <: Criteria
 	n_thresholds::Integer

@@ -1,6 +1,7 @@
 MAT
 MLBase
 Compat
+StatsBase
 Distances
 Distributions
 DataArrays

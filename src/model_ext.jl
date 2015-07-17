@@ -39,3 +39,11 @@ model_from_parameters{M <: Mode}(model::SALSAModel{PINBALL,R_L1RDA,M},params) = 
     model.output.alg_params = exp(params[2:5])
     model 
 end
+model_from_parameters{M <: Mode, A <: RK_MEANS, L <: Loss}(model::SALSAModel{L,A,M},params) = begin 
+    if model.algorithm.support_alg <: SGD
+        model.output.alg_params = [exp(params[1])]
+    else
+        model.output.alg_params = exp(params[1:3])
+    end
+    model 
+end
