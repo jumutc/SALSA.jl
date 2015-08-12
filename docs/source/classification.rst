@@ -5,6 +5,9 @@ A classification example explained by the usage of SALSA package on the `Ripley 
 
 This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it.
 
+Knowledge agnostic usage
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. function:: salsa(X,Y[,Xtest])
 
     Create a linear classification model:
@@ -44,3 +47,5 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
         model = salsa(LINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
         @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
        
+Model-based usage
+~~~~~~~~~~~~~~~~~
