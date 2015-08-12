@@ -1,5 +1,5 @@
-Data Preprocessing and Preparation Utilities
-============================================
+Data Preprocessing 
+==================
 
 The package provides a simple set of preprocessing utilities.
 
