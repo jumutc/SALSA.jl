@@ -1,7 +1,7 @@
 Classification
 ================
 
-A classification example explained by the usage of SALSA package on ``Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
+A classification example explained by the usage of SALSA package on `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
 
 This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it.
 
