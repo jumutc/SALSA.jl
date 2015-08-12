@@ -17,7 +17,7 @@ Data Normalization
         mapstd([0 1; -1 2]) # --> ([0.707107  -0.707107; -0.707107   0.707107], [-0.5  1.5], [0.707107 0.707107])
 
  
- . function:: mapstd(A,mean,std)
+ .. function:: mapstd(A,mean,std)
 
     Normalize easch column of ``A`` to specified column-wise ``mean`` and ``srd``. Output normalized matrix ``A``.
 
