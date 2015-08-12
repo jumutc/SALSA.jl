@@ -1,7 +1,7 @@
 Classification
 ================
 
-A classification example explained by the usage of SALSA package on `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
+A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
 
 This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it.
 
@@ -12,7 +12,7 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
     .. math::
         \hat{y} = \mathrm{sign}(\langle x, w \rangle + b) 
 
-    based on data given in ``X`` and labeling specified in ``Y``. Optionally evaluate it on ``Xtest``. Data should be given in row-wise format (one sample per row). The classification model is embedded into returned ``model`` as ``model.output``. The choise of different algorithms, loss functions and modes will be explained further in this chapter. 
+    based on data given in ``X`` and labeling specified in ``Y``. Optionally evaluate it on ``Xtest``. Data should be given in the row-wise format (one sample per row). The classification model is embedded into returned ``model`` as ``model.output``. The choise of different algorithms, loss functions and modes will be explained further in this chapter. 
 
     .. code-block:: julia
 
@@ -25,7 +25,7 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
 
 .. function:: salsa(mode,algorithm,loss,X,Y,Xtest)
 
-    Create a classification model with specified choice of algorithm, mode and loss function.
+    Create a classification model with the specified choice of algorithm, mode and loss function.
 
     :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply Nyström method for approximating feature map before.
     :param alorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.

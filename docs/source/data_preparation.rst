@@ -8,7 +8,7 @@ Data Normalization
 
 .. function:: mapstd(A)
 
-    Normalize easch column of ``A`` to zero mean and ``1`` standard deviation. Output normalized matrix ``A`` with extracted column-wise means and standard deviations.
+    Normalize each column of ``A`` to the zero mean and one standard deviation. Output normalized matrix ``A`` with extracted column-wise means and standard deviations.
 
     .. code-block:: julia
 
@@ -16,10 +16,10 @@ Data Normalization
 
         mapstd([0 1; -1 2]) # --> ([0.707107  -0.707107; -0.707107   0.707107], [-0.5  1.5], [0.707107 0.707107])
 
- 
- .. function:: mapstd(A,mean,std)
 
-    Normalize easch column of ``A`` to specified column-wise ``mean`` and ``srd``. Output normalized matrix ``A``.
+.. function:: mapstd(A,mean,std)
+
+    Normalize easch column of ``A`` to the specified column-wise ``mean`` and ``std``. Output normalized matrix ``A``.
 
     .. code-block:: julia
 
