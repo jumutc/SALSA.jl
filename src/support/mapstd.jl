@@ -1,4 +1,4 @@
-function mapstd(datain::Matrix{Float64})
+function mapstd{T <: Number}(datain::Matrix{T})
 	# apply mapstd
 	means = mean(datain,1)
 	stds  = std(datain,1)
@@ -17,7 +17,7 @@ function mapstd(datain::SparseMatrixCSC,mean,std)
 	datain
 end
 
-function mapstd(datain::Matrix{Float64},mean,std)
+function mapstd{T <: Number}(datain::Matrix{T},mean,std)
 	# apply mapstd
 	dataout = datain - ones(size(datain,1),1)*mean
 	dataout = dataout./(ones(size(datain,1),1)*std)
