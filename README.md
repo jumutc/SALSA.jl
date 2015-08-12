@@ -37,3 +37,7 @@ model = salsa(data["X"], data["Y"], data["Xt"]);
 # Or use map_predict function and map data beforehand by the extracted mean/std (default) 
 @printf "Accuracy: %.2f%%\n" mean(map_predict(model, data["Xt"]) .== data["Yt"])*100
 ```
+
+### Resources
+
+- **Documentation:** <http://salsajl.readthedocs.org/en/latest/>
