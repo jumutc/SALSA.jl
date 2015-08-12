@@ -1,2 +1,2 @@
-Nyström approximation
+Nyström Approximation
 =====================
