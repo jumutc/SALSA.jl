@@ -4,7 +4,7 @@ Welcome to SALSA's documentation!
 
 .. image:: ../images/SALSA.png
     :align: left
-    :width: 50px
+    :width: 60px
 
 
 **SALSA**: Software Lab for Advanced Machine Learning and Stochastic Algorithms is a native Julia implementation of the well known stochastic algorithms for linear and non-linear **Support Vector Machines**. 
