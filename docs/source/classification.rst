@@ -3,7 +3,7 @@ Classification
 
 A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
 
-This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it.
+This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it. Package provides full-stack functionality including cross-validation of all model- and algorithm-related hyperparameters. 
 
 Knowledge agnostic usage
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,7 +31,7 @@ Knowledge agnostic usage
     Create a classification model with the specified choice of algorithm, mode and loss function.
 
     :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply Nyström method for approximating feature map before.
-    :param alorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.
+    :param algorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.
     :param loss: loss function to use when learning a classification model, e.g.  ``HINGE``, ``LOGISTIC`` etc.
     :param X: training data (samples)
     :param Y: training labels
