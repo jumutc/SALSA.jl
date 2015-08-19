@@ -13,3 +13,10 @@ model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,
 model = salsa(X,y,model,Xtest)
 
 @test_approx_eq_eps mse(sinc(Xtest), model.output.Ytest) 0.01 0.01
+
+
+rand(1234)
+model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,validation_criteria=MSE())
+model = salsa(X,y,model,Xtest)
+
+@test_approx_eq_eps mse(sinc(Xtest), model.output.Ytest) 0.01 0.01
