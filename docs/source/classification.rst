@@ -57,28 +57,30 @@ Model-based usage
     :param X: training data (samples)
     :param Y: training labels
     :param Xtest: test data for out-of-sample evaluation 
-    :param model: model is of type ``SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}`` and can be summaized as follows (with default values if provided):
-            - ``mode::Type{M}``: mode used to learn the model: LINEAR vs. NONLINEAR (mandatory parameter)
-            - ``algorithm::A``: algorithm used to learn the model, e.g. PEGASOS (mandatory parameter)
-            - ``loss_function::Type{L}``: type of a loss function used to learn model, e.g. HINGE (mandatory parameter)
-            - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nystrom approx.
-            - ``global_opt::GlobalOpt = CSA()``: global optimization techniques for tuning hyperparameters
-            - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nystrom approx.
-            - ``max_cv_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm in training CV 
-            - ``max_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm for final training 
-            - ``max_cv_k::Int = 1``: maximal number of data points used to compute loss derivative in training CV 
-            - ``max_k::Int = 1``: maximal number of data points used to compute loss derivative for final training 
-            - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through entire dataset <online_pass> times
-            - ``normalized::Bool = true``: normalize data (extracting mean and std) before passing it to CV and final learning 
-            - ``tolerance::Float64 = 1e-5``: criteria ||w_{t+1} - w_t|| <= tolerance is evaluated for early stopping (online_pass==0) 
-            - ``sparsity_cv::Float64 = 2e-2``: sparisty affinity compelment to any validation_criteria for CV used in RDA type of algorithms 
-            - ``validation_criteria = MISCLASS()``: validation criteria used to verify the generalization capabilities of the model in CV
+    :param model: model is of type ``SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}`` and can be summaized as follows (with default values for named parameters):
+    - ``mode::Type{M}``: mode used to learn the model: LINEAR vs. NONLINEAR (mandatory parameter)
+    - ``algorithm::A``: algorithm used to learn the model, e.g. PEGASOS (mandatory parameter)
+    - ``loss_function::Type{L}``: type of a loss function used to learn model, e.g. HINGE (mandatory parameter)
+    - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nystrom approx.
+    - ``global_opt::GlobalOpt = CSA()``: global optimization techniques for tuning hyperparameters
+    - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nystrom approx.
+    - ``max_cv_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm in training CV 
+    - ``max_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm for final training 
+    - ``max_cv_k::Int = 1``: maximal number of data points used to compute loss derivative in training CV 
+    - ``max_k::Int = 1``: maximal number of data points used to compute loss derivative for final training 
+    - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through entire dataset <online_pass> times
+    - ``normalized::Bool = true``: normalize data (extracting mean and std) before passing it to CV and final learning 
+    - ``tolerance::Float64 = 1e-5``: criteria is evaluated for early stopping (``online_pass==0``) 
+    .. math::
+        ||w_{t+1} - w_t|| <= tolerance 
+    - ``sparsity_cv::Float64 = 2e-2``: sparisty affinity compelment to any validation_criteria for CV used in RDA type of algorithms 
+    - ``validation_criteria = MISCLASS()``: validation criteria used to verify the generalization capabilities of the model in cross-validation
 
     :return: ``SALSAModel`` object with ``model.output`` of type ``OutputModel`` structured as follows:
-            - ``dfunc::Function``: loss function derived from the type specified in ``loss_function::Type{L}`` (above)
-            - ``alg_params::Vector``: vector of model- and algorithm-specific hyperparameters obtained via cross-validation
-            - ``X_mean::Matrix``: row (vector) of extracted column-wise means of input ``X`` if ``normalized::Bool = true``
-            - ``X_std::Matrix``: row (vector) of extracted column-wise standard deviations of input ``X`` if ``normalized::Bool = true``
-            - ``mode::M``:  mode used to learn the model: LINEAR vs. NONLINEAR
-            - ``w``: found solution vector (matrix) 
-            - ``b``: found solution offset (bias)
+    - ``dfunc::Function``: loss function derived from the type specified in ``loss_function::Type{L}`` (above)
+    - ``alg_params::Vector``: vector of model- and algorithm-specific hyperparameters obtained via cross-validation
+    - ``X_mean::Matrix``: row (vector) of extracted column-wise means of input ``X`` if ``normalized::Bool = true``
+    - ``X_std::Matrix``: row (vector) of extracted column-wise standard deviations of input ``X`` if ``normalized::Bool = true``
+    - ``mode::M``:  mode used to learn the model: LINEAR vs. NONLINEAR
+    - ``w``: found solution vector (matrix) 
+    - ``b``: found solution offset (bias)
