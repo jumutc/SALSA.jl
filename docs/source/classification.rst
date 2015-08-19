@@ -1,7 +1,7 @@
 Classification
 ================
 
-A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set.
+A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set. SALSA package provides many different options for learning stochastically a classification model which would explain the provided training data.
 
 This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it. Package provides full-stack functionality including cross-validation of all model- and algorithm-related hyperparameters. 
 
