@@ -11,7 +11,7 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
     using SALSA, Base.Test
 
     srand(1234)
-	sinc(x) = sin(x)./x
+    sinc(x) = sin(x)./x
 
 	X = linspace(0.1,20,100)''
 	Xtest = linspace(0.11,19.9,100)''
