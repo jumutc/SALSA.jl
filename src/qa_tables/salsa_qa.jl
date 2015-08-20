@@ -29,7 +29,7 @@ function salsa_qa(X)
 		end
 	else
 		@printf "\nWe think you have a clustering problem"
-		@printf "\nPlease specify the numer of clusters you want to extract: "
+		@printf "\nPlease specify the number of clusters you want to extract: "
 		num_c = parse(Int,readline(STDIN))
 
 		@printf "\nComputing the model... "

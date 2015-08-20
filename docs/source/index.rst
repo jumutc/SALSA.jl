@@ -43,7 +43,6 @@ Contents:
    data_preparation.rst
    classification.rst
    regression.rst
-   clustering.rst
    model_tuning.rst
    nystrom.rst
 

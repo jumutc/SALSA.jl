@@ -12,8 +12,8 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
 
     srand(1234)
     sinc(x) = sin(x)./x
-	X = linspace(0.1,20,100)''
-	Xtest = linspace(0.11,19.9,100)''
+    X = linspace(0.1,20,100)
+	Xtest = linspace(0.11,19.9,100)
 	y = sinc(X)
 
 	model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,validation_criteria=MSE())
