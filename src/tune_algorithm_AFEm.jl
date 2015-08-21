@@ -6,7 +6,7 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     X_subset = sub(X,entropy_subset(X,k,rp),:)
     
     cost_fun = x0 -> cross_validate_algorithm_AEFm(x0,X,Y,model,num_k,X_subset)
-    par = run_global_opt(model,cost_fun,model.global_opt,n_params=5+num_k)
+    par = run_global_opt(model,cost_fun,model.global_opt,(5+num_k,5))
     
     # set the output model mode correctly
     pars = num_k > 0 ? exp(par[end-num_k+1:end]) : []

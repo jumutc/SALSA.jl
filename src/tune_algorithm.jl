@@ -1,6 +1,6 @@
 function tune_algorithm(X, Y, model::SALSAModel)
     cost_fun = x0 -> cross_validate_algorithm(x0,X,Y,model)
-    par = run_global_opt(model,cost_fun,model.global_opt,(5*size(Y,2),5))
+    par = run_global_opt(model,cost_fun,model.global_opt,(5,5))
     
     # generate model from the parameters
     model.output.mode = LINEAR()
