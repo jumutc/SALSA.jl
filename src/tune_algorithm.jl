@@ -8,7 +8,6 @@ function tune_algorithm(X, Y, model::SALSAModel)
 end
 
 function cross_validate_algorithm(x0, X, Y, model)
-    for 
     # generate model from parameters
     model = model_from_parameters(model,x0)
     # perform Kfold cross-validation by a generic and parallelizable function
