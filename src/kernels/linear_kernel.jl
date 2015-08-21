@@ -1,5 +1,3 @@
-export LinearKernel
-
 type LinearKernel <: Kernel
 end
 

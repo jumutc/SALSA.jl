@@ -1,5 +1,3 @@
-export reweighted_l2rda_alg 
-
 function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, varɛ::Float64, 
                               k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
 

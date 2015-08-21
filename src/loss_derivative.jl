@@ -1,5 +1,3 @@
-export loss_derivative
-
 # Solution evaluation at sample(s) At with or w/o labels yt
 evaluate(At::AbstractMatrix,yt,w) = map(i->sum(At[:,i].*w),1:1:length(yt)).*yt
 evaluate(At::AbstractMatrix,w)    = map(i->sum(At[:,i].*w),1:1:size(At,2))

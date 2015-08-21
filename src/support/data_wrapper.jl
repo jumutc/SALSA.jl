@@ -1,5 +1,3 @@
-export DelimitedFile
-
 using DataArrays, DataFrames
 
 abstract DataWrapper

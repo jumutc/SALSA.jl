@@ -1,6 +1,4 @@
 include("enum.jl")
-export CSA, DS, GlobalOpt,
-	   MISCLASS, AUC, MSE, SILHOUETTE, Criteria
 
 # enums
 abstract Criteria 

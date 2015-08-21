@@ -1,5 +1,3 @@
-export RBFKernel
-
 immutable RBFKernel <: Kernel
     sigma2::Float64
 

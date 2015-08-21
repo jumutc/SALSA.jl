@@ -1,4 +1,3 @@
-export Kernel
 abstract Kernel
 
 kernel_matrix(k::Kernel, X::Matrix) = kernel_matrix(k, X, X)

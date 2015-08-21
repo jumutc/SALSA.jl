@@ -1,5 +1,3 @@
-export PolynomialKernel
-
 immutable PolynomialKernel <: Kernel
     tau::Float64
     d::Float64

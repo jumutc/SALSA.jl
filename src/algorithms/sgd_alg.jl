@@ -1,5 +1,3 @@
-export sgd_alg
-
 function sgd_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
     # Internal function for a simple SGD routine for λ-strongly convex functions
     #
