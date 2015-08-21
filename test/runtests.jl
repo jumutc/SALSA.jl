@@ -3,6 +3,7 @@ tests = ["unit/test_pegasos",
 		 "functional/regression/test_fsinc",
 		 "functional/clustering/test_clustering",
 		 "functional/classification/test_linear",
+		 "functional/classification/test_multiclass",
 		 "functional/classification/test_nonlinear",
 		 "functional/test_wrapper"]
 

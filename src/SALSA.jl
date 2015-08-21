@@ -40,6 +40,7 @@ export salsa,
     map_predict, 
     map_predict_latent, 
     predict_by_distance,
+    membership,
     DelimitedFile,
     # global optimization
     CSA, DS, GlobalOpt,
@@ -73,6 +74,7 @@ include(joinpath("support", "constants.jl"))
 include(joinpath("support", "entropy_subset.jl"))
 include(joinpath("support", "validation_support.jl"))
 include(joinpath("support", "data_wrapper.jl"))
+include(joinpath("support", "membership.jl"))
 include(joinpath("support", "sparse.jl"))
 include(joinpath("support", "mapstd.jl"))
 include(joinpath("support", "AFEm.jl"))
@@ -105,22 +107,22 @@ include("tune_algorithm_AFEm.jl")
 include("salsa.jl")
 
 # extensive set of multiplicated aliases for different algorithms and models /// dense matrices
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
-salsa(X::Array{Float64,2}, Y::Array{Float64,1}, Xtest::Array{Float64,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
-salsa(X::Array{Float64,2}, Y::Array{Float64,2}, Xtest::Array{Float64,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
-salsa(X::Array{Float64,2}, Y::Array{Float64,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Float64}(0,0))
-salsa(X::Array{Float64,2}, Y::Array{Float64,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Float64}(0,0))
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N1 <: Number, N2 <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N1 <: Number, N2 <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{A <: Algorithm, N1 <: Number, N2 <: Number}(alg::Type{A}, X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{A <: Algorithm, N1 <: Number, N2 <: Number}(alg::Type{A}, X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Int64}(0,0))
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Int64}(0,0))
 # extensive set of multiplicated aliases for different algorithms and models /// sparse matrices
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
-salsa{L <: Loss, A <: Algorithm, M <: Mode}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
-salsa{A <: Algorithm}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
-salsa(X::SparseMatrixCSC, Y::Array{Float64,1}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
-salsa(X::SparseMatrixCSC, Y::Array{Float64,2}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
-salsa(X::SparseMatrixCSC, Y::Array{Float64,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
-salsa(X::SparseMatrixCSC, Y::Array{Float64,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{A <: Algorithm, N <: Number}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{A <: Algorithm, N <: Number}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
 
 end

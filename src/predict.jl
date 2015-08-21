@@ -1,6 +1,6 @@
 # Predict by evaluating a simple linear model
 predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
-predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ model.output.b
+predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ ones(size(X,1),1)*model.output.b
 # aliases to predict according to validation criteria and task: regression/classification
 predict(criteria::AUC, model::SALSAModel, X) 	  	= predict(model, X)
 predict(criteria::MISCLASS, model::SALSAModel, X) 	= predict(model, X)

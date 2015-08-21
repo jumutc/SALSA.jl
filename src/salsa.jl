@@ -25,6 +25,9 @@
     # Hong Kong and Macao, China, November 28 – December 1, 2014, pp. 232–242.
 	
 function salsa(X, Y, model::SALSAModel, Xtest)
+	# sanity checks of input data
+	assert(size(Y,1) == size(X,1))
+
 	if ~isdefined(model,:output)
 		model.output = OutputModel{model.mode}()
 	end
@@ -36,20 +39,44 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	    Xtest = mapstd(Xtest,model.output.X_mean,model.output.X_std)
 	end
 
+	# perform aka OneHotEncoding if needed (-1/1 encoding is not given)
+	if model.process_labels && length(setdiff([-1,1],unique(Y))) > 0
+		Y_ = sort(unique(Y)); k = length(Y_)
+		encoding = -ones(size(X,1),k)
+		for y in zip(1:size(X,1),indexin(Y,Y_))
+			encoding[y[1],y[2]] = 1
+		end
+		Y = encoding # re-define Y input
+	end
+
+	if size(Y,2) > 1 # multi-class case (One vs. All)
+		w_ = zeros(size(X,2),size(Y,2))
+		b_ = zeros(size(Y,2))'
+
+		for k in 1:size(Y,2)
+			w_[:,k], b_[:,k] = salsa(X,Y[:,k],model)
+		end
+
+		model.output.w = w_; model.output.b = b_ 
+		model.output.Ytest = membership(predict_latent(model,Xtest))
+	else # binary or regression case
+		model.output.w, model.output.b = salsa(X,Y,model)
+		if !isempty(Xtest)
+			model.output.Ytest = predict(model.validation_criteria,model,Xtest)
+		end
+	end
+	
+	model
+end
+
+function salsa(X, Y, model::SALSAModel)
 	if model.mode == LINEAR
 	    model = tune_algorithm(X,Y,model)
-	    (model.output.w, model.output.b) = run_algorithm(X,Y,model)
+	    run_algorithm(X,Y,model)
 	else
 	    model = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
 	    k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
-	    features = AFEm(model.output.mode.X_subset,k,X)
-	    (model.output.w, model.output.b) = run_algorithm(features,Y,model)	    
+	    run_algorithm(AFEm(model.output.mode.X_subset,k,X),Y,model)	    
 	end
-
-	if !isempty(Xtest)
-	    model.output.Ytest = predict(model.validation_criteria,model,Xtest)
-	end
-
-	model
 end

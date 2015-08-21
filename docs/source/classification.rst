@@ -74,6 +74,7 @@ Model-based usage
     - ``max_k::Int = 1``: maximal number of data points used to compute loss derivative for final training 
     - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through entire dataset <online_pass> times
     - ``normalized::Bool = true``: normalize data (extracting mean and std) before passing it to CV and final learning 
+    - ``process_labels::Bool = true``: process labels to comply with binary (-1 vs. 1) or multi-class classification encoding 
     - ``tolerance::Float64 = 1e-5``: criteria is evaluated for early stopping (``online_pass==0``) 
     .. math::
         ||w_{t+1} - w_t|| <= tolerance 
