@@ -13,10 +13,10 @@ validation_criteria(criteria::MISCLASS,model,X,Y) 	= misclass(Y, predict_raw(mod
 validation_criteria(criteria::MSE,model,X,Y) 	  	= mse(Y, predict_latent_raw(model,X))
 validation_criteria(criteria::AUC,model,X,Y) 	  	= 1 - auc(Y, predict_latent_raw(model,X), n=criteria.n_thresholds)
 validation_criteria(criteria::SILHOUETTE,model,X,Y) = begin
-	assignments = predict_by_distance(model,X)
+	asgs = convert(Array{Int},predict_by_distance(model,X))
+	cnts = convert(Array{Int},counts(asgs,1:maximum(asgs)))
 	dists = pairwise(model.algorithm.metric, X')
-	cnts = counts(assignments,1:maximum(assignments))
-	return 1 - mean(silhouettes(assignments,cnts,dists))
+	return 1 - mean(silhouettes(asgs,cnts,dists))
 end
 # validation_criteria(criteria::MISCLASS,model,X,Y) 	= begin
 # 	if size(Y,2) == 1

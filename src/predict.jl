@@ -33,7 +33,7 @@ function predict_by_distance(model::SALSAModel,X)
 
 	dists = pairwise(model.algorithm.metric, X', model.output.w)
 	(x,y) = findn(dists .== minimum(dists,2))
-	mappings = round(Int64, zeros(length(y)))
+	mappings = convert(Array{Int},zeros(length(y)))
 	mappings[x] = y
 	mappings
 end

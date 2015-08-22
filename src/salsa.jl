@@ -63,32 +63,12 @@ end
 function salsa(X, Y, model::SALSAModel)
 	if model.mode == LINEAR
 	    model, pars = tune_algorithm(X,Y,model)
-	    w_ = zeros(size(X,2),size(Y,2)) 
-	    b_ = zeros(size(Y,2))'
-
-        for k in 1:size(Y,2)
-            # generate model from the partitioned parameters
-            model = model_from_parameters(model,partition_pars(pars,k))  
-            # run algorithm for the excluded subset of validation indices        
-            w_[:,k], b_[:,k] = run_algorithm(X,Y[:,k],model)
-        end
-        
-        w_, b_
+	    run_with_params(X,Y,model,pars)
 	else
 	    model, pars = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
 	    kernel = kernel_from_parameters(model.kernel,model.output.mode.k_params)
 	    features_train = AFEm(model.output.mode.X_subset,kernel,X)
-	    w_ = zeros(size(features_train,2),size(Y,2)) 
-        b_ = zeros(size(Y,2))'
-
-        for k in 1:size(Y,2)
-            # generate model from the partitioned parameters
-            model = model_from_parameters(model,partition_pars(pars,k))  
-            # run algorithm for the excluded subset of validation indices        
-            w_[:,k], b_[:,k] = run_algorithm(features_train,Y[:,k],model)
-        end
-        
-        w_, b_   
+	    run_with_params(features_train,Y,model,pars)
 	end
 end

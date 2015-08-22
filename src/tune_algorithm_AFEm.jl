@@ -26,17 +26,7 @@ function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
         features_train = AFEm(eigvals,eigvec,X_subset,kernel,Xtr)
         features_valid = AFEm(eigvals,eigvec,X_subset,kernel,Xval)        
         # run algorithm        
-        w_ = zeros(size(features_train,2),size(Ytr,2)) 
-        b_ = zeros(size(Ytr,2))'
-
-        for k in 1:size(Ytr,2)
-            # generate model from the partitioned parameters
-            model = model_from_parameters(model,partition_pars(x0,k))
-            # run algorithm for the excluded subset of validation indices        
-            w_[:,k], b_[:,k] = run_algorithm(features_train,Ytr[:,k],model)
-        end
-        
-        model.output.w = w_; model.output.b = b_ 
+        (model.output.w, model.output.b) = run_with_params(features_train,Y,model,x0)
         validation_criteria(model,features_valid,Yval)
     end
 end

@@ -62,8 +62,9 @@ export salsa,
 	stochastic_rk_means
 
 
-using MLBase, StatsBase, Distributions, Compat, Distances, Clustering
+using MLBase, Distributions, Compat, Distances, Clustering
 import Base: size, getindex, issparse, sub
+import StatsBase: counts
 
 # needed support files
 include(joinpath("kernels", "kernels.jl"))

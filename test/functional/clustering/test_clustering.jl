@@ -1,7 +1,7 @@
 using SALSA, Clustering, Distances, MLBase, Base.Test, Compat
 
 Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
-Y = round(Int64, Xf[:,end])
+Y = convert(Array{Int}, Xf[:,end])
 X = Xf[:,1:end-1]
 
 srand(1234)
