@@ -1,8 +1,7 @@
 using SALSA, Base.Test
 
 Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
-X = Xf[:,1:end-1]
-Y = Xf[:,end]
+X = Xf[:,1:end-1]; Y = Xf[:,end]
 
 srand(1234)
 model = salsa(LINEAR,PEGASOS,HINGE,X,Y,X)
