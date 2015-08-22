@@ -21,7 +21,7 @@ function csa(obj_fun, pn)
 
     #srand(hash(sum(pn)*time()))
 
-    e0 = float(obj_fun(pn))
+    e0 = convert(Array{Float64}, obj_fun(pn))
 
     p0 = pn;
     be0 = minimum(e0);
@@ -59,7 +59,7 @@ function csa(obj_fun, pn)
                  indd = find(abs(pn).>15);
              end
 
-            en = float(obj_fun(pn))
+            en = convert(Array{Float64}, obj_fun(pn))
 
             Esum = sum(exp((e0.-maximum(e0))./Tac));
             for i=1:pnum

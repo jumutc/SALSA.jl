@@ -16,9 +16,8 @@
 - [**Reweighted RDA**](ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf): V. Jumutc, J. A. K. Suykens, Reweighted l1 dual averaging approach for sparse stochastic learning, in: 22th European Symposium on Artificial Neural Networks, ESANN 2014, Bruges, Belgium, April 23-25, 2014.
 
 
-## Installation within Julia interpreter
- - ```Pkg.clone("https://github.com/jumutc/SALSA.jl.git")```
- - ```run(`ln -s $(pwd()) $(Pkg.dir("SALSA"))`); Pkg.resolve()``` (from the unzipped source folder)
+## Installation
+ - ```Pkg.add("SALSA")```
 
 ## Knowledge agnostic usage
 ```julia
