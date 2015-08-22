@@ -1,7 +1,7 @@
 tests = ["unit/test_pegasos", 
 		 "unit/test_wrapper", 
 		 "functional/regression/test_fsinc",
-		 "functional/clustering/test_clustering",
+		 # "functional/clustering/test_clustering",
 		 "functional/classification/test_linear",
 		 "functional/classification/test_multiclass",
 		 "functional/classification/test_nonlinear",

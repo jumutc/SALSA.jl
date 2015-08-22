@@ -7,7 +7,7 @@ X = Xf[:,1:end-1]
 srand(1234)
 dummy = ones(length(Y),1)
 model = SALSAModel(LINEAR,RK_MEANS(PEGASOS,3,20,Euclidean()),LEAST_SQUARES,
-					validation_criteria=SILHOUETTE(),global_opt=DS([1]),
+					validation_criteria=SILHOUETTE(),global_opt=DS([1]),process_labels=false,
 					cv_gen = @compat Nullable{CrossValGenerator}(Kfold(length(Y),3)))
 model = salsa(X,dummy,model,X)
 mappings = model.output.Ytest

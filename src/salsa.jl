@@ -49,21 +49,12 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 		Y = encoding # re-define Y input
 	end
 
-	if size(Y,2) > 1 # multi-class case (One vs. All)
-		w_ = zeros(size(X,2),size(Y,2))
-		b_ = zeros(size(Y,2))'
+	(model.output.w, model.output.b) = salsa(X,Y,model)
 
-		for k in 1:size(Y,2)
-			w_[:,k], b_[:,k] = salsa(X,Y[:,k],model)
-		end
-
-		model.output.w = w_; model.output.b = b_ 
+	if size(Y,2) > 1 && !isempty(Xtest) # multi-class case (One vs. All)
 		model.output.Ytest = membership(predict_latent(model,Xtest))
-	else # binary or regression case
-		model.output.w, model.output.b = salsa(X,Y,model)
-		if !isempty(Xtest)
-			model.output.Ytest = predict(model.validation_criteria,model,Xtest)
-		end
+	elseif !isempty(Xtest) # binary or regression case
+		model.output.Ytest = predict(model.validation_criteria,model,Xtest)
 	end
 	
 	model
@@ -71,12 +62,33 @@ end
 
 function salsa(X, Y, model::SALSAModel)
 	if model.mode == LINEAR
-	    model = tune_algorithm(X,Y,model)
-	    run_algorithm(X,Y,model)
+	    model, pars = tune_algorithm(X,Y,model)
+	    w_ = zeros(size(X,2),size(Y,2)) 
+	    b_ = zeros(size(Y,2))'
+
+        for k in 1:size(Y,2)
+            # generate model from the partitioned parameters
+            model = model_from_parameters(model,partition_pars(pars,k))  
+            # run algorithm for the excluded subset of validation indices        
+            w_[:,k], b_[:,k] = run_algorithm(X,Y[:,k],model)
+        end
+        
+        w_, b_
 	else
-	    model = tune_algorithm_AFEm(X,Y,model) 
+	    model, pars = tune_algorithm_AFEm(X,Y,model) 
 	    # find actual Nystrom-approximated feature map and run Pegasos
-	    k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
-	    run_algorithm(AFEm(model.output.mode.X_subset,k,X),Y,model)	    
+	    kernel = kernel_from_parameters(model.kernel,model.output.mode.k_params)
+	    features_train = AFEm(model.output.mode.X_subset,kernel,X)
+	    w_ = zeros(size(features_train,2),size(Y,2)) 
+        b_ = zeros(size(Y,2))'
+
+        for k in 1:size(Y,2)
+            # generate model from the partitioned parameters
+            model = model_from_parameters(model,partition_pars(pars,k))  
+            # run algorithm for the excluded subset of validation indices        
+            w_[:,k], b_[:,k] = run_algorithm(features_train,Y[:,k],model)
+        end
+        
+        w_, b_   
 	end
 end

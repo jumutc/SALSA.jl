@@ -18,3 +18,11 @@ validation_criteria(criteria::SILHOUETTE,model,X,Y) = begin
 	cnts = counts(assignments,1:maximum(assignments))
 	return 1 - mean(silhouettes(assignments,cnts,dists))
 end
+# validation_criteria(criteria::MISCLASS,model,X,Y) 	= begin
+# 	if size(Y,2) == 1
+# 		misclass(Y, predict_raw(model,X))
+# 	else
+# 		Y_ = membership(predict_latent_raw(model,X))
+# 		misclass(Y_, membership(Y))
+# 	end
+# end
