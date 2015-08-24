@@ -16,7 +16,11 @@ function getindex(f::DelimitedFile, i0::Integer, i1::Integer)
 end
 
 function sub(f::DelimitedFile, I::AbstractVector, ::Colon)
-	vcat([convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header)) for i in I]...)
+	vcat([sub(f,i,:) for i in I]...)
+end
+
+function sub(f::DelimitedFile, i::Int, ::Colon)
+	convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header))
 end
 
 # fix for julia release where this function is absent, TODO: remove when we move to julia 0.4-

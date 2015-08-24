@@ -7,3 +7,7 @@ Y = Xf[:,end]; Y[Y.>1] = -1
 srand(1234)
 model = salsa(X, Y, SALSAModel(LINEAR,SIMPLE_SGD(),HINGE,global_opt=DS([-1])), Xf)
 @test_approx_eq mean(Y .== model.output.Ytest) 1.0
+
+srand(1234)
+model = salsa(X, Y, SALSAModel(LINEAR,SIMPLE_SGD(),HINGE,global_opt=DS([-1]),online_pass=10), Xf)
+@test_approx_eq_eps mean(Y .== model.output.Ytest) 0.9 0.1

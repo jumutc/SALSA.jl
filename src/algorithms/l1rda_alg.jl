@@ -22,23 +22,9 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
         sub_arr = (I) -> X[:,I]
     end
 
-    if ~isempty(train_idx)
-        space = train_idx
-        N = size(space,1)
-    else
-        space = 1:1:N
-    end
-
-    if online_pass > 0
-        max_iter = N*online_pass
-        smpl = (t,k) -> begin
-            s = t % N 
-            s > 0 ? s : N
-        end
-    else
-        pd = Categorical(N)
-        smpl = (t,k) -> rand(pd,k)
-    end
+    space, N = fix_space(train_idx,N)
+    smpl = fix_sampling(online_pass,N)
+    max_iter = fix_iter(online_pass,N,max_iter)
 
     for t=1:max_iter 
         idx = space[smpl(t,k)]

@@ -24,12 +24,9 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
         sub_arr = (I) -> X[:,I]
     end
 
-    if ~isempty(train_idx)
-        space = train_idx
-        N = size(space,1)
-    else
-        space = 1:1:N
-    end
+    space, N = fix_space(train_idx,N)
+    smpl = fix_sampling(online_pass,N)
+    max_iter = fix_iter(online_pass,N,max_iter)
 
     if online_pass > 0
         max_iter = N*online_pass

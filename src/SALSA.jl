@@ -70,6 +70,7 @@ import StatsBase: counts
 include(joinpath("kernels", "kernels.jl"))
 include(joinpath("support", "constants.jl"))
 include(joinpath("support", "entropy_subset.jl"))
+include(joinpath("support", "algorithm_support.jl"))
 include(joinpath("support", "validation_support.jl"))
 include(joinpath("support", "data_wrapper.jl"))
 include(joinpath("support", "membership.jl"))
