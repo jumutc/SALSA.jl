@@ -7,7 +7,7 @@ function fix_space(train_idx, N::Int)
 end
 
 function fix_sampling(online_pass, N::Int)
-    if Bool(online_pass)
+    if @compat Bool(online_pass)
         (t,k) -> begin
             s = t % N 
             s > 0 ? s : N
@@ -19,5 +19,5 @@ function fix_sampling(online_pass, N::Int)
 end
 
 function fix_iter(online_pass, N::Int, max_iter::Int)
-    Bool(online_pass) ? N*online_pass : max_iter
+    @compat Bool(online_pass) ? N*online_pass : max_iter
 end
