@@ -19,6 +19,7 @@ model = salsa(X,y,model,Xtest)
 rand(1234)
 model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,
 				   validation_criteria=MSE(),process_labels=false)
-model = salsa(X,y,model,Xtest)
+model = salsa(X,y,model,[])
+Ytest = map_predict(model,Xtest)
 
-@test_approx_eq_eps mse(sinc(Xtest), model.output.Ytest) 0.01 0.05
+@test_approx_eq_eps mse(sinc(Xtest), Ytest) 0.01 0.05

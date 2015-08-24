@@ -16,6 +16,12 @@ model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.1
 
 srand(1234)
+model = SALSAModel(LINEAR,PEGASOS(),HINGE,global_opt=DS([-1]),validation_criteria=AUC(100))
+model = salsa(ripley["X"],ripley["Y"],model,[])
+Ytest = map_predict(model,ripley["Xt"])
+@test_approx_eq_eps mean(ripley["Yt"] .== Ytest) 0.89 0.1
+
+srand(1234)
 model = SALSAModel(LINEAR,PEGASOS(),LEAST_SQUARES,global_opt=DS([-1]))
 model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
 @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.1

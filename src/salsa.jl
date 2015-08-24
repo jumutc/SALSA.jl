@@ -51,10 +51,11 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 
 	(model.output.w, model.output.b) = salsa(X,Y,model)
 
-	if size(Y,2) > 1 && !isempty(Xtest) # multi-class case (One vs. All)
+	if size(Y,2) > 1 && typeof(model.validation_criteria) <: MISCLASS && !isempty(Xtest) 
+		# multi-class case (One vs. All) with MISCLASS cross-validation criteria
 		model.output.Ytest = membership(predict_latent(model,Xtest))
 	elseif !isempty(Xtest) # binary or regression case
-		model.output.Ytest = predict(model.validation_criteria,model,Xtest)
+		model.output.Ytest = predict(model,Xtest)
 	end
 	
 	model

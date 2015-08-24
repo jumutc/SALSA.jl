@@ -5,7 +5,7 @@ sse(y, yhat) = norm(y-yhat)^2
 # Calculates the average squared difference between the corresponding elements of two vectors
 mse(y, yhat) = sse(y, yhat)/length(yhat)
 # Area Under ROC surve with latent output y
-auc(y, ylat; n=100) = std(ylat[:]) == 0 ? 0.0 : auc(roc(int(y)[:], ylat[:], n))
+auc(y, ylat; n=100) = std(ylat[:]) == 0 ? 0.0 : auc(roc(round(Int,y)[:], ylat[:], n))
 # provide convenient function for parallalizing cross-validation
 nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
 # helper function for AUC calculus
