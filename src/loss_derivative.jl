@@ -62,7 +62,7 @@ pinball_loss_derivative{T <: Number, AM <: AbstractMatrix}(At::AM,yt::T,w,tau) =
 # LOGISTIC LOSS
 logistic_loss(At::Matrix,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
 logistic_loss{T <: Number, AM <: AbstractMatrix}(At::AM,yt::T,w,eval=evaluate(At,yt,w)) = -At.*yt/(exp(eval)+1) 
-logistic_loss(At::SparseMatrixCSC,yt,w,eval=evaluate(At,yt,w)) = reduce((d0,i) -> d0 + (At[:,i] .* (yt[i]/(exp(eval[i])+1))), spzeros(size(At,1),1), 1:1:size(At,2))
+logistic_loss(At::SparseMatrixCSC,yt,w,eval=evaluate(At,yt,w)) = reduce((d0,i) -> d0 - (At[:,i] .* (yt[i]/(exp(eval[i])+1))), spzeros(size(At,1),1), 1:1:size(At,2))
 
 # LEAST-SQUARES LOSS
 least_squares_loss(At::Matrix,yt,w) = At *(evaluate(At,w) - yt)

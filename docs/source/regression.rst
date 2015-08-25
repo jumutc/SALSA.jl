@@ -21,4 +21,6 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` whi
 
     @test_approx_eq_eps mse(sinc(Xtest), model.output.Ytest) 0.01 0.01
 
+By taking a look at the code snippet above we can notice a major difference with the :doc:`Classification <classification>` example. The model is equipped with the ``NONLINEAR`` mode, ``LEAST_SQUARES`` loss function while the cross-validation criteria is given by ``MSE``. These three essential components unambiguously define a regression problem solved stochastically by the ```SALSA``` package.     
+
 .. [FS2008] De Brabanter K., De Brabanter J., Suykens J.A.K., De Moor B., "Optimized Fixed-Size Kernel Models for Large Data Sets", Computational Statistics & Data Analysis, vol. 54, no. 6, Jun. 2010, pp. 1484-1504.

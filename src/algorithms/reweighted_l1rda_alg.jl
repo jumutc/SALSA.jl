@@ -10,7 +10,6 @@ function reweighted_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, �
     d = size(X,2) + 1
     check = ~issparse(X)
     
-    
     if check
         g = zeros(d)
         rw = ones(d)
@@ -34,7 +33,7 @@ function reweighted_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, �
 
         yt = Y[idx]
         At = sub_arr(idx)
-
+        
         # calculate dual average: gradient
         g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,w)
 

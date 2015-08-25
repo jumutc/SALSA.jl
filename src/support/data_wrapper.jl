@@ -25,7 +25,7 @@ end
 
 # fix for julia release where this function is absent, TODO: remove when we move to julia 0.4-
 sub(a::SubArray, I::AbstractVector, ::Colon) = convert(Array, a[I,:])
-sub(a::Matrix, 	 I::AbstractVector, ::Colon) = a[I,:]
+sub(a::AbstractMatrix, I::AbstractVector, ::Colon) = a[I,:]
 
 function size(f::DelimitedFile, n::Int=0)
 	if n == 0

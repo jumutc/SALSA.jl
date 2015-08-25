@@ -40,7 +40,7 @@ end
 
 # Map data to existing mean/std in the model and predict
 function map_predict(model::SALSAModel,X) 
-	if ~isempty(model.output.X_mean) && ~isempty(model.output.X_mean) 
+	if isdefined(model.output,:X_mean) && isdefined(model.output,:X_mean) 
 		X = mapstd(X,model.output.X_mean,model.output.X_std)
 		predict(model,X)
 	else

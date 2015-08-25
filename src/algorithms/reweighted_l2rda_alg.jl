@@ -28,17 +28,6 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
     smpl = fix_sampling(online_pass,N)
     max_iter = fix_iter(online_pass,N,max_iter)
 
-    if online_pass > 0
-        max_iter = N*online_pass
-        smpl = (t,k) -> begin
-            s = t % N 
-            s > 0 ? s : N
-        end
-    else
-        pd = Categorical(N)
-        smpl = (t,k) -> rand(pd,k)
-    end
-
     for t=1:max_iter 
         idx = space[smpl(t,k)]
         w_prev = w
