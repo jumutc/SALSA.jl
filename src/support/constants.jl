@@ -1,6 +1,3 @@
-include("enum.jl")
-
-# enums
 abstract Criteria 
 immutable MSE <: Criteria end
 immutable SILHOUETTE <: Criteria end 

@@ -62,7 +62,7 @@ export salsa,
 
 
 using MLBase, Distributions, Compat, Distances, Clustering
-import Base: size, getindex, issparse, sub
+import Base: size, getindex, issparse, sub, show
 import StatsBase: counts
 
 # needed support files

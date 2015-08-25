@@ -92,3 +92,23 @@ SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             cv_gen = @compat Nullable{CrossValGenerator}()) = 
         SALSAModel(mode,algorithm,kernel,loss_function,global_opt,subset_size,max_cv_iter,max_iter,max_cv_k,max_k,
             online_pass,normalized,process_labels,tolerance,sparsity_cv,validation_criteria,cv_gen,OutputModel{mode}())
+
+check_printable(value) = typeof(value) <: Array || typeof(value) <: Criteria || 
+                         typeof(value) <: Mode || typeof(value) <: Algorithm || 
+                         typeof(value) <: Loss || typeof(value) <: GlobalOpt
+print_value(value) = check_printable(value) ? summary(value) : value
+
+function show(io::IO, model::SALSAModel)
+    print_with_color(:blue, io, "SALSA model:\n")
+    for field in fieldnames(model)
+        value = getfield(model,field)
+        field == :output ? println() : @printf io "\t%s : %s\n" field print_value(value)
+    end
+    print_with_color(:blue, io, "SALSA model.output:\n")
+    for field in fieldnames(model.output)
+        if isdefined(model.output,field) 
+            value = getfield(model.output,field)
+            @printf io "\t%s : %s\n" field print_value(value)
+        end
+    end
+end
