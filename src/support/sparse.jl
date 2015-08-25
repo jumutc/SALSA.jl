@@ -10,13 +10,13 @@ function make_sparse(tuples;sizes=(),delim="")
     for j in index
       if tuples[i,j] != ""
         if delim == ""
-          V[cnt] = tuples[i,j+1]
-          J[cnt] = tuples[i,j]
+          V[cnt] = make_float(tuples[i,j+1])
+          J[cnt] = make_int(tuples[i,j])
           I[cnt] = i
         else
           tuple = split(tuples[i,j],delim)
-          V[cnt] = float(tuple[2])
-          J[cnt] = int(tuple[1])
+          V[cnt] = make_float(tuple[2])
+          J[cnt] = make_int(tuple[1])
           I[cnt] = i
         end
         resize!(I,cnt+1)
@@ -45,3 +45,6 @@ function reduce_sparsevec(sm::SparseMatrixCSC,idx)
   colptr = [1,length(rowval)+1]
   SparseMatrixCSC(sm.m,sm.n,colptr,rowval,nzval)
 end
+
+make_float(x) = typeof(x) <: Number ? x : parse(Float64,x)
+make_int(x) = typeof(x) <: Number ? round(Int,x) : parse(Int,x)
