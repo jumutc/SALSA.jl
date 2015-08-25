@@ -1,11 +1,11 @@
-using SALSA, Base.Test, Compat
+using SALSA, Base.Test
 
 outOriginal = STDOUT
 (outRead, outWrite) = redirect_stdout()
 model = SALSAModel(LINEAR,PEGASOS(),HINGE)
 show(outWrite, model)
 
-s = @compat ASCIIString(readavailable(outRead))
+s = ASCIIString(map(Char,readavailable(outRead)))
 redirect_stdout(outOriginal)
 
 @test contains(s,"SALSA model:")
