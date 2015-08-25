@@ -5,8 +5,9 @@ outOriginal = STDOUT
 model = SALSAModel(LINEAR,PEGASOS(),HINGE)
 show(outWrite, model)
 
-s = ASCIIString(char(readavailable(outRead)))
+s = char(readavailable(outRead))
 redirect_stdout(outOriginal)
+println(s)
 
 @test contains(s,"SALSA model:")
 @test contains(s,"SALSA model.output:")
