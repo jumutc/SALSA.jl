@@ -1,4 +1,4 @@
-using SALSA, Base.Test
+using SALSA, Base.Test, Compat
 
 outOriginal = STDOUT
 (outRead, outWrite) = redirect_stdout()
