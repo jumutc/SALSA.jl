@@ -1,4 +1,4 @@
-<img src="http://dl.dropboxusercontent.com/s/ue01x17cs51y9mb/salsa.jpg" width="150"></img>
+<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/images/SALSA.png?raw=true" width="150"></img>
 
 # SALSA.jl
 [![Build Status](https://travis-ci.org/jumutc/SALSA.jl.svg)](https://travis-ci.org/jumutc/SALSA.jl)
