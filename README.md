@@ -28,7 +28,7 @@ data = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
 
 # Train and cross-validate Pegasos algorithm (default) on training data  
 # and evaluate it on the test data provided as the last function argument
-model = salsa(data["X"], data["Y"], data["Xt"]);
+model = salsa(data["X"], data["Y"], data["Xt"])
 
 # Compute accuracy in %
 @printf "Accuracy: %.2f%%\n" mean(model.output.Ytest .== data["Yt"])*100
