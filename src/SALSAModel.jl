@@ -33,6 +33,16 @@ immutable NONLINEAR <: Mode
     X_subset::Matrix 
 end
 
+all_algo_types = [subtypes(SGD);subtypes(RDA)]
+all_loss_types = [PINBALL;subtypes(NonParametricLoss)]
+
+loss_opts    = Dict(map(s -> findfirst(all_loss_types,s)      => s,   all_loss_types))
+algo_opts    = Dict(map(s -> findfirst(all_algo_types,s)      => s(), all_algo_types))
+kernel_opts  = Dict(map(s -> findfirst(subtypes(Kernel),s)    => s,   subtypes(Kernel)))
+optim_opts   = Dict(map(s -> findfirst(subtypes(GlobalOpt),s) => s(), subtypes(GlobalOpt)))
+criteria_opts= Dict(map(s -> findfirst(subtypes(CCriteria),s) => s(), subtypes(CCriteria)))
+mode_opts    = Dict(map(s -> (s == LINEAR ? 'n' : 'y')        => s,   subtypes(Mode)))
+
 type OutputModel{M <: Mode}
     dfunc::Function
     alg_params::Vector
@@ -92,6 +102,12 @@ SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             cv_gen = @compat Nullable{CrossValGenerator}()) = 
         SALSAModel(mode,algorithm,kernel,loss_function,global_opt,subset_size,max_cv_iter,max_iter,max_cv_k,max_k,
             online_pass,normalized,process_labels,tolerance,sparsity_cv,validation_criteria,cv_gen,OutputModel{mode}())
+
+SALSAModel() = SALSAModel(LINEAR,PEGASOS(),HINGE)
+SALSAModel{K <: Kernel}(kernel::Type{K}, model) = SALSAModel(model.mode,model.algorithm,model.loss_function,kernel=kernel,process_labels=model.process_labels)
+SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels)
+SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels)
+SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels)
 
 check_printable(value) = typeof(value) <: Array || typeof(value) <: Criteria || 
                          typeof(value) <: Mode || typeof(value) <: Algorithm || 

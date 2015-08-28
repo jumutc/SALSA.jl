@@ -23,7 +23,7 @@ function sub(f::DelimitedFile, i::Int, ::Colon)
 	convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header))
 end
 
-# fix for julia release where this function is absent, TODO: remove when we move to julia 0.4-
+# fix for julia release where this function is absent, TODO: remove when we move to julia 0.4+
 sub(a::SubArray, I::AbstractVector, ::Colon) = convert(Array, a[I,:])
 sub(a::AbstractMatrix, I::AbstractVector, ::Colon) = a[I,:]
 

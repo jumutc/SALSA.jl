@@ -63,7 +63,7 @@ export salsa,
 
 using MLBase, Distributions, Compat, Distances, Clustering
 import Base: size, getindex, issparse, sub, show
-import StatsBase: counts
+import StatsBase: counts, predict
 
 # needed support files
 include(joinpath("kernels", "kernels.jl"))
@@ -86,6 +86,7 @@ include("predict.jl")
 # needed support files for cross-validation
 include(joinpath("support", "cross_validation.jl"))
 # Q/A tables 
+include(joinpath("qa_tables", "QAModel.jl"))
 include(joinpath("qa_tables", "salsa_qa.jl"))
 # main algorithmic files
 include(joinpath("algorithms", "l1rda_alg.jl"))
