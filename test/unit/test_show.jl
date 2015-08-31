@@ -6,7 +6,7 @@ model = SALSAModel(LINEAR,PEGASOS(),HINGE)
 model.output.dfunc = loss_derivative(HINGE)
 show(outWrite, model)
 
-s = UTF8String(readavailable(outRead))
+s = utf8(readavailable(outRead))
 redirect_stdout(outOriginal)
 
 @test contains(s,"SALSA model:")
