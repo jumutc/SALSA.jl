@@ -19,7 +19,8 @@ function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::CSA, 
     # Coupled Simulated Annealing calculations
     eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
     (fval, par) = csa(eval_fun, randn(par_dims))
-    @printf "CSA results: optimal %s = %.3f\n" validation_criteria(model.validation_criteria, model, fval)...
+    criteria = validation_criteria(model.validation_criteria, model, fval)
+    @printf "CSA results: optimal %s = %.3f\n" criteria[1] criteria[2]
     return par
 end 
 
@@ -27,6 +28,7 @@ function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::DS, p
     # Randomized Directional Search calculations
     params = global_opt.init_params
     (fval, par) = ds(cost_fun, isempty(params) ? randn(par_dims[1]) : params)
-    @printf "DS results: optimal %s = %.3f\n" validation_criteria(model.validation_criteria, model, fval)...
+    criteria = validation_criteria(model.validation_criteria, model, fval)
+    @printf "DS results: optimal %s = %.3f\n" criteria[1] criteria[2]
     return par
 end 
