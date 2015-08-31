@@ -10,6 +10,17 @@ Welcome to SALSA's documentation!
 **SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation of the well known stochastic algorithms for linear and non-linear **Support Vector Machines**. 
 
 |
+Mathematical background:
+************************
+
+**SALSA** package aims at stochastically learning a classifier or regressor via Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-know Machine Learning problems of the type:
+
+.. math::
+        \min{{\bf w}} \sum_{i=1}^T \ell({\bf w},\xi_i) + \Omega({\bf w}),
+
+where :math:`\xi_i = ({\bf x_i},y_i) \in \mathcal{S}` is given as a pair of input-output variables and it belongs to a set of independent observations :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq T}`, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true label :math:`y` and the model prediction while regularizer :math:`\Omega` penalizes the complexity of the model. We draw :math:`\xi_i` from :math:`\mathcal{S}` uniformly because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption.
+
+
 References:
 ***********
 
@@ -54,3 +65,4 @@ Contents:
 .. * :ref:`modindex`
 .. * :ref:`search`
 
+.. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory." In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.
