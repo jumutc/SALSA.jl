@@ -32,12 +32,12 @@ Knowledge agnostic usage
 
     Create a classification model with the specified choice of algorithm, mode and loss function.
 
-    :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply Nyström method for approximating feature map before.
+    :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply Nyström method for approximating feature map before
     :param algorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.
     :param loss: loss function to use when learning a classification model, e.g.  ``HINGE``, ``LOGISTIC`` etc.
     :param X: training data (samples)
     :param Y: training labels
-    :param Xtest: test data for out-of-sample evaluation 
+    :param Xtest: test data for out-of-sample evaluation
 
     :return: ``SALSAModel`` object.
 

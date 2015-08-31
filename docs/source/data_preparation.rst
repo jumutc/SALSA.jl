@@ -35,8 +35,8 @@ Sparse Data Preparation
     
     Create ``SparseMatrixCSC`` object from matrix of tuples ``Matrix{ASCIIString}`` containing ``index:value`` pairs. Index and value pair can be separated by ``delim`` character, e.g. ``:``. User can optionally specify final dimensions of the ``SparseMatrixCSC`` object as ``sizes`` tuple.
 
-    :param tuples: matrix of tuples ``Matrix{ASCIIString}`` containing ``index:value`` pairs.
-    :param sizes: optional tuple of final dimensions, e.g. ``(100000,10)`` (empty by default).
-    :param delim: optional character separating index and value pair in each cell of ``tuples``, default is ":".
+    :param tuples: matrix of tuples ``Matrix{ASCIIString}`` containing ``index:value`` pairs
+    :param sizes: optional tuple of final dimensions, e.g. ``(100000,10)`` (empty by default)
+    :param delim: optional character separating index and value pair in each cell of ``tuples``, default is ":"
 
     :return: ``SparseMatrixCSC`` object.
