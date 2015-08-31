@@ -6,12 +6,8 @@ model = SALSAModel(LINEAR,PEGASOS(),HINGE)
 model.output.dfunc = loss_derivative(HINGE)
 show(outWrite, model)
 
-s = readavailable(outRead)
+s = UTF8String(readavailable(outRead))
 redirect_stdout(outOriginal)
-
-if !(typeof(s) <: String)
-	s::String = UTF8String(s)
-end
 
 @test contains(s,"SALSA model:")
 @test contains(s,"SALSA model.output:")

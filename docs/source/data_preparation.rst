@@ -1,14 +1,14 @@
 Data Preprocessing 
 ==================
 
-The package provides a simple set of preprocessing utilities.
+This part of the package provides a simple set of preprocessing utilities.
 
 Data Normalization
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: mapstd(A)
+.. function:: mapstd(X)
 
-    Normalize each column of ``A`` to the zero mean and one standard deviation. Output normalized matrix ``A`` with extracted column-wise means and standard deviations.
+    Normalize each column of ``X`` to the zero mean and one standard deviation. Output normalized matrix ``X`` with extracted column-wise means and standard deviations.
 
     .. code-block:: julia
 
@@ -17,9 +17,9 @@ Data Normalization
         mapstd([0 1; -1 2]) # --> ([0.707107  -0.707107; -0.707107   0.707107], [-0.5  1.5], [0.707107 0.707107])
 
 
-.. function:: mapstd(A,mean,std)
+.. function:: mapstd(X,mean,std)
 
-    Normalize easch column of ``A`` to the specified column-wise ``mean`` and ``std``. Output normalized matrix ``A``.
+    Normalize easch column of ``A`` to the specified column-wise ``mean`` and ``std``. Output normalized matrix ``X``.
 
     .. code-block:: julia
 
