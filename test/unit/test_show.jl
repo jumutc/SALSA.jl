@@ -1,4 +1,4 @@
-using SALSA, Base.Test
+using SALSA, Base.Test, Base.convert
 
 outOriginal = STDOUT
 (outRead, outWrite) = redirect_stdout()
@@ -10,7 +10,7 @@ s = readavailable(outRead)
 redirect_stdout(outOriginal)
 
 if typeof(s) != ASCIIString
-	s = ASCIIString(s)
+	s = UTF8String(s)
 end
 
 @test contains(s,"SALSA model:")
