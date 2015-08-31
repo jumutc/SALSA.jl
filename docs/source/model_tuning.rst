@@ -16,12 +16,12 @@ This part of the package provides a simple API for model-tuning routines.
 
 .. function:: misclass(y,yhat)
 
-	Calculate misclassification rate as :math:`\frac{1}{n}\sum_{i=1}^n I(y-I \neq \hat{y}_i)`.
+	Calculate misclassification rate as  :math:`\frac{1}{n}\sum_{i=1}^n I(y_i, \neq \hat{y}_i)`.
 	
 .. function:: mse(y,yhat)
 
-	Calculate mean squared error as :math:`\frac{1}{n}\|y - \hat{y}\|^2`
+	Calculate mean squared error as  :math:`\frac{1}{n}\|\{bf y} - \{bf \hat{y}}\|^2`
 	
 .. function:: auc(y,yhat[,n=100])
 
-	Calculate Area Under `ROC <https://en.wikipedia.org/wiki/Receiver_operating_characteristic>` Curve. Default number of thresholds is 100.
+	Calculate Area Under `ROC <https://en.wikipedia.org/wiki/Receiver_operating_characteristic>`_ Curve. Default number of thresholds is 100.
