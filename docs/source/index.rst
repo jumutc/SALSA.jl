@@ -18,7 +18,7 @@ Mathematical background:
 .. math::
         \min_{\bf w} \sum_{i=1}^T \ell({\bf w},\xi_i) + \Omega({\bf w}),
 
-where :math:`\xi_i = ({\bf x_i},y_i) \in \mathcal{S}` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq T}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true label :math:`y` and the model prediction while regularizer :math:`\Omega` penalizes the complexity of the model. We draw :math:`\xi_i` from :math:`\mathcal{S}` uniformly because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption.
+where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq T}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true label :math:`y` and the model prediction while regularizer :math:`\Omega` penalizes the complexity of the model. We draw :math:`\xi_i` from :math:`\mathcal{S}` uniformly because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption.
 
 
 References:
