@@ -13,7 +13,7 @@ Following approach in [WS2001]_ an expression for the entries of the approximate
 .. math::
 	\hat{\Phi}_i(x) = \frac{1}{\sqrt{\lambda_{i,m}}} \sum_{t=1}^m u_{ti,m}k(x_t,x),
 
-where :math:`\lambda_{i,m}` and :math:`u_{i,m}1 denote the :math:`i`-th eigenvalue and the :math:`i1-th eigenvector of :math:`K`.
+where :math:`\lambda_{i,m}` and :math:`u_{i,m}` denote the :math:`i`-th eigenvalue and the :math:`i`-th eigenvector of :math:`K`.
 
 
 Avaliable API
