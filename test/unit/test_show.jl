@@ -9,8 +9,8 @@ show(outWrite, model)
 s = readavailable(outRead)
 redirect_stdout(outOriginal)
 
-if typeof(s) != ASCIIString
-	s = UTF8String(s)
+if !(typeof(s) <: String)
+	s::String = UTF8String(s)
 end
 
 @test contains(s,"SALSA model:")
