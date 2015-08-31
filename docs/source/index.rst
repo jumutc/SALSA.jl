@@ -10,7 +10,7 @@ Welcome to SALSA's documentation!
 **SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation of the well known stochastic algorithms for linear and non-linear **Support Vector Machines**. 
 
 |
-Mathematical background:
+Mathematical background
 ************************
 
 **SALSA** package aims at stochastically learning a classifier or regressor via Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-know Machine Learning problems of the type:
@@ -21,7 +21,7 @@ Mathematical background:
 where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq T}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true label :math:`y` and the model prediction while regularizer :math:`\Omega` penalizes the complexity of the model. We draw :math:`\xi_i` from :math:`\mathcal{S}` uniformly because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption.
 
 
-References:
+References
 ***********
 
 **SALSA** is stemmed from the following algorithmic approaches:
@@ -34,7 +34,7 @@ References:
 
 - `Reweighted RDA <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_: V. Jumutc, J. A. K. Suykens, Reweighted l1 dual averaging approach for sparse stochastic learning, in: 22th European Symposium on Artificial Neural Networks, ESANN 2014, Bruges, Belgium, April 23-25, 2014.
 
-Dependencies:
+Dependencies
 *************
 
 - `MLBase <https://github.com/JuliaStats/MLBase.jl>`_: to support generic Machine Learning routines, e.g. cross-validation, performance measures etc.
