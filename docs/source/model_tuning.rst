@@ -16,7 +16,7 @@ This part of the package provides a simple API for model-tuning routines.
 
 .. function:: misclass(y,yhat)
 
-	Calculate misclassification rate as  :math:`\frac{1}{n}\sum_{i=1}^n I(y_i, \neq \hat{y}_i)`.
+	Calculate misclassification rate as  :math:`\frac{1}{n}\sum_{i=1}^n I(y_i \neq \hat{y}_i)`.
 	
 .. function:: mse(y,yhat)
 
