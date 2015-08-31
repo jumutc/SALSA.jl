@@ -111,10 +111,16 @@ SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorith
 SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels)
 SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels)
 
-check_printable(value) = typeof(value) <: Array || typeof(value) <: Criterion || 
-                         typeof(value) <: Mode || typeof(value) <: Algorithm || 
-                         typeof(value) <: Loss || typeof(value) <: GlobalOpt
+check_printable(value) = typeof(value) <: Array || typeof(value) <: Mode 
 print_value(value) = check_printable(value) ? summary(value) : value
+
+show(io::IO, t::PEGASOS) = @printf io "%s (%s)" typeof(t) "Pegasos: Primal Estimated sub-GrAdient SOlver for SVM"
+show(io::IO, t::L1RDA) = @printf io "%s (%s)" typeof(t) "l1-Regularized Dual Averaging"
+show(io::IO, t::R_L1RDA) = @printf io "%s (%s)" typeof(t) "Reweighted l1-Regularized Dual Averaging"
+show(io::IO, t::R_L2RDA) = @printf io "%s (%s)" typeof(t) "Reweighted l2-Regularized Dual Averaging"
+show(io::IO, t::ADA_L1RDA) = @printf io "%s (%s)" typeof(t) "Adaptive l1-Regularized Dual Averaging"
+show(io::IO, t::DROP_OUT) = @printf io "%s (%s)" typeof(t) "Dropout Pegasos (experimental)"
+show(io::IO, t::SIMPLE_SGD) = @printf io "%s (%s)" typeof(t) "Stochastic Gradient Descent"
 
 function show(io::IO, model::SALSAModel)
     print_with_color(:blue, io, "SALSA model:\n")

@@ -17,3 +17,7 @@ include("linear_kernel.jl")
 
 kernel_from_parameters{T<:Kernel}(k::Type{T}, parameters) = k(parameters...)
 kernel_from_data_model{T<:Kernel}(k::Type{T}, X) = isempty(fieldnames(k)) ? k() : k(rand(length(fieldnames(k)))...)
+
+show(io::IO, t::Type{RBFKernel}) = @printf io "SALSA.RBFKernel (%s)" "Radial Basis Function kernel, i.e. k(x,y) = exp(-||x - y||^2/(2σ^2))"
+show(io::IO, t::Type{PolynomialKernel}) = @printf io "SALSA.PolynomialKernel (%s)" "Polynomial kernel, i.e. k(x,y) = (<x,y> + τ)^d"
+show(io::IO, t::Type{LinearKernel}) = @printf io "SALSA.LinearKernel (%s)" "Linear kernel, i.e. k(x,y) = <x,y>"
