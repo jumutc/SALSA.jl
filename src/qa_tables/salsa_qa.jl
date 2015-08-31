@@ -15,23 +15,23 @@ function salsa_qa{N <: Number}(X::Matrix{N})
 	n9 = LinearQANode("\nPlease select a global optimization method from options\n $(print_opts(optim_opts))\n: ", read_int)
 	n10= LinearQANode("\nPlease select a type of Kernel for Nyström approximation from options\n $(print_opts(kernel_opts))\n: ", read_int)
 
-	n1.options = Dict('y' => QAOption((ans) -> Void, Nullable(n2)),
-					  'n' => QAOption((ans) -> Void, Nullable(n4)))
-	n2.options = Dict('y' => QAOption((ans) -> append!(proto,[setdiff(1:size(X,2),ans);ans]), Nullable(n3)))
-	n3.options = Dict('y' => QAOption((ans) -> Void, Nullable(n5)),
-					  'n' => QAOption((ans) -> begin proto[1] = SALSAModel(LEAST_SQUARES,proto[1]);
-					  						   proto[1].process_labels = false end , Nullable(n6)))
-	n4.options = Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(LINEAR,RK_MEANS(PEGASOS,ans,20,Euclidean()),LEAST_SQUARES,
-											   validation_criteria=SILHOUETTE(),global_opt=DS([1]),process_labels=false), Nullable()))
-	n5.options = Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(loss_opts[ans],proto[1]), Nullable(n6)))
-	n6.options = Dict('n' => QAOption((ans) -> proto[1] = SALSAModel(mode_opts[ans],proto[1]), Nullable(n7)),
-					  'y' => QAOption((ans) -> proto[1] = SALSAModel(mode_opts[ans],proto[1]), Nullable(n10)))
-	n7.options = Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(algo_opts[ans],proto[1]), Nullable(n8)))
-	n8.options = Dict('y' => QAOption((ans) -> proto[1].validation_criteria = criteria_opts[ans], Nullable(n9)))
-	n9.options = Dict('y' => QAOption((ans) -> proto[1].global_opt = optim_opts[ans], Nullable()))
-	n10.options= Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(kernel_opts[ans],proto[1]), Nullable(n7)))
+	n1.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n2)),
+					  		  'n' => QAOption((ans) -> Void, @compat Nullable(n4)))
+	n2.options = @compat Dict('y' => QAOption((ans) -> append!(proto,[setdiff(1:size(X,2),ans);ans]), @compat Nullable(n3)))
+	n3.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n5)),
+					  		  'n' => QAOption((ans) -> begin proto[1] = SALSAModel(LEAST_SQUARES,proto[1]);
+					  						   				 proto[1].process_labels = false end , Nullable(n6)))
+	n4.options = @compat @compat Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(LINEAR,RK_MEANS(PEGASOS,ans,20,Euclidean()),LEAST_SQUARES,
+											   				   validation_criteria=SILHOUETTE(),global_opt=DS([1]),process_labels=false), @compat Nullable()))
+	n5.options = @compat Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(loss_opts[ans],proto[1]), @compat Nullable(n6)))
+	n6.options = @compat Dict('n' => QAOption((ans) -> proto[1] = SALSAModel(mode_opts[ans],proto[1]), @compat Nullable(n7)),
+					  		  'y' => QAOption((ans) -> proto[1] = SALSAModel(mode_opts[ans],proto[1]), @compat Nullable(n10)))
+	n7.options = @compat Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(algo_opts[ans],proto[1]), @compat Nullable(n8)))
+	n8.options = @compat Dict('y' => QAOption((ans) -> proto[1].validation_criteria = criteria_opts[ans], @compat Nullable(n9)))
+	n9.options = @compat Dict('y' => QAOption((ans) -> proto[1].global_opt = optim_opts[ans], @compat Nullable()))
+	n10.options= @compat Dict('y' => QAOption((ans) -> proto[1] = SALSAModel(kernel_opts[ans],proto[1]), @compat Nullable(n7)))
 
-	current = Nullable(n1)
+	current = @compat Nullable(n1)
 
 	while ~isnull(current)
 		node = get(current)
