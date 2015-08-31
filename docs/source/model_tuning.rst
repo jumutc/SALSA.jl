@@ -20,7 +20,7 @@ This part of the package provides a simple API for model-tuning routines.
 	
 .. function:: mse(y,yhat)
 
-	Calculate mean squared error as  :math:`\frac{1}{n}\|\{bf y} - \{bf \hat{y}}\|^2`
+	Calculate mean squared error as  :math:`\frac{1}{n}\|y - \hat{y}\|^2`
 	
 .. function:: auc(y,yhat[,n=100])
 
