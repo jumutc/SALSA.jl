@@ -11,7 +11,7 @@ function cross_validate_algorithm(x0, X, Y, model)
     # perform cross-validation by a generic and parallelizable function
     gen_cross_validate(size(Y,1), model) do train_idx, val_idx
         (model.output.w, model.output.b) = run_with_params(X,Y,model,x0,train_idx)
-        validation_criteria(model,X,Y,val_idx)
+        validation_criterion(model,X,Y,val_idx)
     end
 end
 
@@ -19,8 +19,8 @@ function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::CSA, 
     # Coupled Simulated Annealing calculations
     eval_fun = pars -> [cost_fun(pars[:,i]) for i=1:size(pars,2)]
     (fval, par) = csa(eval_fun, randn(par_dims))
-    criteria = validation_criteria(model.validation_criteria, model, fval)
-    @printf "CSA results: optimal %s = %.3f\n" criteria[1] criteria[2]
+    criterion = validation_criterion(model.validation_criterion, model, fval)
+    @printf "CSA results: optimal %s = %.3f\n" criterion[1] criterion[2]
     return par
 end 
 
@@ -28,7 +28,7 @@ function run_global_opt(model::SALSAModel, cost_fun::Function, global_opt::DS, p
     # Randomized Directional Search calculations
     params = global_opt.init_params
     (fval, par) = ds(cost_fun, isempty(params) ? randn(par_dims[1]) : params)
-    criteria = validation_criteria(model.validation_criteria, model, fval)
-    @printf "DS results: optimal %s = %.3f\n" criteria[1] criteria[2]
+    criterion = validation_criterion(model.validation_criterion, model, fval)
+    @printf "DS results: optimal %s = %.3f\n" criterion[1] criterion[2]
     return par
 end 

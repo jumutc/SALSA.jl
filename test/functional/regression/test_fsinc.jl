@@ -9,7 +9,7 @@ y = sinc(X)
 
 srand(1234)
 model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,
-				   validation_criteria=MSE(),normalized=false,
+				   validation_criterion=MSE(),normalized=false,
 				   process_labels=false,subset_size=3.)
 model = salsa(X,y,model,Xtest)
 
@@ -18,7 +18,7 @@ model = salsa(X,y,model,Xtest)
 
 rand(1234)
 model = SALSAModel(NONLINEAR,PEGASOS(),LEAST_SQUARES,
-				   validation_criteria=MSE(),process_labels=false)
+				   validation_criterion=MSE(),process_labels=false)
 model = salsa(X,y,model,[])
 Ytest = map_predict(model,Xtest)
 

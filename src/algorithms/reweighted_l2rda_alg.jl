@@ -50,7 +50,7 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
             rw[g.rowval] = 1./(ɛ .+ w.nzval.^2)
         end
         
-        # check the stopping criteria w.r.t. Tolerance, check, online_pass
+        # check the stopping criterion w.r.t. Tolerance, check, online_pass
         if online_pass == 0 && check && vecnorm(w - w_prev) < tolerance
             break
         end

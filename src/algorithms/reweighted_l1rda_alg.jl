@@ -54,7 +54,7 @@ function reweighted_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, �
             w = reduce_sparsevec(w,find(ind))
         end
 
-        # check the stopping criteria w.r.t. Tolerance, check, online_pass
+        # check the stopping criterion w.r.t. Tolerance, check, online_pass
         if online_pass == 0 && check && vecnorm(w - w_prev) < tolerance
             break
         end

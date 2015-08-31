@@ -34,7 +34,7 @@ function sgd_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, tole
         w = (1 - λ*η_t).*w
         w = w - (η_t/k).*dfunc(At,yt,w_prev)
         
-        # check the stopping criteria w.r.t. Tolerance, check, online_pass
+        # check the stopping criterion w.r.t. Tolerance, check, online_pass
         if online_pass == 0 && ~check && vecnorm(w - w_prev) < tolerance
             break
         end

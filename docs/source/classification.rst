@@ -75,11 +75,11 @@ Model-based usage
     - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through entire dataset <online_pass> times
     - ``normalized::Bool = true``: normalize data (extracting mean and std) before passing it to CV and final learning 
     - ``process_labels::Bool = true``: process labels to comply with binary (-1 vs. 1) or multi-class classification encoding 
-    - ``tolerance::Float64 = 1e-5``: criteria is evaluated for early stopping (``online_pass==0``) 
+    - ``tolerance::Float64 = 1e-5``: criterion is evaluated for early stopping (``online_pass==0``) 
     .. math::
         ||w_{t+1} - w_t|| <= tolerance 
-    - ``sparsity_cv::Float64 = 2e-2``: sparisty affinity compelment to any validation_criteria for CV used in RDA type of algorithms 
-    - ``validation_criteria = MISCLASS()``: validation criteria used to verify the generalization capabilities of the model in cross-validation
+    - ``sparsity_cv::Float64 = 2e-2``: sparisty affinity compelment to any validation_criterion for CV used in RDA type of algorithms 
+    - ``validation_criterion = MISCLASS()``: validation criterion used to verify the generalization capabilities of the model in cross-validation
 
     :return: ``SALSAModel`` object with ``model.output`` of type ``OutputModel`` structured as follows:
     - ``dfunc::Function``: loss function derived from the type specified in ``loss_function::Type{L}`` (above)

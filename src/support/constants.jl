@@ -1,9 +1,9 @@
-abstract Criteria 
-abstract CCriteria <: Criteria
-immutable MSE <: CCriteria end
-immutable MISCLASS <: CCriteria end 
-immutable SILHOUETTE <: Criteria end 
-immutable AUC <: CCriteria
+abstract Criterion 
+abstract CCriterion <: Criterion
+immutable MSE <: CCriterion end
+immutable MISCLASS <: CCriterion end 
+immutable SILHOUETTE <: Criterion end 
+immutable AUC <: CCriterion
 	n_thresholds::Integer
 end
 

@@ -1,18 +1,18 @@
 # Predict by evaluating a simple linear model
 predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
 predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ ones(size(X,1),1)*model.output.b
-# aliases to predict according to validation criteria and task: regression/classification
-predict(criteria::AUC, model::SALSAModel, X) 	  	= predict_raw(model, X)
-predict(criteria::MISCLASS, model::SALSAModel, X) 	= predict_raw(model, X)
-predict(criteria::MSE, model::SALSAModel, X) 	  	= predict_latent_raw(model, X)
-predict(criteria::SILHOUETTE, model::SALSAModel, X) = predict_by_distance(model, X)
+# aliases to predict according to validation criterion and task: regression/classification
+predict(criterion::AUC, model::SALSAModel, X) 	  	= predict_raw(model, X)
+predict(criterion::MISCLASS, model::SALSAModel, X) 	= predict_raw(model, X)
+predict(criterion::MSE, model::SALSAModel, X) 	  	= predict_latent_raw(model, X)
+predict(criterion::SILHOUETTE, model::SALSAModel, X) = predict_by_distance(model, X)
 
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR
-  		predict(model.validation_criteria,model,X)
+  		predict(model.validation_criterion,model,X)
   	else
   		k = kernel_from_parameters(model.kernel,model.output.mode.k_params)
-  		predict(model.validation_criteria,model,AFEm(model.output.mode.X_subset,k,X))
+  		predict(model.validation_criterion,model,AFEm(model.output.mode.X_subset,k,X))
   	end	
 end
 

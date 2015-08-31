@@ -42,7 +42,7 @@ export salsa,
     DelimitedFile,
     # global optimization
     CSA, DS, GlobalOpt,
-    # cross-validation criteria
+    # cross-validation criterion
 	MISCLASS, 
 	AUC, MSE, 
 	SILHOUETTE, 
