@@ -42,7 +42,7 @@ algo_opts     = Dict(map(s -> create_tuple(all_algo_types,s()),      all_algo_ty
 kernel_opts   = Dict(map(s -> create_tuple(subtypes(Kernel),s),      subtypes(Kernel)))
 optim_opts    = Dict(map(s -> create_tuple(subtypes(GlobalOpt),s()), subtypes(GlobalOpt)))
 criteria_opts = Dict(map(s -> create_tuple(subtypes(CCriteria),s()), subtypes(CCriteria)))
-mode_opts     = Dict(map(s -> (s == LINEAR ? 'n' : 'y') => s,        subtypes(Mode)))
+mode_opts     = Dict(map(s -> ((s == LINEAR ? 'n' : 'y'), s),        subtypes(Mode)))
 
 type OutputModel{M <: Mode}
     dfunc::Function
