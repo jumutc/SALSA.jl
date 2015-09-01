@@ -34,7 +34,7 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 					  		  'n' => QAOption((ans) -> Void, @compat Nullable(n4)),
 					  		  '\n' => QAOption((ans)-> Void, @compat Nullable(n2)))
 	n2.options = @compat Dict('y' => QAOption((ans) -> append!(proto,[setdiff(1:size(X,2),ans);ans]), @compat Nullable(n3)),
-							  '\n' => QAOption((ans)-> append!(proto,[1:size(X,2);]), @compat Nullable(n3)))
+							  '\n' => QAOption((ans)-> append!(proto,1:1:size(X,2)), @compat Nullable(n3)))
 	n3.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n5)),
 					  		  'n' => QAOption((ans) -> begin proto[1] = SALSAModel(LEAST_SQUARES,proto[1]);
 					  						   				 proto[1].process_labels = false end, Nullable(n6)),
