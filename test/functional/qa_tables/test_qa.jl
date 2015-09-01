@@ -13,11 +13,12 @@ s = utf8(readavailable(outRead))
 redirect_stdout(outOriginal)
 
 #test Q/A table
-@test contains(s,"SALSA.HINGE")
-@test contains(s,"SALSA.PEGASOS")
-@test contains(s,"SALSA.LINEAR")
+@test contains(s, "Computing the model..")
 @test contains(s, "(or ENTER for default)")
 # test output model 
 @test contains(s,"SALSA model:")
 @test contains(s,"SALSA model.output:")
+@test contains(s,"HINGE")
+@test contains(s,"PEGASOS")
+@test contains(s,"LINEAR")
 @test contains(s,"dfunc")
