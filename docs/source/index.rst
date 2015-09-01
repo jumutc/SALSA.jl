@@ -18,7 +18,7 @@ Mathematical background
 .. math::
         \min_{\bf w} \sum_{i=1}^n \ell({\bf w},\xi_i) + \Omega({\bf w}),
 
-where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq n}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true target :math:`y` and the model prediction :math:`\hat{y}` while regularization term :math:`\Omega({\bf w})` penalizes the complexity of the model :math:`{\bf w}`. We draw uniformly :math:`\xi_i` from :math:`\mathcal{S}` at most :math:`T` times  because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption and a fixed computation budget.
+where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq n}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true target :math:`y` and the model prediction :math:`\hat{y}` while regularization term :math:`\Omega({\bf w})` penalizes the complexity of the model :math:`{\bf w}`. We draw uniformly :math:`\xi_i` from :math:`\mathcal{S}` at most :math:`T` times  because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption and a fixed computational budget.
 
 
 References

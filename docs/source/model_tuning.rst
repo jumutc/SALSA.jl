@@ -9,7 +9,7 @@ This part of the package provides a simple API for model-tuning routines.
 	
 	:param evalfun: function to evaluate
 	:param n: total number of data points (instances) if ``model.cv_gen`` is undefined (null)
-	:param model: ``SALSAModel`` which contains the ``cv_gen`` field of type ``Nullable{CrossValGenerator}`` (wrapper around the type defined in ``MLBase.jl`` package)
+	:param model: ``SALSAModel`` which contains the ``cv_gen`` field of type ``Nullable{CrossValGenerator}`` (wrapper around the type defined in `MLBase.jl <https://github.com/JuliaStats/MLBase.jl>`_ package)
 	
 	:return: an average of ``evalfun`` evaluations.
 	
