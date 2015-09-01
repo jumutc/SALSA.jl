@@ -5,7 +5,7 @@ function salsa_qa{N <: Number}(X::Matrix{N})
 end
 
 function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Function)
-	proto = SALSAModel(); indices = Array{Int,1}(0)
+	proto = SALSAModel(); indices = []
 	get_key   = (ans) -> typeof(ans) == Char ? ans : 'y'
 
 	n1q = "\nDo you have any target variable of interest in X (or ENTER for default 'yes')? [y/n]: "
