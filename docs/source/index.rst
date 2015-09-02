@@ -62,8 +62,8 @@ Dependencies
 
 
 .. toctree::
-   :includehidden:
-   :maxdepth: 2
+   :hidden:
+   :maxdepth: 1
 
    Welcome! <index>
    data_preparation
