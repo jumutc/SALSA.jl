@@ -64,14 +64,9 @@ Dependencies
 .. toctree::
    :hidden:
    :titlesonly:
-   :maxdepth: 2
+   :maxdepth: 3
 
    Welcome! <index>
-   data_preparation
-   classification
-   regression
-   model_tuning
-   nystrom
 
 
 .. Indices and tables
