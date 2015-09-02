@@ -65,12 +65,12 @@ Dependencies
    :hidden:
    :maxdepth: 2
 
-   Welcome! index.rst
-   data_preparation.rst
-   classification.rst
-   regression.rst
-   model_tuning.rst
-   nystrom.rst
+   Welcome! <index>
+   data_preparation
+   classification
+   regression
+   model_tuning
+   nystrom
 
 
 .. Indices and tables
