@@ -74,11 +74,11 @@ Dependencies
    :hidden:
    :maxdepth: 2
 
-   data_preparation
-   classification
-   regression
-   model_tuning
-   nystrom
+   data_preparation.rst
+   classification.rst
+   regression.rst
+   model_tuning.rst
+   nystrom.rst
    
 
 
