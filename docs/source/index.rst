@@ -2,7 +2,7 @@
     :width: 130px
 
 ==================================
-.. image:: https://travis-ci.org/jumutc/SALSA.jl.svg?branch=master
+.. image:: https://travis-ci.org/jumutc/SALSA.jl.svg
     :target: https://travis-ci.org/jumutc/SALSA.jl
     
 .. image:: https://coveralls.io/repos/jumutc/SALSA.jl/badge.svg
@@ -12,8 +12,6 @@
     :alt: Documentation Status
     :scale: 100%
     :target: https://readthedocs.org/projects/salsajl/
-
-
 
 Welcome to SALSA's documentation!
 ==================================
@@ -75,9 +73,14 @@ Dependencies
 
 .. toctree::
    :hidden:
-   :maxdepth: 3
+   :maxdepth: 2
 
-   Welcome! <index>
+   data_preparation
+   classification
+   regression
+   model_tuning
+   nystrom
+   
 
 
 .. Indices and tables
