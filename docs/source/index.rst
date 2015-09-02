@@ -67,7 +67,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   index.rst
    data_preparation.rst
    classification.rst
    regression.rst
