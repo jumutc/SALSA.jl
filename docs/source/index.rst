@@ -61,12 +61,11 @@ Dependencies
 - `Clustering <https://github.com/JuliaStats/Clustering.jl>`_: to support Stochastic K-means Clustering (experimental feature)
 
 
-Contents:
-*********
-
 .. toctree::
+   :hidden:
    :maxdepth: 2
 
+   Welcome! index.rst
    data_preparation.rst
    classification.rst
    regression.rst
