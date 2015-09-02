@@ -1,5 +1,4 @@
-.. image:: ../images/SALSA.png
-    :width: 130px
+.. image:: ../SALSA.png
 
 ==================================
 .. image:: https://travis-ci.org/jumutc/SALSA.jl.svg
