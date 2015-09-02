@@ -4,7 +4,7 @@ Welcome to SALSA's documentation!
 
 .. image:: ../images/SALSA.png
     :align: left
-    :width: 120px
+    :width: 150px
 
 
 **SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation under `GPLv3 license <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ of the well known stochastic algorithms for: 
