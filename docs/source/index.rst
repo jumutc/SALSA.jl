@@ -3,6 +3,10 @@
 	
 ==================================
 
+Welcome to SALSA's documentation!
+	
+==================================
+
 .. image:: https://travis-ci.org/jumutc/SALSA.jl.svg
 	:target: https://travis-ci.org/jumutc/SALSA.jl
     
@@ -15,10 +19,6 @@
     :target: https://readthedocs.org/projects/salsajl/
     
 ==================================
-
-Welcome to SALSA's documentation!
-==================================
-
 
 **SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation under `GPLv3 license <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ of stochastic algorithms for: 
 
