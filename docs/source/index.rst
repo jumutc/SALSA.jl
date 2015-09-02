@@ -62,7 +62,7 @@ Dependencies
 
 
 .. toctree::
-   :hidden:
+   :includehidden:
    :maxdepth: 2
 
    Welcome! <index>
