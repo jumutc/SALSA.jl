@@ -1,7 +1,7 @@
 Classification
 ================
 
-A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set. SALSA package provides many different options for stochastically learning a classification model.
+A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set. The SALSA package provides many different options for stochastically learning a classification model.
 
 This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it. The package provides full-stack functionality including cross-validation of all model- and algorithm-related hyperparameters. 
 
@@ -10,7 +10,7 @@ Knowledge agnostic usage
 
 .. function:: salsa(X,Y[,Xtest])
 
-    Create a linear classification model:
+    Create a linear classification model with the predicted output :math:`\hat{y}`:
     
     .. math::
         \hat{y} = \mathrm{sign}(\langle x, w \rangle + b) 
@@ -65,7 +65,7 @@ Model-based usage
     - ``mode::Type{M}``: mode used to learn the model: LINEAR vs. NONLINEAR (mandatory parameter)
     - ``algorithm::A``: algorithm used to learn the model, e.g. PEGASOS (mandatory parameter)
     - ``loss_function::Type{L}``: type of a loss function used to learn the model, e.g. HINGE (mandatory parameter)
-    - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nyström approx.
+    - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nyström approximation
     - ``global_opt::GlobalOpt = CSA()``: global optimization techniques for tuning hyperparameters
     - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nyström approx.
     - ``max_cv_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm in training CV 
