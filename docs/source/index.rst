@@ -1,8 +1,10 @@
 .. image:: ../SALSA.png
-
+	:alt: SALSA.jl
+	
 ==================================
+
 .. image:: https://travis-ci.org/jumutc/SALSA.jl.svg
-    :target: https://travis-ci.org/jumutc/SALSA.jl
+	:target: https://travis-ci.org/jumutc/SALSA.jl
     
 .. image:: https://coveralls.io/repos/jumutc/SALSA.jl/badge.svg
 	:target: https://coveralls.io/r/jumutc/SALSA.jl
@@ -11,6 +13,8 @@
     :alt: Documentation Status
     :scale: 100%
     :target: https://readthedocs.org/projects/salsajl/
+    
+==================================
 
 Welcome to SALSA's documentation!
 ==================================
