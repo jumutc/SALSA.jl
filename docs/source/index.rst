@@ -7,9 +7,10 @@ Welcome to SALSA's documentation!
     :width: 80px
 
 
-**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation under `GPLv3 license <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ of the well known stochastic algorithms for 
+**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation under `GPLv3 license <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ of the well known stochastic algorithms for: 
+
 - linear and non-linear **Support Vector Machines** [Boser1992]_
-- sparse linear models [Hastie2015]_
+- sparse linear modelling [Hastie2015]_
 
 |
 Mathematical background
@@ -20,8 +21,21 @@ The **SALSA** package aims at stochastically learning a classifier or regressor 
 .. math::
         \min_{\bf w} \sum_{i=1}^n \ell({\bf w},\xi_i) + \Omega({\bf w}),
 
-where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq n}` of independent observations, :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true target :math:`y` and the model prediction :math:`\hat{y}` while regularization term :math:`\Omega({\bf w})` penalizes the complexity of the model :math:`{\bf w}`. We draw uniformly :math:`\xi_i` from :math:`\mathcal{S}` at most :math:`T` times  because of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption and a fixed computational budget.
+where :math:`\xi_i = ({\bf x_i},y_i)` is given as a pair of input-output variables and belongs to a set :math:`\mathcal{S} = \{\xi_{t}\}_{1 \leq t \leq n}` of independent observations, the loss functions :math:`\ell({\bf w},\xi_i)` measures the disagreement between the true target :math:`y` and the model prediction :math:`\hat{y}` while the regularization term :math:`\Omega({\bf w})` penalizes the complexity of the model :math:`{\bf w}`. We draw uniformly :math:`\xi_i` from :math:`\mathcal{S}` at most :math:`T` times due of the `i.i.d. <https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables>`_ assumption and a fixed computational budget. 
 
+Particular choices of loss functions are (but not restricted to the selection below):
+
+- `hinge loss <https://en.wikipedia.org/wiki/Hinge_loss>`_ 
+- `logistic loss <https://en.wikipedia.org/wiki/Loss_functions_for_classification#Logistic_loss>`_
+- least squares loss
+- etc.
+
+Particular choices of the `regularization term <https://en.wikipedia.org/wiki/Regularization_(mathematics)>`_ are:
+
+- :math:`l_2`-regularization (:math:`\|w\|_2^2`)
+- `elastic net <https://en.wikipedia.org/wiki/Elastic_net_regularization>`_ regularization (:math:`\lambda_1\|w\|_1 + \lambda\|w\|_2^2`)
+- reweighted :math:`l_2`-`regularization <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/isnn2014_jumutc_suykens.pdf>`_
+- reweighted :math:`l_1`-`regularization <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_
 
 References
 ***********
