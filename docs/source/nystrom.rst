@@ -1,7 +1,7 @@
 Nyström Approximation
 =====================
 
-While linear techniques operating in the primal (input) space are able to achieve good generalization capabilities in some specific application areas, one cannot in general approximate with the linear model more complex phenomenon and highly nonlinear functions. To overcome restrictions of Algorithm \ref{pegasos_pbl} which operates only in the primal space we apply a Fixed-Size approach [FS2008]_ and Nyström approximation [WS2001]_ to approximate a kernel-induced feature map with some higher dimensional explicit and approximate feature vector.
+While linear techniques operating in the primal (input) space are able to achieve good generalization capabilities in some specific application areas, one cannot in general approximate with the linear model more complex phenomenon and highly nonlinear functions. We apply a Fixed-Size approach [FS2008]_ and Nyström approximation [WS2001]_ to approximate a kernel-induced feature map with some higher dimensional explicit and approximate feature vector.
 
 We select prototype vectors (small working sample of size :math:`m \ll n`) and construct, for instance an RBF kernel matrix :math:`K` with
 

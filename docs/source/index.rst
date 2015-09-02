@@ -4,16 +4,18 @@ Welcome to SALSA's documentation!
 
 .. image:: ../images/SALSA.png
     :align: left
-    :width: 60px
+    :width: 80px
 
 
-**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation of the well known stochastic algorithms for linear and non-linear **Support Vector Machines**. 
+**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation under `GPLv3 license <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ of the well known stochastic algorithms for 
+- linear and non-linear **Support Vector Machines** [Boser1992]_
+- sparse linear models [Hastie2015]_
 
 |
 Mathematical background
 ************************
 
-**SALSA** package aims at stochastically learning a classifier or regressor via Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-know Machine Learning problems of the type:
+The **SALSA** package aims at stochastically learning a classifier or regressor via the Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-known Machine Learning problems of the type:
 
 .. math::
         \min_{\bf w} \sum_{i=1}^n \ell({\bf w},\xi_i) + \Omega({\bf w}),
@@ -65,4 +67,6 @@ Contents:
 .. * :ref:`modindex`
 .. * :ref:`search`
 
-.. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory." In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.
+.. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory", In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.
+.. [Boser1992] Boser, B., Guyon, I., Vapnik, V. "A training algorithm for optimal margin classifiers", In Proceedings of the fifth annual workshop on Computational learning theory - COLT'92., pp. 144-152, 1992.
+.. [Hastie2015] Hastie T., Tibshirani R., Wainwright M. "Statistical Learning with Sparsity: The Lasso and Generalizations", Chapman & Hall/CRC Monographs on Statistics & Applied Probability, 2015.
