@@ -87,7 +87,7 @@ end
 SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             mode::Type{M},                      # mode used to learn model: LINEAR vs. NONLINEAR
             algorithm::A,                       # algorithm used to learn the model, e.g. PEGASOS 
-            loss_function::Type{L};             # type of a loss function used to learn model, e.g. HINGE
+            loss_function::Type{L};             # type of a loss function used to learn the model, e.g. HINGE
             kernel::Type{K} = RBFKernel,        # kernel used in NONLINEAR mode to compute Nystrom approx.
             global_opt::GlobalOpt = CSA(),      # global optimization techniques for tuning hyperparameters
             subset_size::Float64 = 5e-1,        # subset size used in NONLINEAR mode to compute Nystrom approx.
@@ -95,11 +95,11 @@ SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}(
             max_iter::Int = 1000,               # maximal number of iterations (budget) for any algorithm for final training 
             max_cv_k::Int = 1,                  # maximal number of data points used to compute loss derivative in training CV 
             max_k::Int = 1,                     # maximal number of data points used to compute loss derivative for final training 
-            online_pass::Int = 0,               # if > 0 we are in the online learning setting going through entire dataset <online_pass> times
+            online_pass::Int = 0,               # if > 0 we are in the online learning setting going through the entire dataset <online_pass> times
             normalized::Bool = true,            # normalize data (extracting mean and std) before passing it to CV and final learning 
             process_labels::Bool = true,        # process labels to comply with binary (-1 vs. 1) or multi-class classification encoding 
-            tolerance::Float64 = 1e-5,          # criterion ||w_{t+1} - w_t|| <= tolerance is evaluated for early stopping (online_pass==0) 
-            sparsity_cv::Float64 = 2e-1,        # sparisty affinity compelment to any validation_criterion for CV used in RDA type of algorithms 
+            tolerance::Float64 = 1e-5,          # the criterion ||w_{t+1} - w_t|| <= tolerance is evaluated for early stopping (online_pass==0) 
+            sparsity_cv::Float64 = 2e-1,        # sparsity weight in the combined cross-validation/sparsity criterion used for the RDA type of algorithms 
             validation_criterion = MISCLASS(),  # validation criterion used to verify the generalization capabilities of the model in CV
             cv_gen = @compat Nullable{CrossValGenerator}()) = 
         SALSAModel(mode,algorithm,kernel,loss_function,global_opt,subset_size,max_cv_iter,max_iter,max_cv_k,max_k,

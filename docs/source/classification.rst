@@ -1,9 +1,9 @@
 Classification
 ================
 
-A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set. SALSA package provides many different options for learning stochastically a classification model which would explain the provided training data.
+A classification example explained by the usage of SALSA package on the `Ripley <http://www.esat.kuleuven.be/sista/lssvmlab/tutorial/node14.html>`_ data set. SALSA package provides many different options for stochastically learning a classification model.
 
-This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it. Package provides full-stack functionality including cross-validation of all model- and algorithm-related hyperparameters. 
+This package provides a function ``salsa`` and explanation on ``SALSAModel`` which accompanies and complements it. The package provides full-stack functionality including cross-validation of all model- and algorithm-related hyperparameters. 
 
 Knowledge agnostic usage
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -15,7 +15,7 @@ Knowledge agnostic usage
     .. math::
         \hat{y} = \mathrm{sign}(\langle x, w \rangle + b) 
 
-    based on data given in ``X`` and labeling specified in ``Y``. Optionally evaluate it on ``Xtest``. Data should be given in the row-wise format (one sample per row). The classification model is embedded into returned ``model`` as ``model.output``. The choise of different algorithms, loss functions and modes will be explained further in this chapter. 
+    based on data given in ``X`` and labeling specified in ``Y``. Optionally evaluate it on ``Xtest``. Data should be given in row-wise format (one sample per row). The classification model is embedded into the returned ``model`` as ``model.output``. The choice of different algorithms, loss functions and modes will be explained further on this page. 
 
     .. code-block:: julia
 
@@ -32,7 +32,7 @@ Knowledge agnostic usage
 
     Create a classification model with the specified choice of algorithm, mode and loss function.
 
-    :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply Nyström method for approximating feature map before
+    :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply the Nyström method for approximating the feature map before proceeding with the learning scheme.
     :param algorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.
     :param loss: loss function to use when learning a classification model, e.g.  ``HINGE``, ``LOGISTIC`` etc.
     :param X: training data (samples)
@@ -61,22 +61,22 @@ Model-based usage
     :param X: training data (samples)
     :param Y: training labels
     :param Xtest: test data for out-of-sample evaluation 
-    :param model: model is of type ``SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}`` and can be summaized as follows (with default values for named parameters):
+    :param model: model is of type ``SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}`` and can be summarized as follows (with default values for named parameters):
     - ``mode::Type{M}``: mode used to learn the model: LINEAR vs. NONLINEAR (mandatory parameter)
     - ``algorithm::A``: algorithm used to learn the model, e.g. PEGASOS (mandatory parameter)
-    - ``loss_function::Type{L}``: type of a loss function used to learn model, e.g. HINGE (mandatory parameter)
-    - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nystrom approx.
+    - ``loss_function::Type{L}``: type of a loss function used to learn the model, e.g. HINGE (mandatory parameter)
+    - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nyström approx.
     - ``global_opt::GlobalOpt = CSA()``: global optimization techniques for tuning hyperparameters
-    - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nystrom approx.
+    - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nyström approx.
     - ``max_cv_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm in training CV 
     - ``max_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm for final training 
     - ``max_cv_k::Int = 1``: maximal number of data points used to compute loss derivative in training CV 
     - ``max_k::Int = 1``: maximal number of data points used to compute loss derivative for final training 
-    - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through entire dataset <online_pass> times
+    - ``online_pass::Int = 0``: if > 0 we are in the online learning setting going through the entire dataset <online_pass> times
     - ``normalized::Bool = true``: normalize data (extracting mean and std) before passing it to CV and final learning 
     - ``process_labels::Bool = true``: process labels to comply with binary (-1 vs. 1) or multi-class classification encoding 
-    - ``tolerance::Float64 = 1e-5``: criterion is evaluated for early stopping (``online_pass==0``) :math:`||w_{t+1} - w_t|| <= tolerance` 
-    - ``sparsity_cv::Float64 = 2e-2``: sparisty affinity compelment to any validation_criterion for CV used in RDA type of algorithms 
+    - ``tolerance::Float64 = 1e-5``: the criterion is evaluated for early stopping (``online_pass==0``) :math:`||w_{t+1} - w_t|| <= tolerance` 
+    - ``sparsity_cv::Float64 = 2e-1``: sparsity weight in the combined cross-validation/sparsity criterion used for the RDA type of algorithms 
     - ``validation_criterion = MISCLASS()``: validation criterion used to verify the generalization capabilities of the model in cross-validation
 
     :return: ``SALSAModel`` object with ``model.output`` of type ``OutputModel`` structured as follows:
