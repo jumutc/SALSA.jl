@@ -72,6 +72,16 @@ Dependencies
 - `DataFrames <https://github.com/JuliaStats/DataFrames.jl>`_: to support and process files instead of in-memory matrices 
 - `Clustering <https://github.com/JuliaStats/Clustering.jl>`_: to support Stochastic K-means Clustering (experimental feature)
 
+Indices and tables
+******************
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+.. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory", In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.
+.. [Boser1992] Boser, B., Guyon, I., Vapnik, V. "A training algorithm for optimal margin classifiers", In Proceedings of the fifth annual workshop on Computational learning theory - COLT'92., pp. 144-152, 1992.
+.. [Hastie2015] Hastie T., Tibshirani R., Wainwright M. Statistical Learning with Sparsity: The Lasso and Generalizations, Chapman & Hall/CRC Monographs on Statistics & Applied Probability, 2015.
 
 .. toctree::
    :hidden:
@@ -82,16 +92,3 @@ Dependencies
    regression.rst
    model_tuning.rst
    nystrom.rst
-   
-
-
-.. Indices and tables
-.. ==================
-
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
-
-.. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory", In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.
-.. [Boser1992] Boser, B., Guyon, I., Vapnik, V. "A training algorithm for optimal margin classifiers", In Proceedings of the fifth annual workshop on Computational learning theory - COLT'92., pp. 144-152, 1992.
-.. [Hastie2015] Hastie T., Tibshirani R., Wainwright M. Statistical Learning with Sparsity: The Lasso and Generalizations, Chapman & Hall/CRC Monographs on Statistics & Applied Probability, 2015.
