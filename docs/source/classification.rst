@@ -67,7 +67,7 @@ Model-based usage
     - ``loss_function::Type{L}``: type of a loss function used to learn the model, e.g. HINGE (mandatory parameter)
     - ``kernel::Type{K} = RBFKernel``: kernel used in NONLINEAR mode to compute Nyström approximation
     - ``global_opt::GlobalOpt = CSA()``: global optimization techniques for tuning hyperparameters
-    - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nyström approx.
+    - ``subset_size::Float64 = 5e-1``: subset size used in NONLINEAR mode to compute Nyström approximation
     - ``max_cv_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm in training CV 
     - ``max_iter::Int = 1000``: maximal number of iterations (budget) for any algorithm for final training 
     - ``max_cv_k::Int = 1``: maximal number of data points used to compute loss derivative in training CV 
