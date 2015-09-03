@@ -65,7 +65,7 @@ References
 Dependencies
 *************
 
-- `MLBase <https://github.com/JuliaStats/MLBase.jl>`_: to support generic Machine Learning routines, e.g. cross-validation, performance measures etc.
+- `MLBase <https://github.com/JuliaStats/MLBase.jl>`_: to support generic Machine Learning routines
 - `StatsBase <https://github.com/JuliaStats/StatsBase.jl>`_: to support generic routines from Statistics
 - `Distances <https://github.com/JuliaStats/Distances.jl>`_: to support distance metrics between vectors
 - `Distributions <https://github.com/JuliaStats/Distributions.jl>`_: to support sampling from various distributions
