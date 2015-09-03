@@ -10,10 +10,14 @@ immutable RBFKernel <: Kernel
     end
 end
 
-function kernel_from_data_model(k::Type{RBFKernel}, X)
+function kernel_from_data_model(k::Type{RBFKernel}, X::Matrix)
     (N,dim) = size(X)
     sig2 = mean((std(X)*(N^(-1/(dim+4)))).^2)
     kernel_from_parameters(k,exp(sig2))
+end
+
+function kernel_from_data_model(k::Type{RBFKernel}, X::DelimitedFile)
+    kernel_from_parameters(k,exp(randn(1)))
 end
 
 

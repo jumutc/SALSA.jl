@@ -11,6 +11,9 @@ kernel_matrix(k::Kernel, X::SubArray, Xn::SubArray) = kernel_matrix(k, X[:,:], X
 kernel_matrix(k::Kernel, X::SubArray, Xn) = kernel_matrix(k, X[:,:], Xn)
 kernel_matrix(k::Kernel, X, Xn::SubArray) = kernel_matrix(k, X, Xn[:,:])
 
+kernel_matrix(k::Kernel, X::DelimitedFile, Xn) = kernel_matrix(k, sub(X,:,:), Xn)
+kernel_matrix(k::Kernel, X::DelimitedFile) = begin Xf = sub(X,:,:); kernel_matrix(k, Xf, Xf) end
+
 include("rbf_kernel.jl")
 include("polynomial_kernel.jl")
 include("linear_kernel.jl")

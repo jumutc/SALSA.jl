@@ -1,3 +1,5 @@
+AFEm(Xs, k::Kernel, X::DelimitedFile) = AFEm(Xs,k,sub(X,:,:))
+
 function AFEm(Xs, k::Kernel, X)
     #
     # Automatic Feature Extraction by Nystrom method

@@ -8,6 +8,8 @@ immutable DelimitedFile <: DataWrapper
 end
 
 issparse(f::DelimitedFile) = false
+count(f::DelimitedFile) = countlines(f.name) - f.header
+isempty(f::DelimitedFile) = count(f) == 0 
 
 getindex(f::DelimitedFile, I::(@compat Tuple{Integer,Integer})) = getindex(f, I[1], I[2])
 
@@ -19,6 +21,10 @@ function sub(f::DelimitedFile, I::AbstractVector, ::Colon)
 	vcat([sub(f,i,:) for i in I]...)
 end
 
+function sub(f::DelimitedFile, ::Colon, ::Colon)
+	convert(Array, readtable(f.name, separator=f.delim, header=f.header))
+end
+
 function sub(f::DelimitedFile, i::Int, ::Colon)
 	convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header))
 end
@@ -26,6 +32,8 @@ end
 # fix for julia release where this function is absent, TODO: remove when we move to julia 0.4+
 sub(a::SubArray, I::AbstractVector, ::Colon) = convert(Array, a[I,:])
 sub(a::AbstractMatrix, I::AbstractVector, ::Colon) = a[I,:]
+sub(a::AbstractMatrix, i::Int, ::Colon) = a[i,:]
+sub(a::AbstractMatrix, ::Colon, ::Colon) = a
 
 function size(f::DelimitedFile, n::Int=0)
 	if n == 0

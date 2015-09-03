@@ -62,16 +62,16 @@ export salsa,
 
 
 using MLBase, Distributions, Compat, Distances, Clustering
-import Base: size, getindex, issparse, sub, show
+import Base: size, getindex, issparse, sub, show, isempty
 import StatsBase: counts, predict
 
 # needed support files
+include(joinpath("support", "data_wrapper.jl"))
 include(joinpath("kernels", "kernels.jl"))
 include(joinpath("support", "constants.jl"))
 include(joinpath("support", "entropy_subset.jl"))
 include(joinpath("support", "algorithm_support.jl"))
 include(joinpath("support", "validation_support.jl"))
-include(joinpath("support", "data_wrapper.jl"))
 include(joinpath("support", "membership.jl"))
 include(joinpath("support", "sparse.jl"))
 include(joinpath("support", "mapstd.jl"))
@@ -123,5 +123,10 @@ salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = 
 salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
 salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
 salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
+# extensive set of multiplicated aliases for different algorithms and models /// DelimitedFile
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::DelimitedFile, Y::Array{N,1}, Xtest::DelimitedFile) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::DelimitedFile, Y::Array{N,2}, Xtest::DelimitedFile) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{N <: Number}(X::DelimitedFile, Y::Array{N,1}, Xtest::DelimitedFile) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::DelimitedFile, Y::Array{N,2}, Xtest::DelimitedFile) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
 
 end

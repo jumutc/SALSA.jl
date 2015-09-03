@@ -23,13 +23,13 @@ function entropy_subset{K <: Kernel}(X, k::K, represent_points)
         temptotalcrit = totalcrit - 2*val + 1
         #Try to evaluate kernel function 
         if (id == capacity) 
-            sub = totalinfo1[1:id-1]
+            subi = totalinfo1[1:id-1]
         elseif (id == 1)
-            sub = totalinfo1[id+1:end]
+            subi = totalinfo1[id+1:end]
         else   
-            sub = totalinfo1[[1:id-1;id+1:end]]
+            subi = totalinfo1[[1:id-1;id+1:end]]
         end
-        distance_eval = sum(kernel_matrix(k,X[i,:],svX[sub,:]))
+        distance_eval = sum(kernel_matrix(k,sub(X,i,:),svX[subi,:]))
         # Add to totalcrit once for row and once for column 
         # and subtract 1 for diagonal term which is added twice
         temptotalcrit = temptotalcrit + 2*distance_eval - 1

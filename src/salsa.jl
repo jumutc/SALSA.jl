@@ -32,7 +32,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 		model.output = OutputModel{model.mode}()
 	end
 
-    if model.normalized && isempty(Xtest) && typeof(X) <: Array
+    if model.normalized && typeof(X) <: Array && isempty(Xtest) 
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
 	elseif model.normalized && typeof(X) <: Array
 	    (X, model.output.X_mean, model.output.X_std) = mapstd(X)
@@ -51,8 +51,8 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 
 	(model.output.w, model.output.b) = salsa(X,Y,model)
 
-	if size(Y,2) > 1 && typeof(model.validation_criterion) <: MISCLASS && !isempty(Xtest) 
-		# multi-class case (One vs. All) with MISCLASS cross-validation criterion
+	if size(Y,2) > 1 && !isempty(Xtest) 
+		# multi-class case (One vs. All)
 		model.output.Ytest = membership(predict_latent(model,Xtest))
 	elseif !isempty(Xtest) # binary or regression case
 		model.output.Ytest = predict(model,Xtest)

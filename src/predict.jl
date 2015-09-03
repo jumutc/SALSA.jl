@@ -7,6 +7,9 @@ predict(criterion::MISCLASS, model::SALSAModel, X) 	= predict_raw(model, X)
 predict(criterion::MSE, model::SALSAModel, X) 	  	= predict_latent_raw(model, X)
 predict(criterion::SILHOUETTE, model::SALSAModel, X) = predict_by_distance(model, X)
 
+predict_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_raw(model,sub(f,i,:)) for i=1:count(f)]...)
+predict_latent_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_latent_raw(model,sub(f,i,:)) for i=1:count(f)]...)
+
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR
   		predict(model.validation_criterion,model,X)
