@@ -102,8 +102,8 @@ include("run_algorithm.jl")
 include("validation_criteria.jl")
 include("tune_algorithm.jl")
 include("tune_algorithm_AFEm.jl")
-# main runnable
-include("salsa.jl")
+# main runnable source
+include("salsa_main.jl")
 
 # extensive set of multiplicated aliases for different algorithms and models /// dense matrices
 salsa{L <: Loss, A <: Algorithm, M <: Mode, N1 <: Number, N2 <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
