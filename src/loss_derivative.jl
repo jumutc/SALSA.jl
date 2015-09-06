@@ -43,7 +43,6 @@ hinge_loss(At::Matrix,yt::Vector,idx) = -sum(At[:,idx].*repmat(yt[idx]',size(At,
 hinge_loss(At::SparseMatrixCSC,yt,idx) = reduce((d0,i) -> d0 - (At[:,i] .* yt[i]), spzeros(size(At,1),1), Set(idx))
 
 # PINBALL LOSS
-# introduce polymorphism for sparse matrices
 function pinball_loss_derivative(At,yt,w,tau) 
    d = init(At) 
    idx = find(evaluate(At,yt,w) .< 1)
@@ -57,7 +56,8 @@ function pinball_loss_derivative(At,yt,w,tau)
    d
 end
 
-pinball_loss_derivative{T <: Number, AM <: AbstractMatrix}(At::AM,yt::T,w,tau) = evaluate(At,yt,w) < 1 ? -At.*yt : tau*At.*yt
+pinball_loss_derivative{T <: Number, AV <: AbstractVector}(At::AV,yt::T,w,tau) = evaluate(At,yt,w) < 1 ? -At.*yt : tau*At.*yt
+pinball_loss_derivative{T <: Number}(At::SparseMatrixCSC,yt::T,w,tau) = evaluate(At,yt,w)[1] < 1 ? -At.*yt : tau*At.*yt
 
 # LOGISTIC LOSS
 logistic_loss(At::Matrix,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
