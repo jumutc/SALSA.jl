@@ -3,6 +3,7 @@
 # SALSA.jl
 [![Build Status](https://travis-ci.org/jumutc/SALSA.jl.svg)](https://travis-ci.org/jumutc/SALSA.jl)
 [![Coverage Status](https://coveralls.io/repos/jumutc/SALSA.jl/badge.svg)](https://coveralls.io/r/jumutc/SALSA.jl)
+[![Documentation Status](https://readthedocs.org/projects/salsajl/badge/?version=latest)](https://readthedocs.org/projects/salsajl/)
 
 ## Software Lab
 **SALSA**: **S**oftware Lab for **A**dvanced Machine **L**earning and **S**tochastic **A**lgorithms is a native Julia implementation of the well known stochastic algorithms for **sparse linear modelling**, linear and non-linear **Support Vector Machines**. It is stemmed from the following algorithmic approaches:
