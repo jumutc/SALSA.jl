@@ -37,25 +37,26 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 							  '\n' => QAOption((ans)-> append!(indices,1:1:size(X,2)), @compat Nullable(n3)))
 	n3.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n5)),
 					  		  'n' => QAOption((ans) -> begin proto = SALSAModel(LEAST_SQUARES,proto);
-					  						   				 proto.process_labels = false end, Nullable(n6)),
+					  						   				 proto.process_labels = false;
+					  						   				 proto.validation_criterion = MSE() end, Nullable(n6)),
 					  		  '\n' => QAOption((ans)-> Void, @compat Nullable(n5)))
 	n4.options = @compat @compat Dict('y' => QAOption((ans) -> 
 										proto[1] = SALSAModel(LINEAR,RK_MEANS(PEGASOS,ans,20,Euclidean()),LEAST_SQUARES,
 										validation_criterion=SILHOUETTE(),global_opt=DS([1]),process_labels=false), @compat Nullable()))
-	n5.options = @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(loss_opts[ans],proto), @compat Nullable(n6)),
-							  '\n' => QAOption((ans)-> proto = SALSAModel(loss_opts[2],proto), @compat Nullable(n6)))
+	n5.options = @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(loss_opts[ans],proto), @compat Nullable(n8)),
+							  '\n' => QAOption((ans)-> proto = SALSAModel(loss_opts[2],proto), @compat Nullable(n8)))
 	n6.options = @compat Dict('n' => QAOption((ans) -> proto = SALSAModel(mode_opts[ans],proto), @compat Nullable(n7)),
 					  		  'y' => QAOption((ans) -> proto = SALSAModel(mode_opts[ans],proto), @compat Nullable(n10)),
 					  		  '\n' => QAOption((ans)-> proto = SALSAModel(mode_opts['n'],proto), @compat Nullable(n7)))
-	n7.options = @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(algo_opts[ans],proto), @compat Nullable(n8)),
-							  '\n' => QAOption((ans)-> proto = SALSAModel(algo_opts[2],proto), @compat Nullable(n8)))
-	n8.options = @compat Dict('y' => QAOption((ans) -> proto.validation_criterion = criterion_opts[ans], @compat Nullable(n9)),
-							  '\n' => QAOption((ans)-> proto.validation_criterion = criterion_opts[2], @compat Nullable(n9)))
+	n7.options = @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(algo_opts[ans],proto), @compat Nullable(n9)),
+							  '\n' => QAOption((ans)-> proto = SALSAModel(algo_opts[2],proto), @compat Nullable(n9)))
+	n8.options = @compat Dict('y' => QAOption((ans) -> proto.validation_criterion = criterion_opts[ans], @compat Nullable(n6)),
+							  '\n' => QAOption((ans)-> proto.validation_criterion = criterion_opts[2], @compat Nullable(n6)))
 	n9.options = @compat Dict('y' => QAOption((ans) -> proto.global_opt = optim_opts[ans], @compat Nullable()),
 							  '\n' => QAOption((ans)-> proto.global_opt = optim_opts[1], @compat Nullable()))
 	n10.options= @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(kernel_opts[ans],proto), @compat Nullable(n7)),
 							  '\n' => QAOption((ans)-> proto = SALSAModel(kernel_opts[3],proto), @compat Nullable(n7)))
-
+	
 	current = @compat Nullable(n1)
 
 	while ~isnull(current)

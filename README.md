@@ -39,9 +39,11 @@ model = salsa(data["X"], data["Y"], data["Xt"])
 ```
 or using Q&A tables
 ```julia
-julia> model = salsa_qa(readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv")))
+using SALSA
 
-Do you have any target variable of interest in X (or ENTER for default 'yes')? [y/n]:  
+model = salsa_qa(readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv")))
+
+Do you have any target variable of interest in X (or ENTER for default 'yes')? [y/n]: 
 
 Please provide the column number of your target variable (or ENTER for default last column): 
 
@@ -53,7 +55,13 @@ Please select a loss function from options (or ENTER for default)
 	3 : SALSA.LEAST_SQUARES
 	4 : SALSA.LOGISTIC
 	5 : SALSA.MODIFIED_HUBER
-:  
+: 
+
+Please select a cross-validation (CV) criterion from options (or ENTER for default)
+ 	1 : SALSA.AUC (Area Under ROC Curve with 100 thresholds)
+	2 : SALSA.MISCLASS (Misclassification Rate) (default)
+	3 : SALSA.MSE (Mean Squared Error)
+: 
 
 Do you want to perform Nyström (nonlinear) approximation (or ENTER for default)? [y/n]
  	n : SALSA.LINEAR (default)
@@ -68,12 +76,6 @@ Please select an algorithm from options (or ENTER for default)
 	5 : SALSA.L1RDA (l1-Regularized Dual Averaging)
 	6 : SALSA.R_L1RDA (Reweighted l1-Regularized Dual Averaging)
 	7 : SALSA.R_L2RDA (Reweighted l2-Regularized Dual Averaging)
-: 
-
-Please select a cross-validation (CV) criterion from options (or ENTER for default)
- 	1 : SALSA.AUC (Area Under ROC Curve with 100 thresholds)
-	2 : SALSA.MISCLASS (Misclassification Rate) (default)
-	3 : SALSA.MSE (Mean Squared Error)
 : 
 
 Please select a global optimization method from options (or ENTER for default)

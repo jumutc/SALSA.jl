@@ -53,7 +53,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 
 	if size(Y,2) > 1 && !isempty(Xtest) 
 		# multi-class case (One vs. All)
-		model.output.Ytest = membership(predict_latent(model,Xtest))
+		model.output.Ytest = membership(predict_latent(model,Xtest))''
 	elseif !isempty(Xtest) # binary or regression case
 		model.output.Ytest = predict(model,Xtest)
 	end
