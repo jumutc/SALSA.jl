@@ -41,7 +41,7 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 					  						   				 proto.validation_criterion = MSE() end, Nullable(n6)),
 					  		  '\n' => QAOption((ans)-> Void, @compat Nullable(n5)))
 	n4.options = @compat @compat Dict('y' => QAOption((ans) -> 
-										proto[1] = SALSAModel(LINEAR,RK_MEANS(PEGASOS,ans,20,Euclidean()),LEAST_SQUARES,
+										proto = SALSAModel(LINEAR,RK_MEANS(PEGASOS,ans,20,Euclidean()),LEAST_SQUARES,
 										validation_criterion=SILHOUETTE(),global_opt=DS([1]),process_labels=false), @compat Nullable()))
 	n5.options = @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(loss_opts[ans],proto), @compat Nullable(n8)),
 							  '\n' => QAOption((ans)-> proto = SALSAModel(loss_opts[2],proto), @compat Nullable(n8)))
