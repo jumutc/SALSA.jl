@@ -51,7 +51,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 
 	(model.output.w, model.output.b) = salsa(X,Y,model)
 
-	if size(Y,2) > 1 && !isempty(Xtest) 
+	if size(Y,2) > 1 && !isempty(Xtest) && typeof(model.algorithm) != RK_MEANS  
 		# multi-class case (One vs. All)
 		model.output.Ytest = membership(predict_latent(model,Xtest))''
 	elseif !isempty(Xtest) # binary or regression case
