@@ -43,10 +43,19 @@ end
 
 # Map data to existing mean/std in the model and predict
 function map_predict(model::SALSAModel,X) 
-	if isdefined(model.output,:X_mean) && isdefined(model.output,:X_mean) 
+	if isdefined(model.output,:X_mean) && isdefined(model.output,:X_std) 
 		X = mapstd(X,model.output.X_mean,model.output.X_std)
 		predict(model,X)
 	else
 		predict(model,X)
+	end
+end
+
+function map_predict_latent(model::SALSAModel,X) 
+	if isdefined(model.output,:X_mean) && isdefined(model.output,:X_std) 
+		X = mapstd(X,model.output.X_mean,model.output.X_std)
+		predict_latent(model,X)
+	else
+		predict_latent(model,X)
 	end
 end
