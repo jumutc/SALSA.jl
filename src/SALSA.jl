@@ -21,6 +21,7 @@ export salsa,
     HINGE,
     PINBALL, 
     LOGISTIC, 
+    SQUARED_HINGE,
     LEAST_SQUARES, 
     MODIFIED_HUBER,
     # algorithms

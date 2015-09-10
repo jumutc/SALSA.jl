@@ -4,6 +4,7 @@ abstract Loss
 abstract NonParametricLoss <: Loss
 immutable HINGE <: NonParametricLoss end
 immutable LOGISTIC <: NonParametricLoss end
+immutable SQUARED_HINGE <: NonParametricLoss end
 immutable MODIFIED_HUBER <: NonParametricLoss end
 immutable LEAST_SQUARES <: NonParametricLoss end
 immutable PINBALL <: Loss end

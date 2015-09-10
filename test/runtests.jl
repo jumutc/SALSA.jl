@@ -1,4 +1,5 @@
-tests = ["unit/test_pegasos", 
+tests = ["unit/test_loss_derivative",
+		 "unit/test_pegasos", 
 		 "unit/test_wrapper",
 		 "unit/test_sparse",
 		 "unit/test_show",

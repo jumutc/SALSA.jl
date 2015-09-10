@@ -16,7 +16,8 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))
         X = [X'; sparse(ones(1,N))]
-        f_sample = (p) -> rand(Bernoulli(p^2/(1+p^2))) 
+        f_sample = (p) -> isnan(p^2/(1+p^2)) ? 
+              rand(Bernoulli(0)) : rand(Bernoulli(p^2/(1+p^2))) 
         sub_arr = (I) -> X[:,I]
     end
 
