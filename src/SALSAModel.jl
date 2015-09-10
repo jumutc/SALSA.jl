@@ -54,7 +54,10 @@ type OutputModel{M <: Mode}
     Ytest
     w
     b
-
+	cv_folds::Array
+	cv_n_f::Int
+	cv_n::Int
+	
     OutputModel() = new()
 end
 
@@ -78,7 +81,6 @@ type SALSAModel{L <: Loss, A <: Algorithm,
     sparsity_cv::Float64
     validation_criterion::Criterion
     cv_gen::@compat Nullable{CVG}
-    
     # internals and output
     output::OutputModel{M}
 end
