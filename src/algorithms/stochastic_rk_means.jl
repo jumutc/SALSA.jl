@@ -24,7 +24,7 @@ function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_param
 
 	N, d  = size(X)
     check = issparse(X)
-    dfunc = loss_derivative(RK_MEANS)
+    dfunc = loss_derivative(rk_means)
     
     if ~check
         w = rand(d,rk_means.k_clusters)

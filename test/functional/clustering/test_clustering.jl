@@ -13,3 +13,13 @@ model = salsa(X,dummy,model,X)
 mappings = model.output.Ytest
 
 @test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .7 0.05
+
+srand(1234)
+dummy = ones(length(Y),1)
+model = SALSAModel(LINEAR,RK_MEANS(PEGASOS,3,20,CosineDist()),HINGE,
+					validation_criterion=SILHOUETTE(),global_opt=DS([1]),process_labels=false,
+					cv_gen = @compat Nullable{CrossValGenerator}(Kfold(length(Y),3)))
+model = salsa(X,dummy,model,X)
+mappings = model.output.Ytest
+
+@test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .8 0.05

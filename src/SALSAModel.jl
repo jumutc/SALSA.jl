@@ -20,7 +20,7 @@ immutable ADA_L1RDA <: RDA end
 immutable DROP_OUT <: SGD end
 immutable SIMPLE_SGD <: SGD end
 # special algorithm type for Regularized K-Means
-immutable RK_MEANS{A <: Algorithm, M <: Metric} <: Algorithm 
+immutable RK_MEANS{A <: Algorithm, M <: SemiMetric} <: Algorithm 
     support_alg::Type{A}
     k_clusters::Int
     max_iter::Int
