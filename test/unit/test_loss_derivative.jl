@@ -33,4 +33,4 @@ loss = loss_derivative(LEAST_SQUARES)
 loss = loss_derivative(MODIFIED_HUBER)
 @test loss([1;2],-1,[2;1]) == [4,8]''
 @test loss([1;2],1,[.1;.1]) == [-.7,-1.4]''
-@test loss([1 1;2 2],[-1,1],[.1;.1]) == [3.3,6.6]''
+@test loss([1 1;2 2],[-1,1],[.1;.2]) == [1,2]''
