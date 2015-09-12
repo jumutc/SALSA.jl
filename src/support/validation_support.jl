@@ -7,7 +7,7 @@ mse(y, yhat) = sse(y, yhat)/length(yhat)
 # Area Under ROC surve with latent output y
 auc(y, ylat; n=100) = std(ylat[:]) == 0 ? 0.0 : auc(roc(round(Int,y)[:], ylat[:], n))
 # provide convenient function for parallalizing cross-validation
-nfolds() = if nworkers() == 1 || nworkers() > 10 10 else nworkers() end
+nfolds() = if nprocs() == 1 || nprocs() > 10 10 else nprocs() end
 # helper function for AUC calculus
 function auc(roc::Array{ROCNums{Int}})
 	total_auc = zero(Float64)
