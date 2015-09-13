@@ -94,9 +94,9 @@ loss_derivative(::Type{PINBALL},tau::Float64) = (At,yt,w) -> pinball_loss_deriva
 loss_derivative{A <: Algorithm, M <: Euclidean}(alg::RK_MEANS{A,M}) = (At::Matrix,yt,w) ->  reduce((d0,i) -> d0 + (w - At[:,i]), zeros(size(At,1),1), 1:1:size(At,2))
 loss_derivative{A <: Algorithm, M <: CosineDist}(alg::RK_MEANS{A,M}) = (At::Matrix,yt,w) -> begin idx = find(evaluate(At,yt,w) .<= 0); -sum(At[:,idx],2) end
 
-show(io::IO, t::Type{HINGE}) = @printf io "SALSA.HINGE (%s)" "Hinge loss, i.e. l(y,p) = max(0,1 - yp)"
-show(io::IO, t::Type{LOGISTIC}) = @printf io "SALSA.HINGE (%s)" "Logistic loss, i.e. l(y,p) = log(1 + exp(-yp))"
-show(io::IO, t::Type{LOGISTIC}) = @printf io "SALSA.LEAST_SQUARES (%s)" "Squared loss, i.e. l(y,p) = 1/2*(p - y)^2"
-show(io::IO, t::Type{SQUARED_HINGE}) = @printf io "SALSA.SQUARED_HINGE (%s)" "Squared hinge loss, i.e. l(y,p) = max(0,1 - yp)^2"
-show(io::IO, t::Type{PINBALL}) = @printf io "SALSA.PINBALL (%s)" "Pinball (quantile) loss, i.e. l(y,p) = τI(yp>=1)yp + I(yp<1)(1 - yp)"
-show(io::IO, t::Type{MODIFIED_HUBER}) = @printf io "SALSA.MODIFIED_HUBER (%s)" "Modified huber loss, i.e. l(y,p) = -4I(yp<-1)yp + I(yp>=-1)max(0,1 - yp)^2"
+show(io::IO, t::Type{HINGE}) = @printf io "SALSA.HINGE (%s)" "Hinge Loss, i.e. l(y,p) = max(0,1 - yp)"
+show(io::IO, t::Type{LOGISTIC}) = @printf io "SALSA.LOGISTIC (%s)" "Logistic Loss, i.e. l(y,p) = log(1 + exp(-yp))"
+show(io::IO, t::Type{LEAST_SQUARES}) = @printf io "SALSA.LEAST_SQUARES (%s)" "Squared Loss, i.e. l(y,p) = 1/2*(p - y)^2"
+show(io::IO, t::Type{SQUARED_HINGE}) = @printf io "SALSA.SQUARED_HINGE (%s)" "Squared Hinge Loss, i.e. l(y,p) = max(0,1 - yp)^2"
+show(io::IO, t::Type{PINBALL}) = @printf io "SALSA.PINBALL (%s)" "Pinball (quantile) Loss, i.e. l(y,p) = τI(yp>=1)yp + I(yp<1)(1 - yp)"
+show(io::IO, t::Type{MODIFIED_HUBER}) = @printf io "SALSA.MODIFIED_HUBER (%s)" "Modified Huber Loss, i.e. l(y,p) = -4I(yp<-1)yp + I(yp>=-1)max(0,1 - yp)^2"
