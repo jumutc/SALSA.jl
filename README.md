@@ -50,11 +50,12 @@ Please provide the column number of your target variable (or ENTER for default l
 Is your problem of the classification type (or ENTER for default 'yes')? [y/n]: 
 
 Please select a loss function from options (or ENTER for default)
- 	1 : SALSA.PINBALL
-	2 : SALSA.HINGE (default)
-	3 : SALSA.LEAST_SQUARES
-	4 : SALSA.LOGISTIC
-	5 : SALSA.MODIFIED_HUBER
+ 	1 : SALSA.PINBALL (Pinball (quantile) Loss, i.e. l(y,p) = τI(yp>=1)yp + I(yp<1)(1 - yp))
+	2 : SALSA.HINGE (Hinge Loss, i.e. l(y,p) = max(0,1 - yp)) (default)
+	3 : SALSA.LEAST_SQUARES (Squared Loss, i.e. l(y,p) = 1/2*(p - y)^2)
+	4 : SALSA.LOGISTIC (Logistic Loss, i.e. l(y,p) = log(1 + exp(-yp)))
+	5 : SALSA.MODIFIED_HUBER (Modified Huber Loss, i.e. l(y,p) = -4I(yp<-1)yp + I(yp>=-1)max(0,1 - yp)^2)
+	6 : SALSA.SQUARED_HINGE (Squared Hinge Loss, i.e. l(y,p) = max(0,1 - yp)^2)
 : 
 
 Please select a cross-validation (CV) criterion from options (or ENTER for default)
