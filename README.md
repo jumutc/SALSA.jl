@@ -20,6 +20,9 @@
 ## Installation
  - ```Pkg.add("SALSA")```
 
+## Resources
+- **Documentation:** <http://salsajl.readthedocs.org>
+
 ## Knowledge agnostic usage
 ```julia
 using MAT, SALSA
@@ -86,7 +89,3 @@ Please select a global optimization method from options (or ENTER for default)
 
 Computing the model...
 ```
-
-## Resources
-
-- **Documentation:** <http://salsajl.readthedocs.org/en/latest/>
