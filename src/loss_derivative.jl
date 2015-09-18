@@ -86,6 +86,7 @@ least_squares_loss(At::SparseMatrixCSC,yt,w) = reduce((d0,i) -> d0 + (At[:,i] .*
 # LOSS functions for clustering
 loss_derivative{A <: Algorithm, M <: Euclidean}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) ->  reduce((d0,i) -> d0 + (w - At[:,i]), zeros(size(At,1),1), 1:1:size(At,2))
 loss_derivative{A <: Algorithm, M <: CosineDist}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) -> begin idx = find(evaluate(At,yt,w) .<= 0); -sum(At[:,idx],2) end
+loss_derivative{A <: Algorithm, M <: CosineDist}(alg::RK_MEANS{A,M}) = (At::SparseMatrixCSC,yt,w) -> begin idx = find(evaluate(At,yt,w) .<= 0); sparse(-sum(At[:,idx],2)) end
 
 # aliases of the derivatives for different loss functions
 loss_derivative(::Type{LOGISTIC}) = logistic_loss
