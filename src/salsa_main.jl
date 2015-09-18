@@ -73,3 +73,27 @@ function salsa(X, Y, model::SALSAModel)
 	    run_with_params(features_train,Y,model,pars)
 	end
 end
+
+# extensive set of multiplicated aliases for different algorithms and models /// dense matrices
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N1 <: Number, N2 <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N1 <: Number, N2 <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{A <: Algorithm, N1 <: Number, N2 <: Number}(alg::Type{A}, X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{A <: Algorithm, N1 <: Number, N2 <: Number}(alg::Type{A}, X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,1}, Xtest::Array{N1,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,2}, Xtest::Array{N1,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Int64}(0,0))
+salsa{N1 <: Number, N2 <: Number}(X::Array{N1,2}, Y::Array{N2,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Array{Int64}(0,0))
+# extensive set of multiplicated aliases for different algorithms and models /// sparse matrices
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{A <: Algorithm, N <: Number}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{A <: Algorithm, N <: Number}(alg::Type{A}, X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(X,Y,SALSAModel(LINEAR,alg(),HINGE),Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}, Xtest::SparseMatrixCSC) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,1}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
+salsa{N <: Number}(X::SparseMatrixCSC, Y::Array{N,2}) = salsa(LINEAR,PEGASOS,HINGE,X,Y,sparse([]))
+# extensive set of multiplicated aliases for different algorithms and models /// DelimitedFile
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::DelimitedFile, Y::Array{N,1}, Xtest::DelimitedFile) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{L <: Loss, A <: Algorithm, M <: Mode, N <: Number}(mode::Type{M}, alg::Type{A}, loss::Type{L}, X::DelimitedFile, Y::Array{N,2}, Xtest::DelimitedFile) = salsa(X,Y,SALSAModel(mode,alg(),loss),Xtest)
+salsa{N <: Number}(X::DelimitedFile, Y::Array{N,1}, Xtest::DelimitedFile) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)
+salsa{N <: Number}(X::DelimitedFile, Y::Array{N,2}, Xtest::DelimitedFile) = salsa(LINEAR,PEGASOS,HINGE,X,Y,Xtest)

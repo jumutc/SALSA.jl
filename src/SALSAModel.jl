@@ -113,29 +113,3 @@ SALSAModel{K <: Kernel}(kernel::Type{K}, model) = SALSAModel(model.mode,model.al
 SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
-
-check_printable(value) = typeof(value) <: Array || typeof(value) <: Mode 
-print_value(value) = check_printable(value) ? summary(value) : value
-
-show(io::IO, t::PEGASOS) = @printf io "%s (%s)" typeof(t) "Pegasos: Primal Estimated sub-GrAdient SOlver for SVM"
-show(io::IO, t::L1RDA) = @printf io "%s (%s)" typeof(t) "l1-Regularized Dual Averaging"
-show(io::IO, t::R_L1RDA) = @printf io "%s (%s)" typeof(t) "Reweighted l1-Regularized Dual Averaging"
-show(io::IO, t::R_L2RDA) = @printf io "%s (%s)" typeof(t) "Reweighted l2-Regularized Dual Averaging"
-show(io::IO, t::ADA_L1RDA) = @printf io "%s (%s)" typeof(t) "Adaptive l1-Regularized Dual Averaging"
-show(io::IO, t::DROP_OUT) = @printf io "%s (%s)" typeof(t) "Dropout Pegasos (experimental)"
-show(io::IO, t::SIMPLE_SGD) = @printf io "%s (%s)" typeof(t) "Stochastic Gradient Descent"
-
-function show(io::IO, model::SALSAModel)
-    print_with_color(:blue, io, "SALSA model:\n")
-    for field in fieldnames(model)
-        value = getfield(model,field)
-        field == :output ? println() : @printf io "\t%s : %s\n" field print_value(value)
-    end
-    print_with_color(:blue, io, "SALSA model.output:\n")
-    for field in fieldnames(model.output)
-        if isdefined(model.output,field) 
-            value = getfield(model.output,field)
-            @printf io "\t%s : %s\n" field print_value(value)
-        end
-    end
-end
