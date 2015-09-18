@@ -83,6 +83,9 @@ least_squares_loss(At::Matrix,yt,w) = At*(evaluate(At,w) - yt)
 least_squares_loss{T <: Number}(At,yt::T,w) = At.*(evaluate(At,w) - yt)
 least_squares_loss(At::SparseMatrixCSC,yt,w) = reduce((d0,i) -> d0 + (At[:,i] .* (sum(At[:,i].*w) - yt[i])), spzeros(size(At,1),1), 1:1:size(At,2))
 
+# LOSS functions for clustering
+loss_derivative{A <: Algorithm, M <: Euclidean}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) ->  reduce((d0,i) -> d0 + (w - At[:,i]), zeros(size(At,1),1), 1:1:size(At,2))
+loss_derivative{A <: Algorithm, M <: CosineDist}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) -> begin idx = find(evaluate(At,yt,w) .<= 0); -sum(At[:,idx],2) end
 
 # aliases of the derivatives for different loss functions
 loss_derivative(::Type{LOGISTIC}) = logistic_loss
@@ -91,5 +94,3 @@ loss_derivative(::Type{LEAST_SQUARES}) = least_squares_loss
 loss_derivative(::Type{SQUARED_HINGE}) = squared_hinge_loss_derivative
 loss_derivative(::Type{MODIFIED_HUBER}) = modified_huber_loss_derivative
 loss_derivative(::Type{PINBALL},tau::Float64) = (At,yt,w) -> pinball_loss_derivative(At,yt,w,tau)
-loss_derivative{A <: Algorithm, M <: Euclidean}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) ->  reduce((d0,i) -> d0 + (w - At[:,i]), zeros(size(At,1),1), 1:1:size(At,2))
-loss_derivative{A <: Algorithm, M <: CosineDist}(alg::RK_MEANS{A,M}) = (At::AbstractMatrix,yt,w) -> begin idx = find(evaluate(At,yt,w) .<= 0); -sum(At[:,idx],2) end

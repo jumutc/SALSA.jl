@@ -21,7 +21,7 @@ end
 
 # core algorithmic part
 function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_params::Vector, k::Int, max_iter::Int, 
-											 tolerance::Float64, online_pass=0, train_idx=[])
+											 tolerance::Float64, online_pass=0, train_idx=[]; num_blocks=25)
 	# Internal function for a simple Stochastic Regularized K-means
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
@@ -41,13 +41,21 @@ function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_param
     	train_idx = 1:1:N
     end
 
+    total_size = length(train_idx)
+    block_size = round(Int,total_size/num_blocks)
     failed_mapping = false; t = 1; Y = ones(N)
 
     while true
-    	dists = pairwise(rk_means.metric, sub(X,train_idx,:)', w)
-    	(x,y) = findn(dists .== minimum(dists,2))
-    	mappings = zeros(length(train_idx))
-    	mappings[x] = y
+        mappings = @parallel (vcat) for block=1:num_blocks
+            to_ind = block_size*block
+            to_ind = block == num_blocks ? total_size : to_ind
+            idx   = train_idx[num_blocks*(block-1)+1:to_ind]
+            dists = pairwise(rk_means.metric, sub(X,idx,:)', w)
+            (x,y) = findn(dists .== minimum(dists,2))
+            assignments = zeros(length(idx))
+            assignments[x] = y
+            assignments
+        end
 
     	if ~failed_mapping &&  t > rk_means.max_iter
     		break 
