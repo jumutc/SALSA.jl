@@ -65,11 +65,13 @@ export salsa,
 
 
 using MLBase, Distributions, Compat, Distances, Clustering
-import Base: size, getindex, issparse, sub, show, isempty
+import Base: size, getindex, issparse, sub, dot, show, isempty, At_mul_B!
 import StatsBase: counts, predict
+import ArrayViews: view
 
 # needed support files
 include(joinpath("support", "data_wrapper.jl"))
+include(joinpath("support", "definitions.jl"))
 include(joinpath("kernels", "kernels.jl"))
 include(joinpath("support", "constants.jl"))
 include(joinpath("support", "entropy_subset.jl"))

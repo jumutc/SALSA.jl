@@ -14,6 +14,11 @@ run_algorithm(::Type{DROP_OUT}, X, Y, dfunc::Function, alg_params::Vector, k::In
 run_algorithm(::Type{ADA_L1RDA}, X, Y, dfunc::Function, alg_params::Vector, k::Int, max_iter::Int, tolerance::Float64, online_pass, train_idx) = 
 			  adaptive_l1rda_alg(dfunc, X, Y, alg_params..., k, max_iter, tolerance, online_pass, train_idx)
 
+function At_mul_B!(C::Array{Float64,2}, A::SparseMatrixCSC, B::SparseMatrixCSC)
+    assert(size(A,1) == size(B,1))
+    C[:,:] = At_mul_B(A,B)
+end
+
 # core algorithmic part
 function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_params::Vector, k::Int, max_iter::Int, 
 											 tolerance::Float64, online_pass=0, train_idx=[])
@@ -39,7 +44,7 @@ function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_param
     failed_mapping = false; t = 1; Y = ones(N)
 
     while true
-    	dists = pairwise(rk_means.metric, convert(Array, sub(X,train_idx,:))', w)
+    	dists = pairwise(rk_means.metric, sub(X,train_idx,:)', w)
     	(x,y) = findn(dists .== minimum(dists,2))
     	mappings = zeros(length(train_idx))
     	mappings[x] = y

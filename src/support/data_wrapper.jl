@@ -29,13 +29,6 @@ function sub(f::DelimitedFile, i::Int, ::Colon)
 	convert(Array, readtable(f.name, separator=f.delim, skipstart=(i-1), nrows=1, header=f.header))
 end
 
-# fix for julia release where this function is absent, TODO: remove when we move to julia 0.4+
-sub(a::SubArray, I::AbstractVector, ::Colon) = convert(Array, a[I,:])
-sub(a::AbstractMatrix, I::AbstractVector, ::Colon) = a[I,:]
-sub(a::AbstractVector, I::AbstractVector, ::Colon) = a[I]
-sub(a::AbstractMatrix, i::Int, ::Colon) = a[i,:]
-sub(a::AbstractMatrix, ::Colon, ::Colon) = a
-
 function size(f::DelimitedFile, n::Int=0)
 	if n == 0
 		nrows = open(countlines, f.name, "r")

@@ -8,3 +8,4 @@ Distributions
 DataArrays
 DataFrames
 Clustering
+ArrayViews
