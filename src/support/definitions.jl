@@ -5,5 +5,6 @@ sub(a::AbstractMatrix, I::AbstractVector, ::Colon) = a[I,:]
 sub(a::AbstractVector, I::AbstractVector, ::Colon) = a[I]
 sub(a::AbstractMatrix, i::Int, ::Colon) = a[i,:]
 sub(a::AbstractMatrix, ::Colon, ::Colon) = a
+sub(a::SparseMatrixCSC, ::Colon, ::Colon) = a
 view(a::SparseMatrixCSC, ::Colon, I::Int) = a[:,I]
 dot(a::SparseMatrixCSC, b::SparseMatrixCSC) = sum(a.*b)

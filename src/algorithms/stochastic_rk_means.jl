@@ -37,15 +37,17 @@ function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_param
     end
 
     if isempty(train_idx)
-    	train_idx = 1:1:N
+    	X_ = sub(X,:,:)'
+    else
+        X_ = sub(X,train_idx,:)'
     end
 
     failed_mapping = false; t = 1; Y = ones(N)
 
     while true
-        dists = pairwise(rk_means.metric, sub(X,train_idx,:)', w)
+        dists = pairwise(rk_means.metric, X_, w)
         (x,y) = findn(dists .== minimum(dists,2))
-        mappings = zeros(length(train_idx))
+        mappings = zeros(size(X_,2))
         mappings[x] = y
         mappings
 
@@ -59,8 +61,7 @@ function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_param
     	
     	result = @parallel (hcat) for cluster_id in unique(mappings)
     		cluster_idx = find(mappings .== cluster_id)
-    		r = run_algorithm(rk_means.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)[1]
-            size(r) == (d,) ? r'' : r
+    		run_algorithm(rk_means.support_alg,X,Y,dfunc,alg_params,k,max_iter,tolerance,online_pass,cluster_idx)[1]
     	end
     	
     	# assign and check the result of parallel execution
