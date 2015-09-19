@@ -4,7 +4,7 @@
 	# http://www.esat.kuleuven.be/stadius/ADB/software.php
 	#
 	#    model = salsa(X,Y,model,Xtest) runs Pegasos, RDA... stochastic
-	#    algorithms suited for large-scale binary data classification
+	#    algorithms suited for large-scale machine laerning routines
 	#
 	# Based on:
 	# 
@@ -52,7 +52,7 @@ function salsa(X, Y, model::SALSAModel, Xtest)
 	(model.output.w, model.output.b) = salsa(X,Y,model)
 
 	if size(Y,2) > 1 && !isempty(Xtest) && typeof(model.algorithm) != RK_MEANS  
-		# multi-class case (One vs. All)
+		# multi-class case (One vs. All) or clustering case
 		model.output.Ytest = membership(predict_latent(model,Xtest))''
 	elseif !isempty(Xtest) # binary or regression case
 		model.output.Ytest = predict(model,Xtest)
