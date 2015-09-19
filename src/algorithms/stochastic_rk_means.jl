@@ -19,6 +19,10 @@ function At_mul_B!(C::Array{Float64,2}, A::SparseMatrixCSC, B::SparseMatrixCSC)
     C[:,:] = At_mul_B(A,B)
 end
 
+function At_mul_B!(C::Array{Float64,2}, A::SparseMatrixCSC, B::Array{Float64,2})
+    At_mul_B!(C,full(A),B)
+end
+
 # core algorithmic part
 function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_params::Vector, k::Int, max_iter::Int, 
 											 tolerance::Float64, online_pass=0, train_idx=[])
