@@ -10,14 +10,14 @@ function tune_algorithm_AFEm(X, Y, model::SALSAModel)
     
     # set the output model mode correctly
     pars = num_k > 0 ? exp(par[end-num_k+1:end]) : []
-    model.output.mode = NONLINEAR(pars,X_subset[:,:])
+    model.output.mode = NONLINEAR(pars,X_subset)
     # return model and the parameters
     model, par
 end
 
 function cross_validate_algorithm_AEFm(x0, X, Y, model, num_k, X_subset)
     pars = num_k > 0 ? exp(x0[end-num_k+1:end]) : []
-    kernel = kernel_from_parameters(model.kernel,pars)    
+    kernel = kernel_from_parameters(model.kernel,pars)
     (eigvals,eigvec) = eig_AFEm(X_subset, kernel)
     
     # perform cross-validation by a generic and parallelizable function

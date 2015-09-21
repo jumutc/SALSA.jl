@@ -42,6 +42,8 @@ end
 model_from_parameters{M <: Mode, A <: RK_MEANS, L <: Loss}(model::SALSAModel{L,A,M},params) = begin 
     if model.algorithm.support_alg <: SGD
         model.output.alg_params = [exp(params[1])]
+    elseif model.algorithm.support_alg == R_L1RDA
+        model.output.alg_params = exp(params[1:4])
     else
         model.output.alg_params = exp(params[1:3])
     end

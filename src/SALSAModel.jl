@@ -27,6 +27,10 @@ immutable RK_MEANS{A <: Algorithm, M <: SemiMetric} <: Algorithm
     metric::M
 end
 
+RK_MEANS(k_clusters::Int) = RK_MEANS(PEGASOS,k_clusters,20,Euclidean())
+RK_MEANS{A <: Algorithm}(support_alg::Type{A}, model::RK_MEANS) = RK_MEANS(support_alg,model.k_clusters,model.max_iter,model.metric)
+RK_MEANS{M <: SemiMetric}(metric::M, model::RK_MEANS) = RK_MEANS(model.support_alg,model.k_clusters,model.max_iter,metric)
+
 abstract Mode
 immutable LINEAR <: Mode end
 immutable NONLINEAR <: Mode
@@ -45,6 +49,7 @@ kernel_opts   = Dict(map(s -> create_tuple(subtypes(Kernel),s),      subtypes(Ke
 optim_opts    = Dict(map(s -> create_tuple2(subtypes(GlobalOpt),s),  subtypes(GlobalOpt)))
 criterion_opts= Dict(map(s -> create_tuple2(subtypes(CCriterion),s), subtypes(CCriterion)))
 mode_opts     = Dict(map(s -> ((s == LINEAR ? 'n' : 'y'), s),        subtypes(Mode)))
+loss_met_opts = Dict(1 => (LEAST_SQUARES, Euclidean()), 2 => (HINGE, CosineDist()))  
 
 type OutputModel{M <: Mode}
     dfunc::Function
@@ -113,3 +118,4 @@ SALSAModel{K <: Kernel}(kernel::Type{K}, model) = SALSAModel(model.mode,model.al
 SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
+SALSAModel{L <: Loss, A <: Algorithm}(loss_function::Type{L}, algorithm::A, model) = reduce((a,b)->SALSAModel(b,a),model,[loss_function,algorithm])

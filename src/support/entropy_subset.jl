@@ -1,6 +1,6 @@
-function entropy_subset{K <: Kernel}(X, k::K, represent_points)
+function entropy_subset{K <: Kernel}(X, k::K, subset_size::Float64)
     # Performs Renyi Entropy based representative points selection
-    capacity = convert(Int,ceil(represent_points))
+    capacity = round(Integer,subset_size)
     selectionset = randperm(size(X,1))
     sv = selectionset[1:capacity]
     svX = sub(X,sv,:)
