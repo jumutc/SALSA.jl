@@ -4,11 +4,6 @@ model_from_parameters{M <: Mode, A <: SGD, L <: NonParametricLoss}(model::SALSAM
     model.output.alg_params = [exp(params[1])]
     model 
 end
-model_from_parameters{M <: Mode, A <: SGD, L <: NonParametricLoss}(model::SALSAModel{L,RK_MEANS{A},M},params) = begin 
-    model.output.dfunc = loss_derivative(model.loss_function) 
-    model.output.alg_params = [exp(params[1])]
-    model 
-end
 model_from_parameters{M <: Mode, A <: SGD}(model::SALSAModel{PINBALL,A,M},params) = begin 
     model.output.dfunc = loss_derivative(model.loss_function,exp(params[1])) 
     model.output.alg_params = [exp(params[2])]
@@ -16,11 +11,6 @@ model_from_parameters{M <: Mode, A <: SGD}(model::SALSAModel{PINBALL,A,M},params
 end
 model_from_parameters{M <: Mode, A <: RDA, L <: NonParametricLoss}(model::SALSAModel{L,A,M},params) = begin 
 	model.output.dfunc = loss_derivative(model.loss_function) 
-    model.output.alg_params = exp(params[1:3])
-    model 
-end
-model_from_parameters{M <: Mode, A <: RDA, L <: NonParametricLoss}(model::SALSAModel{L,RK_MEANS{A},M},params) = begin 
-    model.output.dfunc = loss_derivative(model.loss_function) 
     model.output.alg_params = exp(params[1:3])
     model 
 end

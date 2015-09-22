@@ -1,24 +1,38 @@
-using SALSA, Base.Test
+using SALSA, Distances, Base.Test
 
 outOriginal = STDOUT
 (outRead, outWrite) = redirect_stdout()
 
 read_char = () -> '\n'
 read_int = () -> '\n'
+run_model = (X,Y,model,Xtest) -> begin
+	# test output model 
+	@test model.mode == LINEAR
+	@test model.algorithm == PEGASOS()
+	@test model.global_opt == CSA()
+	@test model.loss_function == HINGE
+	@test model.validation_criterion == MISCLASS()
+end
 
 Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
-show(salsa_qa(Xf,read_char,read_int))
-
+show(salsa_qa(Xf,read_char,read_int,run_model))
 s = utf8(readavailable(outRead))
-redirect_stdout(outOriginal)
 
-#test Q/A table
+#test Q/A table contents
 @test contains(s, "Computing the model..")
 @test contains(s, "(or ENTER for default)")
-# test output model 
-@test contains(s,"SALSA model:")
-@test contains(s,"SALSA model.output:")
-@test contains(s,"HINGE")
-@test contains(s,"PEGASOS")
-@test contains(s,"LINEAR")
-@test contains(s,"dfunc")
+
+read_char = () -> 'n'
+read_int = () -> 1
+run_model = (X,Y,model,Xtest) -> begin
+	# test output model 
+	@test model.mode == LINEAR
+	@test model.algorithm == RK_MEANS(DROP_OUT,1,20,Euclidean())
+	@test model.global_opt == CSA()
+	@test model.loss_function == LEAST_SQUARES
+	@test model.validation_criterion == SILHOUETTE()
+end
+
+Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
+salsa_qa(Xf,read_char,read_int,run_model)
+redirect_stdout(outOriginal)

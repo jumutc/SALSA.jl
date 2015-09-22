@@ -1,10 +1,10 @@
 function salsa_qa{N <: Number}(X::Matrix{N})
 	read_char = () -> lowercase(readline(STDIN)[1])
 	read_int  = () -> try parse(Int,readline(STDIN)[1]) catch '\n' end
-	salsa_qa(X,read_char,read_int)
+	salsa_qa(X,read_char,read_int,salsa)
 end
 
-function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Function)
+function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Function, run_model::Function)
 	proto = SALSAModel(); indices = @compat Array{Int}(0); clusteringMode = false
 	get_key   = (ans) -> typeof(ans) == Char ? ans : 'y'
 
@@ -85,7 +85,7 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 	end
 
 	@printf "\nComputing the model...\n"
-	salsa(X,Y,proto,X)
+	run_model(X,Y,proto,X)
 end
 
 function print_opts(opts,default)
