@@ -17,7 +17,7 @@ mappings = model.output.Ytest
 srand(1234)
 dummy = ones(length(Y),1)
 model = SALSAModel(LINEAR,RK_MEANS(ADA_L1RDA,3,20,CosineDist()),HINGE,
-					validation_criterion=SILHOUETTE(),global_opt=DS([1]),process_labels=false,
+					validation_criterion=SILHOUETTE(),global_opt=DS([-5,-5,-1]),process_labels=false,
 					cv_gen = @compat Nullable{CrossValGenerator}(Kfold(length(Y),3)))
 model = salsa(sparse(X),dummy,model,X)
 mappings = model.output.Ytest

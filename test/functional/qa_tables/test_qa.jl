@@ -14,8 +14,7 @@ run_model = (X,Y,model,Xtest) -> begin
 	@test model.validation_criterion == MISCLASS()
 end
 
-Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
-show(salsa_qa(Xf,read_char,read_int,run_model))
+show(salsa_qa(eye(10),read_char,read_int,run_model))
 s = utf8(readavailable(outRead))
 
 #test Q/A table contents
@@ -33,6 +32,5 @@ run_model = (X,Y,model,Xtest) -> begin
 	@test model.validation_criterion == SILHOUETTE()
 end
 
-Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
-salsa_qa(Xf,read_char,read_int,run_model)
+salsa_qa(eye(10),read_char,read_int,run_model)
 redirect_stdout(outOriginal)
