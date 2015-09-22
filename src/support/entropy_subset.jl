@@ -14,7 +14,7 @@ function entropy_subset{K <: Kernel}(X, k::K, subset_size::Float64)
     logtotalcrit = -log(totalcrit/capsquare)
 
     max_c = logtotalcrit
-    # Maximixing the quadratic Renyi Entropy
+    # Maximizing the quadratic Renyi Entropy
     for i=1:size(X,1)
         # Find the smallest entropy
         val, id = findmin(totalinfo2)

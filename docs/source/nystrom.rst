@@ -21,13 +21,21 @@ Avaliable API
 
 .. function:: AFEm(Xs,kernel,X)
 	
-	Perform Automatic Feature Extraction (AFE) by Nyström method [WS2001]_ using a subsample :math:`X_s \in X`. We restrict ``kernel <: Kernel`` to be a subclass of ``Kernel``, for instance ``RBFKernel``.
+	Performs Automatic Feature Extraction (AFE) by Nyström method [WS2001]_ using a subsample :math:`X_s \in X`. We restrict ``kernel <: Kernel`` to be a subclass of ``Kernel``, for instance ``RBFKernel``.
 	
-	:param Xs: subsample which is used to construct kernel matrix :math:`K`
+	:param Xs: subset which is used to construct kernel matrix :math:`K`
 	:param kernel: kernel function used to construct kernel matrix :math:`K`
 	:param X: full dataset
 	
 	:return: new dataset :math:`X_f` derived from stacking together feature maps for every :math:`x_i \in X`
+	
+.. function:: entropy_subset(X, kernel, subset_size)
+
+	Performs maximization of the quadratic `Rényi Entropy <https://en.wikipedia.org/wiki/Rényi_entropy>`_ by the representative points selection from ``X`` which can be supplied to ``AFEm`` as ``Xs`` subset.
+	
+	:param X: full dataset
+	:param kernel: kernel function used to construct kernel matrix :math:`K` over which we compute Rényi Entropy
+	:param subset_size: number of representative data points
 
 .. [FS2010] De Brabanter K., De Brabanter J., Suykens J.A.K., De Moor B., "Optimized Fixed-Size Kernel Models for Large Data Sets", Computational Statistics & Data Analysis, vol. 54, no. 6, Jun. 2010, pp. 1484-1504.
 .. [WS2001] Williams C. and Seeger M., "Using the Nyström method to speed up kernel machines", in Proceedings of the 14th Annual Conference on Neural Information Processing (NIPS), pp. 682-688, 2001.

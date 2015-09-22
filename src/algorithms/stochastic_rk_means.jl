@@ -19,8 +19,8 @@ At_mul_B!(C::Array{Float64,2}, A::SparseMatrixCSC, B::Array{Float64,2}) = At_mul
 At_mul_B!(C::Array{Float64,2}, A::Array{Float64,2}, B::SparseMatrixCSC) = At_mul_B!(C,A,full(B))
 
 # core algorithmic part
-function stochastic_rk_means{A <: Algorithm}(X, rk_means::RK_MEANS{A}, alg_params::Vector, k::Int, max_iter::Int, 
-											 tolerance::Float64, online_pass=0, train_idx=[])
+function stochastic_rk_means(X, rk_means::RK_MEANS, alg_params::Vector, k::Int, max_iter::Int, 
+							 tolerance::Float64, online_pass=0, train_idx=[])
 	# Internal function for a simple Stochastic Regularized K-means
     #
     # Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
