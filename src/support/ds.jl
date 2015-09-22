@@ -4,6 +4,7 @@ function ds(obj_func,pn)
     #
     # Copyright (c) 2015 KU Leuven-ESAT-STADIUS, 
     #
+    print("|")
 
     alpha = 1
     ft = obj_func(pn)
@@ -12,6 +13,7 @@ function ds(obj_func,pn)
     x = pn
 
     for k=1:50
+       print("→")
        # restart polling directions
        dk = randperm(pdim*2)
        ft_old = ft
@@ -39,5 +41,6 @@ function ds(obj_func,pn)
        end
     end
 
+    print("|\n")
     ft, x
 end

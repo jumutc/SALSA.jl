@@ -34,6 +34,7 @@ function csa(obj_fun, pn)
     pvar_est = 0.995;
 
     Tac = Tac0;
+    print("|")
 
     for k = 1:NT
         pbltvar = var(pblty);
@@ -45,6 +46,7 @@ function csa(obj_fun, pn)
         T = T0/k;
     
         for l = 1:NI
+            print("→")
             # choose new coordinates and compute
             # the function to minimize
             r = tan(pi*(rand(pdim,pnum).-0.5));
@@ -94,6 +96,7 @@ function csa(obj_fun, pn)
         end
     end
 
+    print("|\n")
     efinal = be0;
     pfinal = bp0;
     efinal, pfinal
