@@ -41,3 +41,24 @@ function show(io::IO, model::SALSAModel)
         end
     end
 end
+
+function print_logo()
+    r1 = string("\x1b[31m", "_")
+    r2 = string("\x1b[31m", "(")
+    r3 = string("\x1b[31m", ")")
+    g1 = string("\x1b[32m", "_")
+    g2 = string("\x1b[32m", "(")
+    g3 = string("\x1b[32m", ")")
+    w1 = string("\x1b[0m", "_")
+    w2 = string("\x1b[0m", "|")
+    w3 = string("\x1b[0m", "/")
+    version = Pkg.installed("SALSA")
+
+    println("\n
+  ____    _    _     ____    _       $r1 $w1   | Software Lab for Advanced Machine Learning
+ / ___|  / \\  | |   / ___|  / \\     $r2$r1$r3 $w2  | and Stochastic Algorithms in Julia
+ \\___ \\ / _ \\ | |   \\___ \\ / _ \\    | | |  |
+  ___) / ___ \\| |___ ___) / ___ \\ $g1 $w2 | |  | Documentation: http://salsajl.readthedocs.org
+ |____/_/   \\_\\_____|____/_/   \\_$g2$g1$g3$w3 |_|  | CI builds: http://travis-ci.org/jumutc/SALSA.jl
+                                  |__/     | Version: $version\n")
+end

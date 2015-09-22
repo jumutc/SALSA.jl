@@ -4,16 +4,13 @@ function ds(obj_func,pn)
     #
     # Copyright (c) 2015 KU Leuven-ESAT-STADIUS, 
     #
-    print("|")
-
     alpha = 1
     ft = obj_func(pn)
     pdim = length(pn)
     D = [eye(pdim) -eye(pdim)]
     x = pn
 
-    for k=1:50
-       print("→")
+    @showprogress 1 "Running hyperparameter tuning... " for k=1:50
        # restart polling directions
        dk = randperm(pdim*2)
        ft_old = ft
@@ -41,6 +38,5 @@ function ds(obj_func,pn)
        end
     end
 
-    print("|\n")
     ft, x
 end

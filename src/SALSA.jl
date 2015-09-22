@@ -63,7 +63,7 @@ export salsa,
 	sgd_alg
 
 
-using MLBase, Distributions, Compat, Distances, Clustering
+using MLBase, Distributions, Compat, Distances, Clustering, ProgressMeter
 import Base: size, getindex, issparse, sub, dot, show, isempty, At_mul_B!
 import StatsBase: counts, predict
 import ArrayViews: view
@@ -110,5 +110,7 @@ include("tune_algorithm_AFEm.jl")
 include("salsa_main.jl")
 # fine printing out
 include("print.jl")
+
+print_logo()
 
 end

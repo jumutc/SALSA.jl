@@ -9,3 +9,4 @@ DataArrays
 DataFrames
 Clustering
 ArrayViews
+ProgressMeter
