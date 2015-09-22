@@ -22,9 +22,9 @@ Knowledge agnostic usage
         using SALSA, MAT, Base.Test
 
         srand(1234)
-        ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
+        ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat"))
 
-        model = salsa(ripley["X"],ripley["Y"],ripley["Xt"]) # --> SALSAModel(...)
+        model = salsa(ripley["X"], ripley["Y"], ripley["Xt"]) # --> SALSAModel(...)
         @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
 
 
@@ -46,9 +46,9 @@ Knowledge agnostic usage
         using SALSA, MAT, Base.Test
 
         srand(1234)
-        ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
+        ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat"))
 
-        model = salsa(LINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
+        model = salsa(LINEAR,PEGASOS,HINGE, ripley["X"], ripley["Y"], ripley["Xt"])
         @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
        
 Model-based usage
@@ -93,8 +93,8 @@ Model-based usage
     using SALSA, MAT, Base.Test
 
     srand(1234)
-    ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
+    ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat"))
     
-    model = SALSAModel(NONLINEAR,R_L1RDA(),HINGE,global_opt=CSA())
-    model = salsa(ripley["X"],ripley["Y"],model,ripley["Xt"])
+    model = SALSAModel(NONLINEAR, R_L1RDA(), HINGE, global_opt=CSA())
+    model = salsa(ripley["X"], ripley["Y"], model, ripley["Xt"])
     @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.895 0.01

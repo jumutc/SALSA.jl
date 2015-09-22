@@ -16,9 +16,9 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` for
     Xtest = linspace(0.11,19.9,100)''
     y = sinc(X)
 
-    model = SALSAModel(NONLINEAR,SIMPLE_SGD(),LEAST_SQUARES,
-    		validation_criterion=MSE(),process_labels=false)
-    model = salsa(X,y,model,Xtest)
+    model = SALSAModel(NONLINEAR, SIMPLE_SGD(), LEAST_SQUARES,
+    		validation_criterion=MSE(), process_labels=false)
+    model = salsa(X, y, model, Xtest)
 
     @test_approx_eq_eps mse(sinc(Xtest), model.output.Ytest) 0.05 0.01
 
