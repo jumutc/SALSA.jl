@@ -118,3 +118,4 @@ SALSAModel{K <: Kernel}(kernel::Type{K}, model) = SALSAModel(model.mode,model.al
 SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
+SALSAModel{L <: Loss, A <: Algorithm}(loss_function::Type{L}, algorithm::A, model) = reduce((a,b)->SALSAModel(b,a),model,[loss_function,algorithm])
