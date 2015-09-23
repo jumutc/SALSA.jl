@@ -25,9 +25,11 @@ This part of the package provides a description and mathematical background of t
 	
 	.. math::
 		l(y,p) = \left\lbrace\begin{array}{ll}
-				 1 - y \langle w,x \rangle\, & y \langle w,x \rangle\ \leq 1, \\
-				 \tau(y \langle w,x \rangle - 1), & y \langle w,x \rangle\ > 1, \\
+				 1 - yp, & \rm{if} yp \leq 1, \\
+				 \tau(yp - 1), & \rm{otherwise} \\
 				 \end{array}\right.
+				 
+	If ``PINBALL`` loss is selected :math:`\tau` hyperparameter will be tuned by the build-in cross-validation routines.
 				 
 .. function:: MODIFIED_HUBER
 
