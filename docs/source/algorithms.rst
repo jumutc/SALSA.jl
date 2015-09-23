@@ -9,15 +9,15 @@ Available high-level API
 
 .. function:: PEGASOS
 
-	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined `here <#mathematical-background>`_.
+	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :ref:`here <mathematical-background>`.
 	
 .. function:: L1RDA
 	
-	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined `here <#mathematical-background>`_.
+	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined `:ref:`here <mathematical-background>`.
 	
 .. function:: ADA_L1RDA
 
-	Defines an implementation of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined `here <#mathematical-background>`_ in an adaptive way [#f1]_.
+	Defines an implementation of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <mathematical-background>` in an adaptive way [#f1]_.
 	
 .. function:: R_L1RDA
 	
@@ -29,7 +29,7 @@ Available high-level API
 	
 .. function:: SIMPLE_SGD
 
-	Defines an implementation of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined `here <#mathematical-background>`_.	
+	Defines an implementation of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined :ref:`here <mathematical-background>`.	
 	
 .. function:: RK_MEANS(support_alg,k_clusters,max_iter,metric)
 
@@ -50,6 +50,3 @@ Available high-level API
 	
 .. [#f1] adaptation is taken with respect to observed (sub)gradients of the :doc:`loss function <loss_functions>`
 .. [#f2] metric types are defined in `Distances.jl <https://github.com/JuliaStats/Distances.jl>`_ package
-
-.. [JS2015] Jumutc V., Suykens J.A.K., "Regularized and Sparse Stochastic K-Means for Distributed Large-Scale Clustering", Internal Report 15-126, ESAT-SISTA, KU Leuven (Leuven, Belgium), 2015.
-	

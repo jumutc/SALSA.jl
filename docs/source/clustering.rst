@@ -30,5 +30,7 @@ By taking a close look at the code snippet above we can notice that we use a spe
 	
 .. [#f1] metric types are defined in `Distances.jl <https://github.com/JuliaStats/Distances.jl>`_ package
 
+.. rubric:: References
+
 .. [UCI2010] Lichman, M. (2013). `UCI Machine Learning Repository <http://archive.ics.uci.edu/ml>`_. Irvine, CA: University of California, School of Information and Computer Science.
 .. [JS2015] Jumutc V., Suykens J.A.K., "Regularized and Sparse Stochastic K-Means for Distributed Large-Scale Clustering", Internal Report 15-126, ESAT-SISTA, KU Leuven (Leuven, Belgium), 2015.
