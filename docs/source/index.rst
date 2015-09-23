@@ -75,7 +75,7 @@ Dependencies
 - `Distributions <https://github.com/JuliaStats/Distributions.jl>`_: to support sampling from various distributions
 - `DataFrames <https://github.com/JuliaStats/DataFrames.jl>`_: to support and process files instead of in-memory matrices 
 - `Clustering <https://github.com/JuliaStats/Clustering.jl>`_: to support Stochastic K-means Clustering (experimental feature)
-- `ProgressMeter <https://github.com/timholy/ProgressMeter.jl>`_: to support progress bars and ETA of different routines)
+- `ProgressMeter <https://github.com/timholy/ProgressMeter.jl>`_: to support progress bars and ETA of different routines
 
 Indices and tables
 ******************

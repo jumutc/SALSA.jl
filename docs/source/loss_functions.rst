@@ -29,7 +29,7 @@ This part of the package provides a description and mathematical background of t
 				 \tau(yp - 1), & \rm{otherwise} \\
 				 \end{array}\right.
 				 
-	If ``PINBALL`` loss is selected :math:`\tau` hyperparameter will be tuned by the build-in cross-validation routines.
+	If ``PINBALL`` loss is selected :math:`\tau` parameter will be tuned by the build-in cross-validation routines.
 				 
 .. function:: MODIFIED_HUBER
 
