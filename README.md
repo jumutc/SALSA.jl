@@ -1,4 +1,7 @@
-<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/SALSA.png?raw=true"></img>
+<span>
+<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/SALSA.png?raw=true" style="float: left;"></img>
+<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/logo.png?raw=true" style="float: right;"></img>
+</span>
 
 # SALSA.jl
 [![Build Status](https://travis-ci.org/jumutc/SALSA.jl.svg)](https://travis-ci.org/jumutc/SALSA.jl)

@@ -18,9 +18,9 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` for
 	srand(1234)
 	algorithm = RK_MEANS(max_iter)
 	model = SALSAModel(LINEAR, algorithm, LEAST_SQUARES,
-					   validation_criterion=SILHOUETTE(),
-					   global_opt=DS([-1]), process_labels=false,
-					   cv_gen = Nullable{CrossValGenerator}(Kfold(length(Y),3)))
+				validation_criterion=SILHOUETTE(),
+				global_opt=DS([-1]), process_labels=false,
+				cv_gen = Nullable{CrossValGenerator}(Kfold(length(Y),3)))
 	model = salsa(X, dY, model, X)
 	mappings = model.output.Ytest
 
