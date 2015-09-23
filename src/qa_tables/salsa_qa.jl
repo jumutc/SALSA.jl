@@ -20,8 +20,8 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 	n9q = "\nPlease select a global optimization method from options (or ENTER for default)\n $(print_opts(optim_opts,1)): "
 	n10q = "\nPlease select a type of Kernel for Nyström approximation from options (or ENTER for default)\n $(print_opts(kernel_opts,3)): "
 	n11q = "\nPlease select a pair of (loss function, metric) from options (or ENTER for default)\n $(print_opts(loss_met_opts,1)): "
-	n12q = "\nPlease select a total number of outer iterations (or ENTER for default '20'): "
-	n13q = "\nPlease select a total number of iterations (budget) for SALSA (or ENTER for default '1000'): "
+	n12q = "\nPlease select a maximum number of outer iterations (or ENTER for default '20'): "
+	n13q = "\nPlease select a maximum number of iterations (budget) for SALSA algorithms (or ENTER for default '1000'): "
 
 	# nodes
 	n1 = LinearQANode(n1q, read_char)
