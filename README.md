@@ -1,9 +1,8 @@
 <span>
-<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/SALSA.png?raw=true" style="float: left;"></img>
-<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/logo.png?raw=true" style="float: right;"></img>
+<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/SALSA.png?raw=true" height="120"></img>
+<img src="https://github.com/jumutc/SALSA.jl/blob/master/docs/logo.png?raw=true"></img>
 </span>
 
-# SALSA.jl
 [![Build Status](https://travis-ci.org/jumutc/SALSA.jl.svg)](https://travis-ci.org/jumutc/SALSA.jl)
 [![Coverage Status](https://coveralls.io/repos/jumutc/SALSA.jl/badge.svg)](https://coveralls.io/r/jumutc/SALSA.jl)
 [![Documentation Status](https://readthedocs.org/projects/salsajl/badge/?version=latest)](https://readthedocs.org/projects/salsajl/)
