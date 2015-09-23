@@ -9,8 +9,8 @@ Available high-level API
 
 .. function:: PEGASOS
 
-	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined `here <index.rst#mathematical background>`__.
+	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :doc:`here <index#mathematical-background>`.
 	
 .. function:: L1RDA
 	
-	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined `here <index.rst#mathematical background>`__.
+	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined :doc:`here <index#mathematical-background>`.
