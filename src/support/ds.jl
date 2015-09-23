@@ -10,7 +10,7 @@ function ds(obj_func,pn)
     D = [eye(pdim) -eye(pdim)]
     x = pn
 
-    @showprogress 1 "Running hyperparameter tuning... " for k=1:50
+    @showprogress 1 "Running hyperparameter tuning... " 20 for k=1:50
        # restart polling directions
        dk = randperm(pdim*2)
        ft_old = ft

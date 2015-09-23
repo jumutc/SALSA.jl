@@ -44,7 +44,7 @@ function csa(obj_fun, pn)
         # T schedules
         T = T0/k;
     
-        @showprogress 1 "Running hyperparameter tuning... " for l = 1:NI
+        @showprogress 1 "Running hyperparameter tuning... " 20 for l = 1:NI
             # choose new coordinates and compute
             # the function to minimize
             r = tan(pi*(rand(pdim,pnum).-0.5));
