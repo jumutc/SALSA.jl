@@ -24,7 +24,7 @@ Available API
 	Performs Automatic Feature Extraction (AFE) by Nyström method [WS2001]_ using a subsample :math:`X_s \in X`. We restrict ``kernel <: Kernel`` to be a subclass of ``Kernel``, for instance ``RBFKernel``.
 	
 	:param Xs: subset which is used to construct kernel matrix :math:`K`
-	:param kernel: kernel function used to construct kernel matrix :math:`K`
+	:param kernel: kernel function, *e.g.* :func:`RBFKernel`, used to construct kernel matrix :math:`K`
 	:param X: full dataset
 	
 	:return: new dataset :math:`X_f` derived from stacking together feature maps for every :math:`x_i \in X`
@@ -34,7 +34,7 @@ Available API
 	Performs maximization of the quadratic `Rényi Entropy <https://en.wikipedia.org/wiki/Rényi_entropy>`_ by the representative points selection from ``X`` which can be supplied to ``AFEm`` as ``Xs`` subset.
 	
 	:param X: full dataset
-	:param kernel: kernel function used to construct kernel matrix :math:`K` over which we compute Rényi Entropy
+	:param kernel: kernel function, *e.g.* :func:`RBFKernel`, used to construct kernel matrix :math:`K` over which we compute Rényi Entropy
 	:param subset_size: number of representative data points
 	
 
