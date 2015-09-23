@@ -22,7 +22,8 @@ This part of the package provides a description and mathematical background of t
 .. function:: PINBALL
 
 	Defines an implementation of the `Pinball (Quantile) Loss <http://www.lokad.com/pinball-loss-function-definition>`_ function, *i.e.* 
-	.. math:
+	
+	.. math::
 		l(y,p) = \left\lbrace\begin{array}{ll}
 				 1 - y \langle w,x \rangle\, & y \langle w,x \rangle\ \leq 1, \\
 				 \tau(y \langle w,x \rangle - 1), & y \langle w,x \rangle\ > 1, \\
@@ -31,7 +32,8 @@ This part of the package provides a description and mathematical background of t
 .. function:: MODIFIED_HUBER
 
 	Defines an implementation of the `Modified Huber Loss <https://en.wikipedia.org/wiki/Huber_loss>`_ function, *i.e.*
-	.. math:
+	
+	.. math::
 		l(y,p) = \left\{\begin{array}{ll} 
 				 -4yp, & \rm{if} \hspace{1mm} yp < -1 \\ 
     			 \max(0,1 - yp)^2, & \rm{otherwise} \\
