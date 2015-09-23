@@ -81,7 +81,6 @@ Indices and tables
 ******************
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
 .. [Vapnik1992] Vapnik, Vladimir. "Principles of risk minimization for learning theory", In Advances in neural information processing systems (NIPS), pp. 831-838. 1992.

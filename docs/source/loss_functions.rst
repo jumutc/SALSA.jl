@@ -1,7 +1,7 @@
 Loss Functions
 ==============
 
-This part of the package provides a description and mathematical background of the implemented loss functions. Every loss function can be supplied to ``salsa`` subroutines either directly (see :func:`salsa`) or passed within ``SALSAModel``. In the definitions below :math:`l(y,p)` stands for the loss loss function evaluated at the true label *y* and a prediction *p*.
+This part of the package provides a description and mathematical background of the implemented loss functions. Every loss function can be supplied to ``salsa`` subroutines either directly (see :func:`salsa`) or passed within ``SALSAModel``. In the definitions below :math:`l(y,p)` stands for the loss loss function evaluated at the true label :math:`y` and a prediction :math:`p`.
 
 .. function:: HINGE
 	
@@ -25,7 +25,7 @@ This part of the package provides a description and mathematical background of t
 	
 	.. math::
 		l(y,p) = \left\lbrace\begin{array}{ll}
-				 1 - yp, & \rm{if} yp \leq 1, \\
+				 1 - yp, & \rm{if} \hspace{1mm} yp \leq 1, \\
 				 \tau(yp - 1), & \rm{otherwise} \\
 				 \end{array}\right.
 				 
