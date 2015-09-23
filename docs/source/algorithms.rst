@@ -9,31 +9,31 @@ Available high-level API
 
 .. function:: PEGASOS
 
-	Defines an implementation (see :func`pegasos_alg`) of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.
+	Defines an implementation (see :func:`pegasos_alg`) of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.
 	
 .. function:: L1RDA
 	
-	Defines an implementation (see :func`l1rda_alg`) of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>`.
+	Defines an implementation (see :func:`l1rda_alg`) of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>`.
 	
 .. function:: ADA_L1RDA
 
-	Defines an implementation (see :func`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
+	Defines an implementation (see :func:`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
 	
 .. function:: R_L1RDA
 	
-	Defines an implementation (see :func`reweighted_l1rda_alg`) of the `Reweighted l1-Regularized Dual Averaging <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_ solver which approximates :math:`l_0`-regularized problem in a limit.
+	Defines an implementation (see :func:`reweighted_l1rda_alg`) of the `Reweighted l1-Regularized Dual Averaging <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_ solver which approximates :math:`l_0`-regularized problem in a limit.
 	
 .. function:: R_L2RDA
 	
-	Defines an implementation (see :func`reweighted_l2rda_alg`) of the `Reweighted l2-Regularized Dual Averaging <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/isnn2014_jumutc_suykens.pdf>`_ solver which approximates :math:`l_0`-regularized problem in a limit.
+	Defines an implementation (see :func:`reweighted_l2rda_alg`) of the `Reweighted l2-Regularized Dual Averaging <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/isnn2014_jumutc_suykens.pdf>`_ solver which approximates :math:`l_0`-regularized problem in a limit.
 	
 .. function:: SIMPLE_SGD
 
-	Defines an implementation (see :func`sgd_alg`) of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.	
+	Defines an implementation (see :func:`sgd_alg`) of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.	
 	
 .. function:: RK_MEANS(support_alg, k_clusters, max_iter, metric)
 
-	Defines an implementation (see :func`stochastic_rk_means`) of the Regularized Stochastic K-Means approach [JS2015]_. Please refer to :doc:`Clustering <clustering>` section for examples.
+	Defines an implementation (see :func:`stochastic_rk_means`) of the Regularized Stochastic K-Means approach [JS2015]_. Please refer to :doc:`Clustering <clustering>` section for examples.
 	
 	:param support_alg: underlying support algorithm, *e.g.* ``PEGASOS``
 	:param k_clusters: number of clusters to locate
