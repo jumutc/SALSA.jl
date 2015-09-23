@@ -36,7 +36,7 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 	n10= LinearQANode(n10q, read_int)
 	n11= LinearQANode(n11q, read_int)
 	n12= LinearQANode(n12q, read_int)
-	n13= LinearQANode(n12q, read_int)
+	n13= LinearQANode(n13q, read_int)
 
 	n1.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n2)),
 					  		  'n' => QAOption((ans) -> Void, @compat Nullable(n4)),
