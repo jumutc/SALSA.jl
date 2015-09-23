@@ -40,3 +40,11 @@ This part of the package provides a description and mathematical background of t
 				 -4yp, & \rm{if} \hspace{1mm} yp < -1 \\ 
     			 \max(0,1 - yp)^2, & \rm{otherwise} \\
     			 \end{array}\right.
+    			 
+.. function:: loss_derivative(type)
+
+	Defines a derivative of the loss function. One can pass any type of the loss function, *e.g.* ``HINGE`` or an entire algorithm, for instance :func:`RK_MEANS`.
+	
+	:param type: type of the loss function, *e.g.* ``HINGE`` or an entire algorithm
+	
+	:return: ``Function`` which calculates a derivative at the current iterate :math:`w_t`, subsample :math:`\mathcal{A}_t` and label :math:`y_t`

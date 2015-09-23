@@ -8,7 +8,7 @@
 ==================================
 
 Welcome to SALSA's documentation!
-*********************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://travis-ci.org/jumutc/SALSA.jl.svg
 	:target: https://travis-ci.org/jumutc/SALSA.jl
@@ -30,7 +30,7 @@ Welcome to SALSA's documentation!
 
 
 Mathematical background
-************************
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The **SALSA** package aims at stochastically learning a classifier or regressor via the Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-known Machine Learning problems of the type:
 
@@ -56,7 +56,7 @@ Particular choices of the `regularization term <https://en.wikipedia.org/wiki/Re
 - reweighted :math:`l_1`-`regularization <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_
 
 References
-***********
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 **SALSA** is stemmed from the following algorithmic approaches:
 
@@ -69,7 +69,7 @@ References
 - `Reweighted RDA <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/isnn2014_jumutc_suykens.pdf>`_: V. Jumutc, J.A.K. Suykens, Reweighted stochastic learning, Neurocomputing Special Issue - ISNN2014, 2015. (In Press) 
 
 Dependencies
-*************
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `MLBase <https://github.com/JuliaStats/MLBase.jl>`_: to support generic Machine Learning routines
 - `StatsBase <https://github.com/JuliaStats/StatsBase.jl>`_: to support generic routines from Statistics
@@ -80,7 +80,7 @@ Dependencies
 - `ProgressMeter <https://github.com/timholy/ProgressMeter.jl>`_: to support progress bars and ETA of different routines
 
 Indices and tables
-******************
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 * :ref:`genindex`
 * :ref:`search`
