@@ -24,7 +24,7 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` for
 	model = salsa(X, dY, model, X)
 	mappings = model.output.Ytest
 
-By taking a close look at the code snippet above we can notice that we use a special type of an algorithm ``RK_MEANS`` which implements approach in [JS2015]_. By instantiating ``RK_MEANS(max_iter)`` we provide a maximum number of outer iterations. Learning of individual prototype vectors will be repeated ```max_iter``` times after re-partitioning of the dataset ``X``. The default choice of the loss function is ``LEAST_SQUARES`` and the distance metric is ``Euclidean()``[#f1]_. This corresponds to the original setting of the unregularized K-Means approach. Please refer to :doc:`Algorithms <algorithms>` section for more details regarding which comibations of loss functions and metrics are supported.
+By taking a close look at the code snippet above we can notice that we use a special type of an algorithm ``RK_MEANS`` which implements approach in [JS2015]_. By instantiating ``RK_MEANS(max_iter)`` we provide a maximum number of outer iterations. Learning of individual prototype vectors will be repeated ```max_iter``` times after re-partitioning of the dataset ``X``. The default choice of the loss function is ``LEAST_SQUARES`` and the distance metric is ``Euclidean()`` [#f1]_. This corresponds to the original setting of the unregularized K-Means approach. Please refer to :doc:`Algorithms <algorithms>` section and :func:`RK_MEANS` function for more details regarding which combinations of loss functions and metrics are supported.
 
 .. rubric:: Footnotes
 	
