@@ -1,6 +1,6 @@
 function salsa_qa{N <: Number}(X::Matrix{N})
 	read_char = () -> lowercase(readline(STDIN)[1])
-	read_int  = () -> try parse(Int,readline(STDIN)[1]) catch '\n' end
+	read_int  = () -> try parse(Int,replace(readline(STDIN),"\n","")) catch '\n' end
 	salsa_qa(X,read_char,read_int,salsa)
 end
 
