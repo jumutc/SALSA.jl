@@ -1,11 +1,9 @@
 .. image:: ../SALSA.png
 	:alt: SALSA.jl
-	:height: 120px
-	:align:	left
+	:height: 80px
 	
 .. image:: ../logo.png
 	:alt: SALSA.jl
-	:align:	right
 	
 ==================================
 
