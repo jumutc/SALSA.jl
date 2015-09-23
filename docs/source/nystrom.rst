@@ -43,15 +43,15 @@ Available Kernel Functions
 
 .. function:: LinearKernel
 
-	Defines an implementation of the Linear Kernel, *i.e.* :math: k(x,y) = \langle x,y \rangle`.
+	Defines an implementation of the Linear Kernel, *i.e.* :math:`k(x,y) = \langle x,y \rangle`.
 	
 .. function:: PolynomialKernel
 
-	Defines an implementation of the Polynomial Kernel, *i.e.* :math:k(x,y) = (\langle x,y \rangle + τ)^d`.
+	Defines an implementation of the Polynomial Kernel, *i.e.* :math:`k(x,y) = (\langle x,y \rangle + τ)^d`.
 
 .. function:: RBFKernel
 
-	Defines an implementation of the Radial Basis Function (RBF) Kernel, *i.e.* :math: k(x,y) = \exp(-\frac{\|x - y\|^2}{2σ^2})`.
+	Defines an implementation of the Radial Basis Function (RBF) Kernel, *i.e.* :math:`k(x,y) = \exp(-\frac{\|x - y\|^2}{2σ^2})`.
 
 
 .. [WS2001] Williams C. and Seeger M., "Using the Nyström method to speed up kernel machines", in Proceedings of the 14th Annual Conference on Neural Information Processing (NIPS), pp. 682-688, 2001.
