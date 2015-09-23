@@ -20,7 +20,7 @@ immutable ADA_L1RDA <: RDA end
 immutable DROP_OUT <: SGD end
 immutable SIMPLE_SGD <: SGD end
 # special algorithm type for Regularized K-Means
-immutable RK_MEANS{A <: Algorithm, M <: SemiMetric} <: Algorithm 
+type RK_MEANS{A <: Algorithm, M <: SemiMetric} <: Algorithm 
     support_alg::Type{A}
     k_clusters::Int
     max_iter::Int
@@ -118,4 +118,3 @@ SALSAModel{K <: Kernel}(kernel::Type{K}, model) = SALSAModel(model.mode,model.al
 SALSAModel{A <: Algorithm}(algorithm::A, model) = SALSAModel(model.mode,algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{L <: Loss}(loss_function::Type{L}, model) = SALSAModel(model.mode,model.algorithm,loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
 SALSAModel{M <: Mode}(mode::Type{M}, model) = SALSAModel(mode,model.algorithm,model.loss_function,kernel=model.kernel,process_labels=model.process_labels,validation_criterion=model.validation_criterion)
-SALSAModel{L <: Loss, A <: Algorithm}(loss_function::Type{L}, algorithm::A, model) = reduce((a,b)->SALSAModel(b,a),model,[loss_function,algorithm])

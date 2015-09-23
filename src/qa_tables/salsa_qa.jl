@@ -20,6 +20,8 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 	n9q = "\nPlease select a global optimization method from options (or ENTER for default)\n $(print_opts(optim_opts,1)): "
 	n10q = "\nPlease select a type of Kernel for Nyström approximation from options (or ENTER for default)\n $(print_opts(kernel_opts,3)): "
 	n11q = "\nPlease select a pair of (loss function, metric) from options (or ENTER for default)\n $(print_opts(loss_met_opts,1)): "
+	n12q = "\nPlease select a total number of outer iterations (or ENTER for default '20'): "
+	n13q = "\nPlease select a total number of outer iterations (or ENTER for default '20'): "
 
 	# nodes
 	n1 = LinearQANode(n1q, read_char)
@@ -33,6 +35,7 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 	n9 = LinearQANode(n9q, read_int)
 	n10= LinearQANode(n10q, read_int)
 	n11= LinearQANode(n11q, read_int)
+	n12= LinearQANode(n12q, read_int)
 
 	n1.options = @compat Dict('y' => QAOption((ans) -> Void, @compat Nullable(n2)),
 					  		  'n' => QAOption((ans) -> Void, @compat Nullable(n4)),
@@ -61,8 +64,14 @@ function salsa_qa{N <: Number}(X::Matrix{N}, read_char::Function, read_int::Func
 							  '\n' => QAOption((ans)-> proto.global_opt = optim_opts[1], @compat Nullable()))
 	n10.options= @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(kernel_opts[ans],proto), @compat Nullable(n7)),
 							  '\n' => QAOption((ans)-> proto = SALSAModel(kernel_opts[3],proto), @compat Nullable(n7)))
-	n11.options= @compat Dict('y' => QAOption((ans) -> proto = SALSAModel(loss_met_opts[ans][1],RK_MEANS(loss_met_opts[ans][2],proto.algorithm),proto), @compat Nullable(n6)),
-							  '\n' => QAOption((ans)-> proto = SALSAModel(loss_met_opts[1][1],RK_MEANS(loss_met_opts[1][2],proto.algorithm),proto), @compat Nullable(n6)))
+	n11.options= @compat Dict('y' => QAOption((ans) -> begin proto.algorithm.metric = loss_met_opts[ans][2]
+															 proto = SALSAModel(loss_met_opts[ans][1],proto) 
+													   end, @compat Nullable(n12)),
+							  '\n' => QAOption((ans)-> begin proto.algorithm.metric = loss_met_opts[1][2]
+							  								 proto = SALSAModel(loss_met_opts[1][1],proto)
+							  						   end, @compat Nullable(n12)))
+	n12.options= @compat Dict('y' => QAOption((ans) -> proto.algorithm.max_iter = ans, @compat Nullable(n6)),
+					  		  '\n' => QAOption((ans)-> Void, @compat Nullable(n6)))
 
 	current = @compat Nullable(n1)
 
