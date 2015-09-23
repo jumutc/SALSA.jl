@@ -45,7 +45,7 @@ Particular choices of loss functions are (but are not restricted to the selectio
 
 - `hinge loss <https://en.wikipedia.org/wiki/Hinge_loss>`_ 
 - `logistic loss <https://en.wikipedia.org/wiki/Loss_functions_for_classification#Logistic_loss>`_
-- least squares loss
+- `least squares loss <https://en.wikipedia.org/wiki/Mean_squared_error>`_
 - etc.
 
 Particular choices of the `regularization term <https://en.wikipedia.org/wiki/Regularization_(mathematics)>`_ are:
