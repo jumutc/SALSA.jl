@@ -29,12 +29,12 @@ Welcome to SALSA's documentation!
 **SALSA** is an open source project available at `Github <http://github.com/jumutc/SALSA.jl>`_ under the `General Public License version 3 <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_.
 
 
+.. _problem_def:
+
 Mathematical background
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The **SALSA** package aims at stochastically learning a classifier or regressor via the Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-known Machine Learning problems of the type:
-
-.. _problem_def:
 
 .. math::
         \min_{\bf w} \sum_{i=1}^n \ell({\bf w},\xi_i) + \Omega({\bf w}),

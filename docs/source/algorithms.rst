@@ -1,7 +1,7 @@
 Algorithms
 ==========
 
-This part of the package provides a description, API and references to the implemented core algorithmic schemes (solvers) available in the SALSA package. Every algorithm can be supplied to ``salsa`` subroutines either directly (see :func:`salsa`) or passed within ``SALSAModel``. Another available API is shipped with direct calls to algorithmic schemes. The latter is the most primitive and basic way of using SALSA package.
+This part of the package provides a description, API and references to the implemented core algorithmic schemes (solvers) available in the SALSA package. Every algorithm can be supplied as a type to ``salsa`` subroutines  either directly (see :func:`salsa`) or passed within ``SALSAModel``. Please refer to :doc:`Classification <classification>` section for examples. Another available API is shipped with direct calls to algorithmic schemes. The latter is the most primitive and basic way of using SALSA package.
 
 
 Available high-level API
