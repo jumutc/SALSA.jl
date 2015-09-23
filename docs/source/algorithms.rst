@@ -9,15 +9,15 @@ Available high-level API
 
 .. function:: PEGASOS
 
-	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :ref:`here <mathematical-background>`.
+	Defines an implementation of the `Pegasos: Primal Estimated sub-GrAdient SOlver for SVM <http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf>`_ which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.
 	
 .. function:: L1RDA
 	
-	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined `:ref:`here <mathematical-background>`.
+	Defines an implementation of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>`.
 	
 .. function:: ADA_L1RDA
 
-	Defines an implementation of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <mathematical-background>` in an adaptive way [#f1]_.
+	Defines an implementation of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
 	
 .. function:: R_L1RDA
 	
@@ -29,7 +29,7 @@ Available high-level API
 	
 .. function:: SIMPLE_SGD
 
-	Defines an implementation of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined :ref:`here <mathematical-background>`.	
+	Defines an implementation of the unconstrained Stochastic Gradient Descent scheme which solves :math:`l_2`-regularized problem defined :ref:`here <problem_def>`.	
 	
 .. function:: RK_MEANS(support_alg,k_clusters,max_iter,metric)
 
@@ -44,6 +44,10 @@ Available high-level API
 	
 	- ``Euclidean()`` which is complemented by :func:`LEAST_SQUARES` loss function
 	- ``CosineDist()`` which is complemented by :func:`HINGE` loss function
+	
+	
+Available low-level API
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. rubric:: Footnotes

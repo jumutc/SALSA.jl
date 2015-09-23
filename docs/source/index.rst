@@ -34,6 +34,8 @@ Mathematical background
 
 The **SALSA** package aims at stochastically learning a classifier or regressor via the Regularized Empirical Risk Minimization [Vapnik1992]_ framework. We approach a family of the well-known Machine Learning problems of the type:
 
+.. _problem_def:
+
 .. math::
         \min_{\bf w} \sum_{i=1}^n \ell({\bf w},\xi_i) + \Omega({\bf w}),
 
