@@ -2,7 +2,7 @@ using SALSA, Clustering, Distances, MLBase, Base.Test, Compat
 
 Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
 Y = convert(Array{Int}, Xf[:,end])
-dY = Array{Int}(length(Y))
+dY = @compat Array{Int}(length(Y))
 X = Xf[:,1:end-1]
 
 srand(1234)
@@ -21,4 +21,6 @@ model = SALSAModel(LINEAR,RK_MEANS(ADA_L1RDA,3,20,CosineDist()),HINGE,
 model = salsa(sparse(X),dY,model,X)
 mappings = model.output.Ytest
 
-@test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .5 0.3
+if VERSION >= v"0.4"
+	@test_approx_eq_eps varinfo(length(unique(mappings)), mappings, 3, Y) .5 0.3
+end

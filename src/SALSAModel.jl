@@ -43,13 +43,13 @@ all_loss_types = [PINBALL;subtypes(NonParametricLoss)]
 create_tuple(vals, key) = (findfirst(vals,key), key)
 create_tuple2(vals, key) = (findfirst(vals,key), key())
 
-loss_opts     = Dict(map(s -> create_tuple(all_loss_types,s),        all_loss_types))
-algo_opts     = Dict(map(s -> create_tuple2(all_algo_types,s),       all_algo_types))
-kernel_opts   = Dict(map(s -> create_tuple(subtypes(Kernel),s),      subtypes(Kernel)))
-optim_opts    = Dict(map(s -> create_tuple2(subtypes(GlobalOpt),s),  subtypes(GlobalOpt)))
-criterion_opts= Dict(map(s -> create_tuple2(subtypes(CCriterion),s), subtypes(CCriterion)))
-mode_opts     = Dict(map(s -> ((s == LINEAR ? 'n' : 'y'), s),        subtypes(Mode)))
-loss_met_opts = Dict(1 => (LEAST_SQUARES, Euclidean()), 2 => (HINGE, CosineDist()))  
+loss_opts     = @compat Dict(map(s -> create_tuple(all_loss_types,s),        all_loss_types))
+algo_opts     = @compat Dict(map(s -> create_tuple2(all_algo_types,s),       all_algo_types))
+kernel_opts   = @compat Dict(map(s -> create_tuple(subtypes(Kernel),s),      subtypes(Kernel)))
+optim_opts    = @compat Dict(map(s -> create_tuple2(subtypes(GlobalOpt),s),  subtypes(GlobalOpt)))
+criterion_opts= @compat Dict(map(s -> create_tuple2(subtypes(CCriterion),s), subtypes(CCriterion)))
+mode_opts     = @compat Dict(map(s -> ((s == LINEAR ? 'n' : 'y'), s),        subtypes(Mode)))
+loss_met_opts = @compat Dict(1 => (LEAST_SQUARES, Euclidean()), 2 => (HINGE, CosineDist()))  
 
 type OutputModel{M <: Mode}
     dfunc::Function
