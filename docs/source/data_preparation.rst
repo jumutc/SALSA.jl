@@ -47,7 +47,7 @@ Data Management
 
 .. function:: DelimitedFile(name,header,delim)
 
-	Creates a wrapper around any delimited file which can be passed to :func:`salsa` subroutines.
+	Creates a wrapper around any delimited file which can be passed to low-level :ref:`routines <low_level_api>`, for instance :func:`pegasos_alg`. ``DelimitedFile`` will be processed in the online mode regardless ``online_pass==0`` flag in :func:`pegasos_alg`.
 	
 	:param name: file name
 	:param header: flag indicating if a header is present

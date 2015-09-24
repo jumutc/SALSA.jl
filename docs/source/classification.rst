@@ -35,7 +35,7 @@ Knowledge agnostic usage
     :param mode: ``LINEAR`` vs. ``NONLINEAR`` mode specifies whether to use a simple linear classification model or to apply the Nyström method for approximating the feature map before proceeding with the learning scheme
     :param algorithm: stochastic algorithm to learn a classification model, e.g. ``PEGASOS``, ``L1RDA`` etc.
     :param loss: loss function to use when learning a classification model, e.g.  ``HINGE``, ``LOGISTIC`` etc.
-    :param X: training data (samples) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+    :param X: training data (samples) represented by ``Matrix`` or ``SparseMatrixCSC``
     :param Y: training labels
     :param Xtest: test data for out-of-sample evaluation
 
@@ -58,7 +58,7 @@ Model-based usage
 
     Create a classification model based on the provided model and input data
 
-    :param X: training data (samples) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+    :param X: training data (samples) represented by ``Matrix`` or ``SparseMatrixCSC``
     :param Y: training labels
     :param Xtest: test data for out-of-sample evaluation 
     :param model: model is of type ``SALSAModel{L <: Loss, A <: Algorithm, M <: Mode, K <: Kernel}`` and can be summarized as follows (with default values for named parameters):

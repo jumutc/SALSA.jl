@@ -5,8 +5,6 @@ Compat
 StatsBase
 Distances
 Distributions
-DataArrays
-DataFrames
 Clustering
 ArrayViews
 ProgressMeter

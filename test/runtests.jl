@@ -4,13 +4,13 @@ tests = ["unit/test_loss_derivative",
 		 "unit/test_sparse",
 		 "unit/test_show",
 		 "functional/qa_tables/test_qa",
+		 "functional/test_wrapper",
 		 "functional/regression/test_fsinc",
 		 "functional/clustering/test_clustering",
 		 "functional/classification/test_linear",
 		 "functional/classification/test_sparse",
 		 "functional/classification/test_multiclass",
-		 "functional/classification/test_nonlinear",
-		 "functional/test_wrapper"]
+		 "functional/classification/test_nonlinear"]
 
 print_with_color(:blue, "Running tests:\n")
 

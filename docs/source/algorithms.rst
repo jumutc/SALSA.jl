@@ -45,6 +45,7 @@ Available high-level API
 	- ``Euclidean()`` which is complemented by :func:`LEAST_SQUARES` loss function
 	- ``CosineDist()`` which is complemented by :func:`HINGE` loss function
 	
+.. _low_level_api:
 	
 Available low-level API
 ~~~~~~~~~~~~~~~~~~~~~~~
