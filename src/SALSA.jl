@@ -111,6 +111,8 @@ include("salsa_main.jl")
 # fine printing out
 include("print.jl")
 
-print_logo()
+if myid() == 1
+	print_logo()
+end
 
 end
