@@ -52,8 +52,8 @@ Available low-level API
 .. function:: pegasos_alg(dfunc, X, Y, λ, k, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param k: sampling size at each iteration :math:`t`
 	:param max_iter: maximum number of iterations (budget)
@@ -66,8 +66,8 @@ Available low-level API
 .. function:: sgd_alg(dfunc, X, Y, λ, k, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param k: sampling size at each iteration :math:`t`
 	:param max_iter: maximum number of iterations (budget)
@@ -80,8 +80,8 @@ Available low-level API
 .. function:: l1rda_alg(dfunc, X, Y, λ, γ, ρ, k, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param γ: hyperparameter involved in elastic-net regularization
 	:param ρ: hyperparameter involved in elastic-net regularization
@@ -96,8 +96,8 @@ Available low-level API
 .. function:: adaptive_l1rda_alg(dfunc, X, Y, λ, γ, ρ, k, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param γ: hyperparameter involved in elastic-net regularization
 	:param ρ: hyperparameter involved in elastic-net regularization
@@ -112,8 +112,8 @@ Available low-level API
 .. function:: reweighted_l1rda_alg(dfunc, X, Y, λ, γ, ρ, ɛ, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param γ: hyperparameter involved in reweighted formulation of a regularization term
 	:param ρ: hyperparameter involved in reweighted formulation of a regularization term
@@ -129,8 +129,8 @@ Available low-level API
 .. function:: reweighted_l2rda_alg(dfunc, X, Y, λ, ɛ, varɛ, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
 	:param dfunc: supplied loss function derivative (see :func:`loss_derivative`)
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
-	:param Y: labels corresponding to ``X``
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param Y: training labels corresponding to ``X``
 	:param λ: trade-off hyperparameter
 	:param ɛ: reweighting hyperparameter
 	:param varɛ: sparsification hyperparameter
@@ -144,7 +144,7 @@ Available low-level API
 
 .. function:: stochastic_rk_means(X, rk_means, alg_params, max_iter, tolerance[, online_pass=0, train_idx=[]])
 
-	:param X: a full dataset (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
+	:param X: training data (samples are stacked row-wise) represented by ``Matrix``, ``SparseMatrixCSC`` or :func:`DelimitedFile`
 	:param rk_means: algorithm defined by :func:`RK_MEANS`
 	:param alg_params: hyperparameter of the supporting algorithm in ``rk_means.support_alg``
 	:param k: sampling size at each iteration :math:`t`
