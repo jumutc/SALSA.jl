@@ -17,7 +17,7 @@ Available high-level API
 	
 .. function:: ADA_L1RDA
 
-	Defines an implementation (see :func:`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <ttp://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
+	Defines an implementation (see :func:`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
 	
 .. function:: R_L1RDA
 	
