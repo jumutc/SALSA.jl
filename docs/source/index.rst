@@ -26,7 +26,7 @@ Welcome to SALSA's documentation!
 - linear and non-linear **Support Vector Machines**
 - **sparse linear modelling**
 
-**SALSA** is an open source project available at `Github <http://github.com/jumutc/SALSA.jl>`_ under the `GNU General Public License version 3.0 <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_.
+**SALSA** is an open source project available at `Github <http://github.com/jumutc/SALSA.jl>`_ under the `GNU GPLv3 <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ license.
 
 
 Installation
