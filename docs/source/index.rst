@@ -21,12 +21,18 @@ Welcome to SALSA's documentation!
     :scale: 100%
     :target: https://readthedocs.org/projects/salsajl/
     
-**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` and ``Stochastic`` ``Algorithms`` is a native Julia implementation of stochastic algorithms for: 
+**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` with ``Stochastic`` ``Algorithms`` is a native Julia implementation of stochastic algorithms for: 
 
 - linear and non-linear **Support Vector Machines**
 - **sparse linear modelling**
 
 **SALSA** is an open source project available at `Github <http://github.com/jumutc/SALSA.jl>`_ under the `General Public License version 3 <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_.
+
+
+Installation
+~~~~~~~~~~~~
+
+The **SALSA** package can be installed from the ``Julia`` command line with ``Pkg.add("SALSA")`` or by running the same command directly with ``Julia`` executable by ``julia -e 'Pkg.add("SALSA")'``.
 
 
 .. _problem_def:
@@ -75,6 +81,7 @@ Dependencies
 - `StatsBase <https://github.com/JuliaStats/StatsBase.jl>`_: to support generic routines from Statistics
 - `Distances <https://github.com/JuliaStats/Distances.jl>`_: to support distance metrics between vectors
 - `Distributions <https://github.com/JuliaStats/Distributions.jl>`_: to support sampling from various distributions
+- `DataFrames <https://github.com/JuliaStats/DataFrames.jl>`_: to support and process files instead of in-memory matrices 
 - `Clustering <https://github.com/JuliaStats/Clustering.jl>`_: to support Stochastic K-means Clustering (experimental feature)
 - `ProgressMeter <https://github.com/timholy/ProgressMeter.jl>`_: to support progress bars and ETA of different routines
 

@@ -8,7 +8,7 @@
 [![Documentation Status](https://readthedocs.org/projects/salsajl/badge/?version=latest)](https://readthedocs.org/projects/salsajl/)
 
 ## Software Lab
-**SALSA**: **S**oftware Lab for **A**dvanced Machine **L**earning and **S**tochastic **A**lgorithms is a native Julia implementation of the well known stochastic algorithms for **sparse linear modelling**, linear and non-linear **Support Vector Machines**. It is stemmed from the following algorithmic approaches:
+**SALSA**: **S**oftware Lab for **A**dvanced Machine **L**earning with **S**tochastic **A**lgorithms is a native Julia implementation of the well known stochastic algorithms for **sparse linear modelling**, linear and non-linear **Support Vector Machines**. It is stemmed from the following algorithmic approaches:
 
 - [**Pegasos**](http://ttic.uchicago.edu/~shai/papers/ShalevSiSr07.pdf): S. Shalev-Shwartz, Y. Singer, N. Srebro, Pegasos: Primal Estimated sub-GrAdient SOlver for SVM, in: Proceedings of the 24th international conference on Machine learning, ICML ’07, New York, NY, USA, 2007, pp. 807–814. 
 

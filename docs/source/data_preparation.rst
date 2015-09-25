@@ -47,7 +47,7 @@ Data Management
 
 .. function:: DelimitedFile(name,header,delim)
 
-	Creates a wrapper around any delimited file which can be passed to low-level :ref:`routines <low_level_api>`, for instance :func:`pegasos_alg`. ``DelimitedFile`` will be processed in the online mode regardless of the passed ``online_pass==0`` flag.
+	Creates a wrapper around any delimited file which can be passed to low-level :ref:`routines <low_level_api>`, for instance :func:`pegasos_alg`. ``DelimitedFile`` will be processed in the online mode regardless of the ``online_pass==0`` flag passed to low-level :ref:`routines <low_level_api>`.
 	
 	:param name: file name
 	:param header: flag indicating if a header is present
