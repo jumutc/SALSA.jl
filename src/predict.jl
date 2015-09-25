@@ -1,3 +1,20 @@
+# 
+# Software Lab for Advanced Machine Learning with Stochastic Algorithms
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# License & help @ https://github.com/jumutc/SALSA.jl
+# Documentation @ http://salsajl.readthedocs.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
 # Predict by evaluating a simple linear model
 predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
 predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ ones(size(X,1),1)*model.output.b

@@ -1,28 +1,42 @@
+# 
+# Software Lab for Advanced Machine Learning with Stochastic Algorithms
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# License & help @ https://github.com/jumutc/SALSA.jl
+# Documentation @ http://salsajl.readthedocs.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
 # External function for a complete stochastic learning routine with cross-validation
-	#
-	# Copyright (c) 2015, KU Leuven-ESAT-STADIUS, License & help @
-	# http://www.esat.kuleuven.be/stadius/ADB/software.php
-	#
-	#    model = salsa(X,Y,model,Xtest) runs Pegasos, RDA... stochastic
-	#    algorithms suited for large-scale machine laerning routines
-	#
-	# Based on:
-	# 
-    # [1] S. Shalev-Shwartz, Y. Singer, N. Srebro, Pegasos: Primal Estimated sub-GrAdient SOlver for SVM, 
-    # in: Proceedings of the 24th international conference on Machine learning, ICML ’07, New York, NY, USA, 2007, pp. 807–814.
+#
+# model = salsa(X,Y,model,Xtest) runs Pegasos, RDA... stochastic
+# algorithms suited for large-scale machine laerning routines
+#
+# Based on:
+# 
+# [1] S. Shalev-Shwartz, Y. Singer, N. Srebro, Pegasos: Primal Estimated sub-GrAdient SOlver for SVM, 
+# in: Proceedings of the 24th international conference on Machine learning, ICML ’07, New York, NY, USA, 2007, pp. 807–814.
 
-    # [2] L. Xiao, Dual averaging methods for regularized stochastic learning and online optimization, 
-    # J. Mach. Learn. Res. 11 (2010) 2543–2596.
+# [2] L. Xiao, Dual averaging methods for regularized stochastic learning and online optimization, 
+# J. Mach. Learn. Res. 11 (2010) 2543–2596.
 
-    # [3] J. Duchi, E. Hazan, Y. Singer, Adaptive subgradient methods for online learning and stochastic optimization, 
-    # J. Mach. Learn. Res. 12 (2011) 2121–2159.
+# [3] J. Duchi, E. Hazan, Y. Singer, Adaptive subgradient methods for online learning and stochastic optimization, 
+# J. Mach. Learn. Res. 12 (2011) 2121–2159.
 
-    # [4] V. Jumutc, J. A. K. Suykens, Reweighted l1 dual averaging approach for sparse stochastic learning, 
-    # in: 22th European Symposium on Artificial Neural Networks, ESANN 2014, Bruges, Belgium, April 23-25, 2014.
+# [4] V. Jumutc, J. A. K. Suykens, Reweighted l1 dual averaging approach for sparse stochastic learning, 
+# in: 22th European Symposium on Artificial Neural Networks, ESANN 2014, Bruges, Belgium, April 23-25, 2014.
 
-    # [5] V. Jumutc, J. A. K. Suykens, Reweighted l2 -regularized dual averaging approach for highly sparse stochastic learning, 
-    # in: Advances in Neural Networks - 11th International Symposium on Neural Networks, ISNN 2014, 
-    # Hong Kong and Macao, China, November 28 – December 1, 2014, pp. 232–242.
+# [5] V. Jumutc, J. A. K. Suykens, Reweighted l2 -regularized dual averaging approach for highly sparse stochastic learning, 
+# in: Advances in Neural Networks - 11th International Symposium on Neural Networks, ISNN 2014, 
+# Hong Kong and Macao, China, November 28 – December 1, 2014, pp. 232–242.
 	
 function salsa(X, Y, model::SALSAModel, Xtest)
 	# sanity checks of input data

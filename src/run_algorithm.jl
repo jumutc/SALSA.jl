@@ -1,3 +1,20 @@
+# 
+# Software Lab for Advanced Machine Learning with Stochastic Algorithms
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# License & help @ https://github.com/jumutc/SALSA.jl
+# Documentation @ http://salsajl.readthedocs.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
 # extensive set of multiplicated aliases for different algorithms 
 run_algorithm{L <: Loss, M <: Mode}(X, Y, model::SALSAModel{L, PEGASOS, M}, train_idx=[]) 		= pegasos_alg(model.output.dfunc, X, Y, model.output.alg_params..., model.max_cv_k, model.max_cv_iter, model.tolerance, model.online_pass, train_idx) 
 run_algorithm{L <: Loss, M <: Mode}(X, Y, model::SALSAModel{L, SIMPLE_SGD, M}, train_idx=[])	= sgd_alg(model.output.dfunc, X, Y, model.output.alg_params..., model.max_cv_k, model.max_cv_iter, model.tolerance, model.online_pass, train_idx) 
