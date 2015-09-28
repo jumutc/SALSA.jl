@@ -48,7 +48,7 @@ Knowledge agnostic usage
         srand(1234)
         ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat"))
 
-        model = salsa(LINEAR,PEGASOS,HINGE, ripley["X"], ripley["Y"], ripley["Xt"])
+        model = salsa(LINEAR, PEGASOS, HINGE, ripley["X"], ripley["Y"], ripley["Xt"])
         @test_approx_eq_eps mean(ripley["Yt"] .== model.output.Ytest) 0.89 0.01
        
 Model-based usage

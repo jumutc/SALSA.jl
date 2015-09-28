@@ -73,9 +73,9 @@ function print_logo()
 
     println("\n
   ____    _    _     ____    _       $r1 $w1   | Software Lab for Advanced Machine Learning
- / ___|  / \\  | |   / ___|  / \\     $r2$r1$r3 $w2  | and Stochastic Algorithms in Julia
+ / ___|  / \\  | |   / ___|  / \\     $r2$r1$r3 $w2  | with Stochastic Algorithms in Julia
  \\___ \\ / _ \\ | |   \\___ \\ / _ \\    | | |  |
-  ___) / ___ \\| |___ ___) / ___ \\ $g1 $w2 | |  | Documentation: http://salsajl.readthedocs.org
+  ___) / ___ \\| |___ ___) / ___ \\ $g1 $w2 | |  | Docs \& license: http://salsajl.readthedocs.org
  |____/_/   \\_\\_____|____/_/   \\_$g2$g1$g3$w3 |_|  | CI builds: http://travis-ci.org/jumutc/SALSA.jl
                                   |__/     | Version: $version\n")
 end

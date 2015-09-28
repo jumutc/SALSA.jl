@@ -21,13 +21,14 @@ Welcome to SALSA's documentation!
     :scale: 100%
     :target: https://readthedocs.org/projects/salsajl/
     
-**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` with ``Stochastic`` ``Algorithms`` is a native Julia implementation of stochastic algorithms for: 
+**SALSA**: ``Software`` Lab for ``Advanced`` Machine ``Learning`` with ``Stochastic`` ``Algorithms`` is a native `**Julia** <http://julialang.org>`_ implementation of stochastic algorithms for: 
 
 - linear and non-linear **Support Vector Machines**
 - **sparse linear modelling**
 
-**SALSA** is an open source project available at `Github <http://github.com/jumutc/SALSA.jl>`_ under the `GPLv3 <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ license.
+**SALSA** is an open source project available at `**Github** <http://github.com/jumutc/SALSA.jl>`_ under the `**GPLv3** <https://github.com/jumutc/SALSA.jl/blob/master/LICENSE>`_ license.
 
+.. _installation:
 
 Installation
 ~~~~~~~~~~~~
@@ -107,3 +108,4 @@ Indices and tables
    algorithms.rst
    model_tuning.rst
    nystrom.rst
+   examples.rst
