@@ -14,39 +14,39 @@ This example provides a use-case for nonlinear classification using :doc:`NystrÃ
 
 .. code-block:: julia
 
-using SALSA, MAT
+   using SALSA, MAT
 
-ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat")); srand(123);
-model = SALSAModel(NONLINEAR, PEGASOS(), LOGISTIC, validation_criterion=AUC(100));
-model = salsa(ripley["X"], ripley["Y"], model, ripley["Xt"]);
+   ripley = matread(joinpath(Pkg.dir("SALSA"), "data", "ripley.mat")); srand(123);
+   model = SALSAModel(NONLINEAR, PEGASOS(), LOGISTIC, validation_criterion=AUC(100));
+   model = salsa(ripley["X"], ripley["Y"], model, ripley["Xt"]);
 
-range1 = linspace(-1.5,1.5,200);
-range2 = linspace(-0.5,1.5,200);
-grid = [[i j] for i in range1, j in range2];
-diff1 = range1[2] - range1[1];
-diff2 = range2[2] - range2[1];
+   range1 = linspace(-1.5,1.5,200);
+   range2 = linspace(-0.5,1.5,200);
+   grid = [[i j] for i in range1, j in range2];
+   diff1 = range1[2] - range1[1];
+   diff2 = range2[2] - range2[1];
 
-Xgrid = foldl(vcat, grid);
-Xtest = ripley["Xt"];
+   Xgrid = foldl(vcat, grid);
+   Xtest = ripley["Xt"];
 
-yhat = model.output.Ytest;
-yplot = map_predict_latent(model,Xgrid);
-yplot = yplot - minimum(yplot);
-yplot = 2*(yplot ./ maximum(yplot)) - 1;
+   yhat = model.output.Ytest;
+   yplot = map_predict_latent(model,Xgrid);
+   yplot = yplot - minimum(yplot);
+   yplot = 2*(yplot ./ maximum(yplot)) - 1;
+   
+   using DataFrames
+   df = DataFrame();
+   df[:Xmin] = Xgrid[:,1][:];
+   df[:Ymin] = Xgrid[:,2][:];
+   df[:Xmax] = Xgrid[:,1][:] + diff1;
+   df[:Ymax] = Xgrid[:,2][:] + diff2;
+   df[:class] = yplot[:];
 
-using DataFrames
-df = DataFrame();
-df[:Xmin] = Xgrid[:,1][:];
-df[:Ymin] = Xgrid[:,2][:];
-df[:Xmax] = Xgrid[:,1][:] + diff1;
-df[:Ymax] = Xgrid[:,2][:] + diff2;
-df[:class] = yplot[:];
-
-using Gadfly
-set_default_plot_size(20cm, 20cm);
-plot(layer(x=Xtest[yhat.>0,1], y=Xtest[yhat.>0,2], Geom.point, Theme(default_color=colorant"orange")),
-     layer(x=Xtest[yhat.<0,1], y=Xtest[yhat.<0,2], Geom.point, Theme(default_color=colorant"black")),
-     layer(df, x_min="Xmin", x_max="Xmax", y_min="Ymin", y_max="Ymax", color="class", Geom.rectbin))
+   using Gadfly
+   set_default_plot_size(20cm, 20cm);
+   plot(layer(x=Xtest[yhat.>0,1], y=Xtest[yhat.>0,2], Geom.point, Theme(default_color=colorant"orange")),
+        layer(x=Xtest[yhat.<0,1], y=Xtest[yhat.<0,2], Geom.point, Theme(default_color=colorant"black")),
+        layer(df, x_min="Xmin", x_max="Xmax", y_min="Ymin", y_max="Ymax", color="class", Geom.rectbin))
     
 .. image:: ../ripley.png
 	:alt: Advanced Classification Example
@@ -60,23 +60,23 @@ This example provides a use-case for regression using :doc:`NystrÃ¶m approximati
 
 .. code-block:: julia
 
-using SALSA, MLBase
+   using SALSA, MLBase
 
-sinc(x) = sin(x)./x;
-X = linspace(0.1,20,100)'';
-Xtest = linspace(0.1,20,200)'';
-Y = sinc(X);
-srand(1234);
+   sinc(x) = sin(x)./x;
+   X = linspace(0.1,20,100)'';
+   Xtest = linspace(0.1,20,200)'';
+   Y = sinc(X);
+   srand(1234);
 
-model = SALSAModel(NONLINEAR, PEGASOS(), LEAST_SQUARES, 
+   model = SALSAModel(NONLINEAR, PEGASOS(), LEAST_SQUARES, 
     	cv_gen=Nullable{CrossValGenerator}(LOOCV(100)),
     	validation_criterion=MSE(), process_labels=false, subset_size=5.0);
-model = salsa(X, Y, model, Xtest);
+   model = salsa(X, Y, model, Xtest);
     
-using Gadfly
-set_default_plot_size(20cm, 20cm);
-plot(layer(x=Xtest[:], y=sinc(Xtest), Geom.point),
-     layer(x=Xtest[:], y=model.output.Ytest, Geom.line, Theme(default_color=colorant"orange")))
+   using Gadfly
+   set_default_plot_size(20cm, 20cm);
+   plot(layer(x=Xtest[:], y=sinc(Xtest), Geom.point),
+        layer(x=Xtest[:], y=model.output.Ytest, Geom.line, Theme(default_color=colorant"orange")))
     
     
 .. image:: ../sinc.png
