@@ -7,22 +7,22 @@ This package provides a function ``salsa`` and explanation on ``SALSAModel`` for
 
 .. code-block:: julia
 
-    using SALSA, Clustering, Distances, MLBase, Base.Test
+   using SALSA, Clustering, Distances, MLBase, Base.Test
 
-    Xf = readcsv(joinpath(Pkg.dir("SALSA"), "data", "iris.data.csv"))
-	Y = convert(Array{Int}, Xf[:,end])
-	dY = Array{Int}(length(Y))
-	X = Xf[:,1:end-1]
-	max_iter = 20
-
-	srand(1234)
-	algorithm = RK_MEANS(max_iter)
-	model = SALSAModel(LINEAR, algorithm, LEAST_SQUARES,
-				validation_criterion=SILHOUETTE(),
-				global_opt=DS([-1]), process_labels=false,
-				cv_gen = Nullable{CrossValGenerator}(Kfold(length(Y),3)))
-	model = salsa(X, dY, model, X)
-	mappings = model.output.Ytest
+   Xf = readcsv(joinpath(Pkg.dir("SALSA"), "data", "iris.data.csv"))
+   Y = convert(Array{Int}, Xf[:,end])
+   dY = Array{Int}(length(Y))
+   X = Xf[:,1:end-1]
+   max_iter = 20
+   srand(1234)
+   
+   algorithm = RK_MEANS(max_iter)
+   model = SALSAModel(LINEAR, algorithm, LEAST_SQUARES,
+            validation_criterion=SILHOUETTE(),
+            global_opt=DS([-1]), process_labels=false,
+            cv_gen = Nullable{CrossValGenerator}(Kfold(length(Y),3)))
+   model = salsa(X, dY, model, X)
+   mappings = model.output.Ytest
 
 By taking a close look at the code snippet above we can notice that we use a special type of an algorithm :func:`RK_MEANS` which implements approach in [JS2015]_. By instantiating ``RK_MEANS(max_iter)`` we provide a maximum number of outer iterations. Learning of individual prototype vectors will be repeated ```max_iter``` times after re-partitioning of the dataset ``X``. The default choice of the loss function is ``LEAST_SQUARES`` and the distance metric is ``Euclidean()`` [#f1]_. This corresponds to the original setting of the unregularized K-Means approach. Please refer to :doc:`Algorithms <algorithms>` section and :func:`RK_MEANS` function for more details regarding which combinations of loss functions and metrics are supported.
 
