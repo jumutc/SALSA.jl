@@ -4,7 +4,7 @@ Examples & notebooks
 Prerequisites
 ~~~~~~~~~~~~~~
 
-Please refer to `Julia downloads <http://julialang.org/downloads>`_ page for installing **Julia** language and all dependencies. The instructions for installing the **SALSA** package can be found :ref:`here <installation>`. Some additional plotting and data management packages might be required to run examples below (like ``Winston``, ``Gadfly`` or ``DataFrames`` *etc*). If you prefer Python-style notebooks please refer to `Project Jupyter <http://jupyter.org>`_ and `IJulia <http://github.com/JuliaLang/IJulia.jl>`_ package for instructions. In this section we provide code snippets which can be easily copied into the **Julia** console or **Jupyter** notebook. 
+Please refer to `Julia downloads <http://julialang.org/downloads>`_ page for installing **Julia** language and all dependencies. The instructions for installing the **SALSA** package can be found :ref:`here <installation>`. Some additional plotting and data management packages might be required to run examples below (like ``Winston``, ``Gadfly`` or ``DataFrames``). If you prefer Python-style notebooks please refer to `Project Jupyter <http://jupyter.org>`_ and `IJulia <http://github.com/JuliaLang/IJulia.jl>`_ package for instructions. In this section we provide code snippets which can be easily copied into the **Julia** console or **Jupyter** notebook. 
 
 
 Advanced Classification
@@ -50,13 +50,13 @@ This example provides a use-case for nonlinear classification using :doc:`Nystr�
     
 .. image:: ../ripley.png
 	:alt: Advanced Classification Example
-	:height: 150px
+	:height: 100px
 
 
 Advanced Regression
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example provides a use-case for regression using :doc:`Nyström approximation <nystrom>` and ``MSE()`` (Mean Squared Error) as a criterion in the `Leave-One-Out <https://en.wikipedia.org/wiki/Cross-validation_(statistics)>`_ cross-validation.
+This example provides a use-case for regression using :doc:`Nyström approximation <nystrom>` and :func:`mse` (Mean Squared Error) as a criterion in the `Leave-One-Out <https://en.wikipedia.org/wiki/Cross-validation_(statistics)>`_ cross-validation defined in `MLBase.jl <https://github.com/JuliaStats/MLBase.jl>`_ package.
 
 .. code-block:: julia
 
@@ -81,6 +81,6 @@ This example provides a use-case for regression using :doc:`Nyström approximati
     
 .. image:: ../sinc.png
 	:alt: Advanced Regression Example
-	:height: 150px
+	:height: 100px
 	
 	

@@ -4,7 +4,7 @@ Regression
 A regression example is explained for the SALSA package by the ``sinc(x) = sin(x)./x`` function.
 
 
-This package provides a function ``salsa`` and explanation on ``SALSAModel`` for the regression case. This use case is supported by the Fixed-Size approach [FS2010]_ and :doc:`Nyström approximation <nystrom>` with the specific ``LEAST_SQUARES`` loss function and cross-validation criterion ``MSE`` (mean-squared error). 
+This package provides a function ``salsa`` and explanation on ``SALSAModel`` for the regression case. This use case is supported by the Fixed-Size approach [FS2010]_ and :doc:`Nyström approximation <nystrom>` with the specific :func:`LEAST_SQUARES` loss function and cross-validation criterion :func:`mse` (mean-squared error). 
 
 .. code-block:: julia
 
