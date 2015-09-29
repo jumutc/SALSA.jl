@@ -36,7 +36,7 @@ Available high-level API
 	Defines an implementation (see :func:`stochastic_rk_means`) of the Regularized Stochastic K-Means approach [JS2015]_. Please refer to :doc:`Clustering <clustering>` section for examples.
 	
 	:param support_alg: underlying support algorithm, *e.g.* ``PEGASOS``
-	:param k_clusters: number of clusters to locate
+	:param k_clusters: number of clusters to be extracted
 	:param max_iter: maximum number of outer iterations
 	:param metric: metric to evaluate distances to centroids [#f2]_
 	
