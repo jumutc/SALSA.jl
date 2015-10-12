@@ -58,7 +58,7 @@ Particular choices of loss functions are (but are not restricted to the selectio
 Particular choices of the `regularization term <https://en.wikipedia.org/wiki/Regularization_(mathematics)>`_ are:
 
 - :math:`l_2`-regularization, *i.e.* :math:`\|w\|_2^2`
-- `elastic net <https://en.wikipedia.org/wiki/Elastic_net_regularization>`_ regularization, *i.e.*  :math:`\lambda_1\|w\|_1 + \lambda_2\|w\|_2^2`
+- :math:`l_1`-`regularization <https://en.wikipedia.org/wiki/Least_squares#Lasso_method>`_, *i.e.* :math:`|w\|_1`
 - reweighted :math:`l_2`-`regularization <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/isnn2014_jumutc_suykens.pdf>`_
 - reweighted :math:`l_1`-`regularization <ftp://ftp.esat.kuleuven.be/pub/SISTA/vjumutc/reports/reweighted_l1rda_jumutc_suykens.pdf>`_
 

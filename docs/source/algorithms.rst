@@ -13,11 +13,11 @@ Available high-level API
 	
 .. function:: L1RDA
 	
-	Defines an implementation (see :func:`l1rda_alg`) of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>`.
+	Defines an implementation (see :func:`l1rda_alg`) of the `l1-Regularized Dual Averaging <http://research.microsoft.com/pubs/141578/xiao10JMLR.pdf>`_ solver which solves :math:`l_1`-`regularized <https://en.wikipedia.org/wiki/Least_squares#Lasso_method>`_ problem defined :ref:`here <problem_def>`.
 	
 .. function:: ADA_L1RDA
 
-	Defines an implementation (see :func:`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves elastic-net regularized problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
+	Defines an implementation (see :func:`adaptive_l1rda_alg`) of the `Adaptive l1-Regularized Dual Averaging <http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf>`_ solver which solves :math:`l_1`-`regularized <https://en.wikipedia.org/wiki/Least_squares#Lasso_method>`_ problem defined :ref:`here <problem_def>` in an adaptive way [#f1]_.
 	
 .. function:: R_L1RDA
 	
