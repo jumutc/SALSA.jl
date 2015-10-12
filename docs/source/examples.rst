@@ -23,9 +23,7 @@ This example provides a use-case for nonlinear classification using :doc:`NystrÃ
    range1 = linspace(-1.5,1.5,200);
    range2 = linspace(-0.5,1.5,200);
    grid = [[i j] for i in range1, j in range2];
-   diff1 = range1[2] - range1[1];
-   diff2 = range2[2] - range2[1];
-
+   
    Xgrid = foldl(vcat, grid);
    Xtest = ripley["Xt"];
 
@@ -36,17 +34,15 @@ This example provides a use-case for nonlinear classification using :doc:`NystrÃ
    
    using DataFrames
    df = DataFrame();
-   df[:Xmin] = Xgrid[:,1][:];
-   df[:Ymin] = Xgrid[:,2][:];
-   df[:Xmax] = Xgrid[:,1][:] + diff1;
-   df[:Ymax] = Xgrid[:,2][:] + diff2;
+   df[:X] = Xgrid[:,1][:];
+   df[:Y] = Xgrid[:,2][:];
    df[:class] = yplot[:];
 
    using Gadfly
    set_default_plot_size(20cm, 20cm);
    plot(layer(x=Xtest[yhat.>0,1], y=Xtest[yhat.>0,2], Geom.point, Theme(default_color=colorant"orange")),
         layer(x=Xtest[yhat.<0,1], y=Xtest[yhat.<0,2], Geom.point, Theme(default_color=colorant"black")),
-        layer(df, x_min="Xmin", x_max="Xmax", y_min="Ymin", y_max="Ymax", color="class", Geom.rectbin))
+        layer(df, x="X", y="Y", color="class", Geom.rectbin))
     
 .. image:: ../ripley.png
 	:alt: Advanced Classification Example
