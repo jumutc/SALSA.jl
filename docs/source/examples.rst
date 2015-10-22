@@ -4,7 +4,7 @@ Examples & notebooks
 Prerequisites
 ~~~~~~~~~~~~~~
 
-Please refer to `Julia downloads <http://julialang.org/downloads>`_ page for installing **Julia** language and all dependencies. The instructions for installing the **SALSA** package can be found :ref:`here <installation>`. Some additional plotting and data management packages might be required to run examples below (like ``Gadfly``, ``MAT`` or ``DataFrames``). If you prefer Python-style notebooks please refer to the `Project Jupyter <http://jupyter.org>`_ and `IJulia <http://github.com/JuliaLang/IJulia.jl>`_ package for instructions. In this section we provide code snippets which can be easily copied into the **Julia** console or **Jupyter** notebook. 
+Please refer to `Julia downloads <http://julialang.org/downloads>`_ page for installing **Julia** language and all dependencies. The instructions for installing the **SALSA** package can be found :ref:`here <installation>`. Some additional plotting and data management packages might be required to run examples below (like ``Gadfly``, ``MAT`` or ``DataFrames``). If you prefer Python-style notebooks please refer to the `Project Jupyter <http://jupyter.org>`_ and `IJulia <http://github.com/JuliaLang/IJulia.jl>`_ package for instructions. In this section we provide code snippets which can be easily copied into the **Julia** console or **Jupyter** notebook. Please find an explanation on examples and functional ``IJulia`` notebooks `online <https://drive.google.com/folderview?id=0B7FqDhPLnLXkaDNEaEllTmJ3ajg&usp=sharing>`_. 
 
 
 Advanced Classification
