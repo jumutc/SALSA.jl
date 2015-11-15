@@ -56,8 +56,8 @@ function hinge_loss_derivative(At,yt,w)
 end
 
 hinge_loss{T <: Number}(At,yt::T,idx) = -At.*yt
+hinge_loss(At,yt,idx) = -sum(At[:,idx].*repmat(yt[idx]',size(At,1),1),2)
 hinge_loss(At::Matrix,yt::Vector,idx) = -sum(At[:,idx].*repmat(yt[idx]',size(At,1),1),2)
-hinge_loss(At::AbstractArray,yt::Vector,idx) = -sum(At[:,idx].*repmat(yt[idx]',size(At,1),1),2)
 hinge_loss(At::SparseMatrixCSC,yt,idx) = reduce((d0,i) -> d0 - (At[:,i] .* yt[i]), spzeros(size(At,1),1), Set(idx))
 
 # SQUARED HINGE LOSS
@@ -73,7 +73,6 @@ end
 
 squared_hinge_loss{T <: Number}(At,yt::T,idx,eval) = -At.*(yt - eval*yt)
 squared_hinge_loss(At::Matrix,yt::Vector,idx,eval) = -sum(At[:,idx].*repmat((yt[idx].*(1 - eval[idx]))',size(At,1),1),2)
-squared_hinge_loss(At::AbstractArray,yt::Vector,idx,eval) = -sum(At[:,idx].*repmat((yt[idx].*(1 - eval[idx]))',size(At,1),1),2)
 squared_hinge_loss(At::SparseMatrixCSC,yt,idx,eval) = reduce((d0,i) -> d0 - (At[:,i] .* yt[i]*(1 - eval[i])), spzeros(size(At,1),1), Set(idx))
 
 # PINBALL (quantile) LOSS
@@ -95,13 +94,11 @@ pinball_loss_derivative{T <: Number}(At::SparseMatrixCSC,yt::T,w,τ) = evaluate(
 
 # LOGISTIC LOSS
 logistic_loss{T <: Number}(At,yt::T,w,eval=evaluate(At,yt,w)) = -At.*yt/(exp(eval)+1) 
-logistic_loss(At::Matrix,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
-logistic_loss(At::AbstractArray,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
+logistic_loss(At,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
 logistic_loss(At::SparseMatrixCSC,yt,w,eval=evaluate(At,yt,w)) = reduce((d0,i) -> d0 - (At[:,i] .* (yt[i]/(exp(eval[i])+1))), spzeros(size(At,1),1), 1:1:size(At,2))
 
 # LEAST-SQUARES LOSS
-least_squares_loss(At::Matrix,yt,w) = At*(evaluate(At,w) - yt)
-least_squares_loss(At::AbstractArray,yt,w) = At*(evaluate(At,w) - yt)
+least_squares_loss(At,yt,w) = At*(evaluate(At,w) - yt)
 least_squares_loss{T <: Number}(At,yt::T,w) = At.*(evaluate(At,w) - yt)
 least_squares_loss(At::SparseMatrixCSC,yt,w) = reduce((d0,i) -> d0 + (At[:,i] .* (sum(At[:,i].*w) - yt[i])), spzeros(size(At,1),1), 1:1:size(At,2))
 
