@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -35,23 +35,23 @@ function entropy_subset{K <: Kernel}(X, k::K, subset_size::Float64)
     for i=1:size(X,1)
         # Find the smallest entropy
         val, id = findmin(totalinfo2)
-        # Subtract from totalcrit once for row and once for column 
+        # Subtract from totalcrit once for row and once for column
         # and add 1 for diagonal term which is subtracted twice
         temptotalcrit = totalcrit - 2*val + 1
-        #Try to evaluate kernel function 
-        if (id == capacity) 
+        #Try to evaluate kernel function
+        if (id == capacity)
             subi = totalinfo1[1:id-1]
         elseif (id == 1)
             subi = totalinfo1[id+1:end]
-        else   
+        else
             subi = totalinfo1[[1:id-1;id+1:end]]
         end
         distance_eval = sum(kernel_matrix(k,sub(X,i,:),svX[subi,:]))
-        # Add to totalcrit once for row and once for column 
+        # Add to totalcrit once for row and once for column
         # and subtract 1 for diagonal term which is added twice
         temptotalcrit = temptotalcrit + 2*distance_eval - 1
         logtemptotalcrit = -log(temptotalcrit/capsquare)
-        # Evaluate that Renyi Entropy has increased 
+        # Evaluate that Renyi Entropy has increased
         if (max_c <= logtemptotalcrit)
             totalinfo2[id] = distance_eval
             totalcrit = temptotalcrit
@@ -59,6 +59,6 @@ function entropy_subset{K <: Kernel}(X, k::K, subset_size::Float64)
             sv[id] = i
         end
     end
-   
+
     sv
 end

@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64, 
+function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
                    k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
 
     # Internal function for a simple Adaptive l1-RDA routine
@@ -25,27 +25,26 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
 
     N = size(X,1)
     d = size(X,2) + 1
-    check = ~issparse(X) 
-    
+    check = ~issparse(X)
+
     if check
         g = zeros(d,1)
         h = zeros(d,1)
         w = rand(d,1)/100
-        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
-    else 
+        sub_arr = (I) -> append_ones(sub(X,I,:),k)
+    else
         g = spzeros(d,1)
         h = spzeros(d,1)
         total = length(X.nzval)
-        w = sprand(d,1,total/(N*d))/100
-        X = [X'; sparse(ones(1,N))]
-        sub_arr = (I) -> X[:,I]
+        w = sparsevec(sprand(d,1,total/(N*d))/100)
+        X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
     end
 
     space, N = fix_space(train_idx,N)
     smpl = fix_sampling(online_pass,N)
     max_iter = fix_iter(online_pass,N,max_iter)
 
-    for t=1:max_iter 
+    for t=1:max_iter
         idx = space[smpl(t,k)]
         w_prev = w
 
@@ -55,20 +54,20 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         # calculate dual average: (cumulative) gradient
         g_new = dfunc(At,yt,w)
         g = ((t-1)/t).*g + (1/(t)).*g_new
-  
+
         # find a close form solution
         if check
-            h = t>1 ? h + g_new.^2 : ρ .+ g_new.^2 
+            h = t>1 ? h + g_new.^2 : ρ .+ g_new.^2
             w = -(t*γ./sqrt(h)).*(g - λ.*sign(g))
             w[abs(g).<=λ] = 0
         else
             # do not perform sparse(...) and filter and map over SparceMatrixCSC
             # because Garbage Collection performs realy badly in the tight loops
-            h = t>1 ? h + g_new.^2 : sparse(ρ+g_new.^2) 
-            h_sq = SparseMatrixCSC(d,1,h.colptr,h.rowval,-(t*γ)./sqrt(h.nzval))
-            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign(g.nzval))
-            w = h_sq.*(g - λ.*gs); ind = abs(g.nzval) .> λ
-            w = reduce_sparsevec(w,find(ind)) 
+            h = t>1 ? h + g_new.^2 : sparse(ρ+g_new.^2)
+            h_sq = SparseVector(d,h.rowval,-(t*γ)./sqrt(h.nzval))
+            gs = SparseVector(d,g.rowval,sign(g.nzval))
+            w = h_sq.*(sparsevec(g) .- λ.*gs); ind = abs(g.nzval).>λ
+            w = isempty(ind) ? w_prev : reduce_sparsevec(w,find(ind))
         end
 
         # check the stopping criterion w.r.t. Tolerance, check, online_pass

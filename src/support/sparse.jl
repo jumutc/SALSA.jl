@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -36,25 +36,32 @@ function make_sparse(tuples;sizes=(),delim="")
           push!(V,make_float(tuple[2]))
           push!(J,make_int(tuple[1]))
           push!(I,i)
-        end  
+        end
       end
     end
   end
 
   # check for available sizes
-  if ~isempty(sizes) 
+  if ~isempty(sizes)
     sparse(I,J,V,sizes[1],sizes[2])
-  else 
+  else
     sparse(I,J,V)
   end
 end
 
-function reduce_sparsevec(sm::SparseMatrixCSC,idx)
+function reduce_sparsevec{T<:AbstractSparseMatrix}(sm::T,idx)
   nzval  = sm.nzval[idx]
   rowval = sm.rowval[idx]
   colptr = [1,length(rowval)+1]
   SparseMatrixCSC(sm.m,sm.n,colptr,rowval,nzval)
 end
+
+function reduce_sparsevec{T<:AbstractSparseVector}(sm::T,idx)
+  nzval = sm.nzval[idx]
+  nzind = sm.nzind[idx]
+  SparseVector(sm.n,nzind,nzval)
+end
+
 
 make_float(x) = typeof(x) <: Number ? x : parse(Float64,x)
 make_int(x) = typeof(x) <: Number ? round(Int,x) : parse(Int,x)

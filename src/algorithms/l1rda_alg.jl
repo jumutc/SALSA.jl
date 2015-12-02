@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64, 
+function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
                    k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
 
     # Internal function for a simple l1-RDA routine
@@ -25,35 +25,34 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
 
     N = size(X,1)
     d = size(X,2) + 1
-    check = ~issparse(X) 
-    
+    check = ~issparse(X)
+
     if check
         g = zeros(d,1)
         w = rand(d,1)/100
-        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
-    else 
+        sub_arr = (I) -> append_ones(sub(X,I,:),k)
+    else
         g = spzeros(d,1)
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))/100
-        X = [X'; sparse(ones(1,N))]
-        sub_arr = (I) -> X[:,I]
+        X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
     end
 
     space, N = fix_space(train_idx,N)
     smpl = fix_sampling(online_pass,N)
     max_iter = fix_iter(online_pass,N,max_iter)
 
-    for t=1:max_iter 
+    for t=1:max_iter
         idx = space[smpl(t,k)]
         w_prev = w
 
         yt = Y[idx]
         At = sub_arr(idx)
-        
+
         # calculate dual average: gradient
         g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,w)
         λ_rda = λ+(ρ*γ)/sqrt(t)
-        
+
         # find a close form solution
         if check
             w = -(sqrt(t)/γ).*(g - λ_rda.*sign(g))
@@ -63,7 +62,7 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
             # because Garbage Collection performs realy badly in the tight loops
             gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign(g.nzval))
             w = -(sqrt(t)/γ).*(g - λ_rda.*gs); ind = abs(g.nzval) .> λ_rda
-            w = reduce_sparsevec(w,find(ind)) 
+            w = isempty(ind) ? w_prev : reduce_sparsevec(w,find(ind))
         end
 
         # check the stopping criterion w.r.t. Tolerance, check, online_pass

@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, varɛ::Float64, 
+function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, varɛ::Float64,
                               k::Int, max_iter::Int, tolerance::Float64, online_pass=0, train_idx=[])
 
     # Internal function for a simple Reweighted l2-RDA routine
@@ -27,25 +27,24 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
     d = size(X,2) + 1
     check = ~issparse(X)
     rw = ones(d)
-    
+
     if check
         g = zeros(d,1)
         w = rand(d,1)/100
-        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
-    else      
+        sub_arr = (I) -> append_ones(sub(X,I,:),k)
+    else
         g = spzeros(d,1)
         total = length(X.nzval)
         w = sprand(d,1,total/(N*d))/100
         fg = i -> -1./(λ .+ rw[i])
-        X = [X'; sparse(ones(1,N))]
-        sub_arr = (I) -> X[:,I]
+        X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
     end
 
     space, N = fix_space(train_idx,N)
     smpl = fix_sampling(online_pass,N)
     max_iter = fix_iter(online_pass,N,max_iter)
 
-    for t=1:max_iter 
+    for t=1:max_iter
         idx = space[smpl(t,k)]
         w_prev = w
 
@@ -54,19 +53,19 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
 
         # calculate dual average: gradient
         g = ((t-1)/t).*g + (1/(t)).*dfunc(At,yt,w)
-        
+
         # find a close form solution
         # update re-weighting vector
-        if check     
-            w = -(1./(λ .+ rw)).*g       
+        if check
+            w = -(1./(λ .+ rw)).*g
             rw = 1 ./ (w.^2 .+ ɛ)
-        else 
+        else
             # do not perform sparse(...) and filter and map over SparceMatrixCSC
             # because Garbage Collection performs realy badly in the tight loops
             w = SparseMatrixCSC(d,1,g.colptr,g.rowval,fg(g.rowval)).*g
             rw[g.rowval] = 1./(ɛ .+ w.nzval.^2)
         end
-        
+
         # check the stopping criterion w.r.t. Tolerance, check, online_pass
         if online_pass == 0 && check && vecnorm(w - w_prev) < tolerance
             break
@@ -78,7 +77,7 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
         w[abs(w).<=varɛ] = 0
     else
         ind = abs(w.nzval) .> varɛ
-        w = reduce_sparsevec(w,find(ind))
+        w = isempty(ind) ? w : reduce_sparsevec(w,find(ind))
     end
 
     w[1:end-1], w[end]

@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -24,44 +24,44 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
     N = size(X,1)
     d = size(X,2) + 1
     check = issparse(X)
-    
+
     if ~check
         w = rand(d)
-        rw = ones(d)/d 
-        sub_arr = (I) -> [sub(X,I,:) ones(k,1)]'
-    else 
+        rw = ones(d)/d
+        sub_arr = (I) -> append_ones(sub(X,I,:),k)
+    else
         total = length(X.nzval)
-        w = sprand(d,1,total/(N*d))
-        X = [X'; sparse(ones(1,N))]
-        f_sample = (p) -> isnan(p^2/(1+p^2)) ? 
-              rand(Bernoulli(0)) : rand(Bernoulli(p^2/(1+p^2))) 
-        sub_arr = (I) -> X[:,I]
+        w = sparsevec(sprand(d,1,total/(N*d)))
+        f_sample = (p) -> isnan(p^2/(1+p^2)) ?
+              rand(Bernoulli(0)) : rand(Bernoulli(p^2/(1+p^2)))
+        X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
     end
 
     space, N = fix_space(train_idx,N)
     smpl = fix_sampling(online_pass,N)
     max_iter = fix_iter(online_pass,N,max_iter)
 
-    for t=1:max_iter 
+    for t=1:max_iter
         idx = space[smpl(t,k)]
         w_prev = w
-        
+
         yt = Y[idx]
         At = sub_arr(idx)
+        grad = dfunc(At,yt,w)
 
         # define samples
         if ~check
             prob = map(p -> Bernoulli(1-p),rw)
-            dropout = map(rand, prob) 
+            dropout = map(rand, prob)
         else
             bern_vars = map(f_sample,w.nzval)
-            dropout = SparseMatrixCSC(d,1,w.colptr,w.rowval,bern_vars)
+            dropout = SparseVector(d,w.nzind,bern_vars)
             dropout = reduce_sparsevec(dropout,find(bern_vars))
+            grad = sparsevec(grad)
         end
 
         # do a gradient descent step
-        grad = dfunc(At,yt,w)
-        w = w - (dropout.*w)./t
+        w = w - (1/t)*(dropout.*w)
         w = w - (1/(λ*t*k))*grad
 
         if ~check

@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -17,16 +17,16 @@
 
 function fix_space(train_idx, N::Int)
     if ~isempty(train_idx)
-        (train_idx, size(train_idx,1)) 
+        (train_idx, size(train_idx,1))
     else
-        (1:1:N, N)
+        (collect(1:1:N), N)
     end
 end
 
 function fix_sampling(online_pass, N::Int)
     if online_pass > 0
         (t,k) -> begin
-            s = t % N 
+            s = t % N
             s > 0 ? s : N
         end
     else
