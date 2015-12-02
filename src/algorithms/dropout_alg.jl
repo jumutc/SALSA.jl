@@ -55,9 +55,8 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
             dropout = map(rand, prob)
         else
             bern_vars = map(f_sample,w.nzval)
-            dropout = SparseVector(d,w.nzind,bern_vars)
+            dropout = SparseMatrixCSC(d,1,w.colptr,w.rowval,bern_vars)
             dropout = reduce_sparsevec(dropout,find(bern_vars))
-            grad = sparsevec(grad)
         end
 
         # do a gradient descent step

@@ -64,9 +64,9 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
             # do not perform sparse(...) and filter and map over SparceMatrixCSC
             # because Garbage Collection performs realy badly in the tight loops
             h = t>1 ? h + g_new.^2 : sparse(ρ+g_new.^2)
-            h_sq = SparseVector(d,h.rowval,-(t*γ)./sqrt(h.nzval))
-            gs = SparseVector(d,g.rowval,sign(g.nzval))
-            w = h_sq.*(sparsevec(g) .- λ.*gs); ind = abs(g.nzval).>λ
+            h_sq = SparseMatrixCSC(d,1,h.colptr,h.rowval,-(t*γ)./sqrt(h.nzval))
+            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign(g.nzval))
+            w = h_sq.*(g - λ.*gs); ind = abs(g.nzval) .> λ
             w = isempty(ind) ? w_prev : reduce_sparsevec(w,find(ind))
         end
 
