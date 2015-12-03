@@ -36,7 +36,7 @@ function adaptive_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ:
         g = spzeros(d,1)
         h = spzeros(d,1)
         total = length(X.nzval)
-        w = sparsevec(sprand(d,1,total/(N*d))/100)
+        w = sprand(d,1,total/(N*d))/100
         X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
     end
 

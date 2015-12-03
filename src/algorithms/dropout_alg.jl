@@ -31,7 +31,7 @@ function dropout_alg(dfunc::Function, X, Y, λ::Float64, k::Int, max_iter::Int, 
         sub_arr = (I) -> append_ones(sub(X,I,:),k)
     else
         total = length(X.nzval)
-        w = sparsevec(sprand(d,1,total/(N*d)))
+        w = sprand(d,1,total/(N*d))
         f_sample = (p) -> isnan(p^2/(1+p^2)) ?
               rand(Bernoulli(0)) : rand(Bernoulli(p^2/(1+p^2)))
         X = X'; sub_arr = (I) -> append_ones(X[:,I],k)
