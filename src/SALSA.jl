@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -17,44 +17,44 @@
 
 module SALSA
 
-export salsa, 
+export salsa,
 	salsa_qa,
 	# preprocessing routines
-	mapstd, 
+	mapstd,
 	make_sparse,
-	# Nystrom approximation 
-	entropy_subset, 
+	# Nystrom approximation
+	entropy_subset,
 	AFEm,
-	LINEAR, 
+	LINEAR,
 	NONLINEAR,
-	# cross-validation 
-	gen_cross_validate, 
-	mse, 
-	misclass, 
+	# cross-validation
+	gen_cross_validate,
+	mse,
+	misclass,
 	auc,
-	# SALSA model 
+	# SALSA model
 	SALSAModel,
-	# loss functions 
+	# loss functions
     HINGE,
-    PINBALL, 
-    LOGISTIC, 
+    PINBALL,
+    LOGISTIC,
     SQUARED_HINGE,
-    LEAST_SQUARES, 
+    LEAST_SQUARES,
     MODIFIED_HUBER,
     # algorithms
-    SIMPLE_SGD, 
-    PEGASOS, 
-    L1RDA, 
-    ADA_L1RDA, 
-    R_L1RDA, 
-    R_L2RDA, 
-    DROP_OUT, 
+    SIMPLE_SGD,
+    PEGASOS,
+    L1RDA,
+    ADA_L1RDA,
+    R_L1RDA,
+    R_L2RDA,
+    DROP_OUT,
     RK_MEANS,
     # support
-    predict, 
-    predict_latent, 
-    map_predict, 
-    map_predict_latent, 
+    predict,
+    predict_latent,
+    map_predict,
+    map_predict_latent,
     loss_derivative,
     membership,
     DelimitedFile,
@@ -62,13 +62,14 @@ export salsa,
     CSA, DS, GlobalOpt,
     csa, ds,
     # cross-validation criterion
-	MISCLASS, 
-	AUC, MSE, 
-	SILHOUETTE, 
-	# kernels for Nystrom approximation 
-	RBFKernel, 
-	LinearKernel, 
+	MISCLASS,
+	AUC, MSE,
+	SILHOUETTE,
+	# kernels for Nystrom approximation
+	RBFKernel,
+	LinearKernel,
 	PolynomialKernel,
+	kernel_matrix_preimage,
 	# core algorithmic schemas
 	stochastic_rk_means,
 	adaptive_l1rda_alg,
@@ -106,7 +107,7 @@ include("model_ext.jl")
 include("predict.jl")
 # needed support files for cross-validation
 include(joinpath("support", "cross_validation.jl"))
-# Q/A tables 
+# Q/A tables
 include(joinpath("qa_tables", "QAModel.jl"))
 include(joinpath("qa_tables", "salsa_qa.jl"))
 # main algorithmic files

@@ -1,6 +1,6 @@
-# 
+#
 # Software Lab for Advanced Machine Learning with Stochastic Algorithms
-# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS 
+# Copyright (c) 2015 Vilen Jumutc, KU Leuven, ESAT-STADIUS
 # License & help @ https://github.com/jumutc/SALSA.jl
 # Documentation @ http://salsajl.readthedocs.org
 #
@@ -27,6 +27,16 @@ immutable RBFKernel <: Kernel
     end
 end
 
+function kernel_matrix_preimage(k::Type{RBFKernel}, X::Matrix)
+    n = size(X,1)
+    K = X*X'
+    dX = diag(K)
+    for j=1:n, i=1:n
+        K[i,j] = dX[i] + dX[j] - 2*K[i,j]
+    end
+    K
+end
+
 function kernel_from_data_model(k::Type{RBFKernel}, X::Matrix)
     (N,dim) = size(X)
     sig2 = mean((std(X)*(N^(-1/(dim+4)))).^2)
@@ -48,7 +58,7 @@ function kernel_matrix(k::RBFKernel, X::Matrix)
     K
 end
 
-function kernel_matrix(k::RBFKernel, Xr::Matrix, Xc::Matrix) 
+function kernel_matrix(k::RBFKernel, Xr::Matrix, Xc::Matrix)
     nXr = size(Xr, 1)
     nXc = size(Xc, 1)
     K = Xr*Xc'
