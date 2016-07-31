@@ -1,6 +1,6 @@
 using SALSA, Base.Test
 
-Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
+Xf = readcsv(joinpath(dirname(@__FILE__),"..","..","..","data","iris.data.csv"))
 X = Xf[:,1:end-1]
 Y = Xf[:,end]
 

@@ -1,6 +1,6 @@
 using MAT, SALSA, Base.Test, MLBase
 
-ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
+ripley = matread(joinpath(dirname(@__FILE__),"..","..","..","data","ripley.mat"))
 
 srand(1234)
 model = salsa(NONLINEAR,PEGASOS,HINGE,ripley["X"],ripley["Y"],ripley["Xt"])
