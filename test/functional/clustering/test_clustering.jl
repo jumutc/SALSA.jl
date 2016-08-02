@@ -1,6 +1,6 @@
 using SALSA, Clustering, Distances, MLBase, Base.Test, Compat
 
-Xf = readcsv(joinpath(Pkg.dir("SALSA"),"data","iris.data.csv"))
+Xf = readcsv(joinpath(dirname(@__FILE__),"..","..","..","data","iris.data.csv"))
 Y = convert(Array{Int}, Xf[:,end])
 dY = @compat Array{Int}(length(Y))
 X = Xf[:,1:end-1]

@@ -1,6 +1,6 @@
 using MAT, SALSA, Base.Test, MLBase
 
-ripley = matread(joinpath(Pkg.dir("SALSA"),"data","ripley.mat"))
+ripley = matread(joinpath(dirname(@__FILE__),"..","..","..","data","ripley.mat"))
 
 (Xtrain,mean_,std_) = mapstd(ripley["X"])
 Xtest = mapstd(ripley["Xt"],mean_,std_)
