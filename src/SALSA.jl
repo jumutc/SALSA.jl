@@ -84,6 +84,7 @@ export salsa,
 using MLBase, Distributions, Compat, Distances, Clustering, ProgressMeter
 import Base: size, getindex, issparse, sub, dot, show, isempty, At_mul_B!, readline
 import StatsBase: counts, predict
+import LegacyStrings: UTF32String
 import ArrayViews: view
 
 # needed support files
