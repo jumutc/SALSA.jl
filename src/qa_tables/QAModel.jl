@@ -15,14 +15,14 @@
 # GNU General Public License for more details.
 #
 
-abstract QANode
+abstract type QANode end
 
 type LinearQANode <: QANode
-	question:: UTF32String
+	question:: String
 	procfunc:: Function
 	# field not provided by default at instantiation
 	options:: Dict
-	answer:: ASCIIString
+	answer:: String
 end
 
 immutable QAOption{N <: QANode}

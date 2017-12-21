@@ -35,7 +35,7 @@ function modified_huber_loss_derivative(At,yt,w)
   deriv = init(At)
 
   idx1 = find(eval.<-1)
-  idx2 = find((eval.>=-1)&(eval.<1))
+  idx2 = find((eval.>=-1).&(eval.<1))
 
   if ~isempty(idx1)
     deriv += 4*hinge_loss(At,yt,idx1)
@@ -95,9 +95,9 @@ pinball_loss_derivative{T <: Number, AV <: AbstractVector}(At::AV,yt::T,w,τ) = 
 pinball_loss_derivative{T <: Number, M <: AbstractSparseArray}(At::M,yt::T,w,τ) = evaluate(At,yt,w)[1] < 1 ? -At.*yt : τ*At.*yt
 
 # LOGISTIC LOSS
-logistic_loss{T <: Number}(At,yt::T,w,eval=evaluate(At,yt,w)) = -At.*yt/(exp(eval)+1)
-logistic_loss(At::Matrix,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp(eval)+1))',size(At,1),1),2)
-logistic_loss{T <: AbstractSparseArray}(At::T,yt,w,eval=evaluate(At,yt,w)) = reduce((d0,i) -> d0 - (At[:,i] .* (yt[i]/(exp(eval[i])+1))), spzeros(size(At,1),1), 1:1:size(At,2))
+logistic_loss{T <: Number}(At,yt::T,w,eval=evaluate(At,yt,w)) = -At.*yt/(exp.(eval)+1)
+logistic_loss(At::Matrix,yt,w,eval=evaluate(At,yt,w)) = -sum(At.*repmat((yt./(exp.(eval)+1))',size(At,1),1),2)
+logistic_loss{T <: AbstractSparseArray}(At::T,yt,w,eval=evaluate(At,yt,w)) = reduce((d0,i) -> d0 - (At[:,i] .* (yt[i]/(exp.(eval[i])+1))), spzeros(size(At,1),1), 1:1:size(At,2))
 
 # LEAST-SQUARES LOSS
 least_squares_loss(At::Matrix,yt,w) = At*(evaluate(At,w) - yt)

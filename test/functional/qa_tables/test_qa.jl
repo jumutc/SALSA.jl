@@ -15,7 +15,7 @@ run_model = (X,Y,model,Xtest) -> begin
 end
 
 show(salsa_qa(eye(10),read_char,read_int,run_model))
-s = utf8(readavailable(outRead))
+s = String(readavailable(outRead))
 
 #test Q/A table contents
 @test contains(s, "Computing the model..")

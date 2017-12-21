@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-abstract DataWrapper
+abstract type DataWrapper end
 type DelimitedFile <: DataWrapper
 	name::String
 	header::Bool

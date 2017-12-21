@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-abstract Kernel
+abstract type Kernel end
 
 kernel_matrix(k::Kernel, X::Matrix) = kernel_matrix(k, X, X)
 kernel_matrix(k::Kernel, X::Array{Float64,1}) = kernel_matrix(k, X')

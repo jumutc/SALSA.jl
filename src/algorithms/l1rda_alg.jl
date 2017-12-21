@@ -55,13 +55,13 @@ function l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, ρ::Float64,
 
         # find a close form solution
         if check
-            w = -(sqrt(t)/γ).*(g - λ_rda.*sign(g))
-            w[abs(g).<=λ_rda] = 0
+            w = -(sqrt(t)/γ).*(g - λ_rda.*sign.(g))
+            w[abs.(g).<=λ_rda] = 0
         else
             # do not perform sparse(...) and filter and map over SparceMatrixCSC
             # because Garbage Collection performs realy badly in the tight loops
-            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign(g.nzval))
-            w = -(sqrt(t)/γ).*(g - λ_rda.*gs); ind = abs(g.nzval) .> λ_rda
+            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign.(g.nzval))
+            w = -(sqrt(t)/γ).*(g - λ_rda.*gs); ind = abs.(g.nzval) .> λ_rda
             w = isempty(ind) ? w_prev : reduce_sparsevec(w,find(ind))
         end
 

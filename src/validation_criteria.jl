@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 
-validation_criterion(model::SALSAModel,X,Y,val_idx) = validation_criterion(model,sub(X,val_idx,:)[:,:],Y[val_idx])
+validation_criterion(model::SALSAModel,X,Y,val_idx) = validation_criterion(model, view(X,val_idx,:)[:,:],Y[val_idx])
 validation_criterion{L <: Loss, A <: SGD}(model::SALSAModel{L,A},X,Y) = validation_criterion(model.validation_criterion,model,X,Y)
 validation_criterion{L <: Loss, A <: RK_MEANS}(model::SALSAModel{L,A},X,Y) = validation_criterion(model.validation_criterion,model,X,Y)
 validation_criterion{L <: Loss, A <: RDA}(model::SALSAModel{L,A},X,Y) = model.sparsity_cv*mean(model.output.w .!= 0) + (1-model.sparsity_cv)*validation_criterion(model.validation_criterion,model,X,Y)

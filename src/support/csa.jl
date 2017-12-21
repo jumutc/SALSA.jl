@@ -63,23 +63,23 @@ function csa(obj_fun, pn)
         @showprogress 1 "Running hyperparameter tuning... " 20 for l = 1:NI
             # choose new coordinates and compute
             # the function to minimize
-            r = tan(pi*(rand(pdim,pnum).-0.5));
+            r = tan.(pi*(rand(pdim,pnum).-0.5));
             # ****************** Wrapping ***************
             #pn = 2*mod((p0 + r * T + 1)/2,1)-1;
             #**************** Non wrapping *************
              pn = p0 + r * T ;#* (diag(e0)./sum(e0));
-             indd = find(abs(pn).>10);
+             indd = find(abs.(pn).>10);
              while length(indd) > 0
-                 r[indd] = tan(pi*(rand(size(indd)).-0.5));
+                 r[indd] = tan.(pi*(rand(size(indd)).-0.5));
                  pn = p0 + r * T ;#* (diag(e0)./sum(e0));
-                 indd = find(abs(pn).>15);
+                 indd = find(abs.(pn).>15);
              end
 
             en = convert(Array{Float64}, obj_fun(pn))
 
-            Esum = sum(exp((e0.-maximum(e0))./Tac));
+            Esum = sum(exp.((e0.-maximum(e0))./Tac));
             for i=1:pnum
-                pblty[i] = min(1.0,exp((e0[i]-maximum(e0))/Tac)/Esum);
+                pblty[i] = min(1.0,exp.((e0[i]-maximum(e0))/Tac)/Esum);
                 if pblty[i] > 1
                     pblty[i] = 1.
                 end
