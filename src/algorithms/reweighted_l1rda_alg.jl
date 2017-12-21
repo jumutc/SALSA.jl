@@ -56,17 +56,17 @@ function reweighted_l1rda_alg(dfunc::Function, X, Y, λ::Float64, γ::Float64, �
         # find a close form solution
         if check
             λ_rda = rw*λ .+ (ρ*γ)/sqrt(t)
-            w = -(sqrt(t)/γ).*(g - λ_rda.*sign(g))
-            w[abs(w).<=λ_rda] = 0
-            rw = 1 ./ (abs(w) .+ ɛ)
+            w = -(sqrt(t)/γ).*(g - λ_rda.*sign.(g))
+            w[abs.(w).<=λ_rda] = 0
+            rw = 1 ./ (abs.(w) .+ ɛ)
         else
             # do not perform sparse(...) and filter and map over SparceMatrixCSC
             # because Garbage Collection performs realy badly in the tight loops
-            λ_f = (v) -> λ./(abs(v) .+ ɛ) .+ (ρ*γ)/sqrt(t)
-            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign(g.nzval))
+            λ_f = (v) -> λ./(abs.(v) .+ ɛ) .+ (ρ*γ)/sqrt(t)
+            gs = SparseMatrixCSC(d,1,g.colptr,g.rowval,sign.(g.nzval))
             λ_rda = SparseMatrixCSC(d,1,w.colptr,w.rowval,λ_f(w.nzval))
             w = -(sqrt(t)/γ).*(g - λ_rda.*gs); I,J,V = findnz(g)
-            ind = abs(V) .> λ_f(full(w_prev[I]))
+            ind = abs.(V) .> λ_f(full(w_prev[I]))
             w = isempty(ind) ? w_prev : reduce_sparsevec(w,find(ind))
         end
 

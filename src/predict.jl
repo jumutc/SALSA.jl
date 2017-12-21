@@ -16,7 +16,7 @@
 #
 
 # Predict by evaluating a simple linear model
-predict_raw(model::SALSAModel,X) = sign(predict_latent_raw(model,X))
+predict_raw(model::SALSAModel,X) = sign.(predict_latent_raw(model,X))
 predict_latent_raw(model::SALSAModel,X) = X*model.output.w .+ ones(size(X,1),1)*model.output.b
 predict_by_distance_raw(model::SALSAModel,X) = membership(1 .- pairwise(model.algorithm.metric, X', model.output.w))
 # aliases to predict according to validation criterion and task: regression/classification
@@ -25,8 +25,8 @@ predict(criterion::MISCLASS, model::SALSAModel, X) 	 = predict_raw(model, X)
 predict(criterion::MSE, model::SALSAModel, X) 	  	 = predict_latent_raw(model, X)
 predict(criterion::SILHOUETTE, model::SALSAModel, X) = predict_by_distance_raw(model, X)
 
-predict_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_raw(model,sub(f,i,:)) for i=1:count(f)]...)
-predict_latent_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_latent_raw(model,sub(f,i,:)) for i=1:count(f)]...)
+predict_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_raw(model,view(f,i,:)) for i=1:count(f)]...)
+predict_latent_raw(model::SALSAModel,f::DelimitedFile) = vcat([predict_latent_raw(model,view(f,i,:)) for i=1:count(f)]...)
 
 function predict(model::SALSAModel,X)
 	if model.mode == LINEAR

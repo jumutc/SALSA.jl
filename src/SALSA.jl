@@ -58,6 +58,7 @@ export salsa,
     loss_derivative,
     membership,
     DelimitedFile,
+    sub,
     # global optimization
     CSA, DS, GlobalOpt,
     csa, ds,
@@ -82,11 +83,10 @@ export salsa,
 
 
 using MLBase, Distributions, Compat, Distances, Clustering, ProgressMeter
-import Base: size, getindex, issparse, sub, dot, show, isempty, At_mul_B!, readline
+import Base: size, getindex, issparse, dot, show, isempty, At_mul_B!, readline
 import StatsBase: counts, predict
 import LegacyStrings: UTF32String
 import ArrayViews: view
-
 # needed support files
 include(joinpath("support", "data_wrapper.jl"))
 include(joinpath("support", "definitions.jl"))

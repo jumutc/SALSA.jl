@@ -15,8 +15,8 @@
 # GNU General Public License for more details.
 #
 
-abstract Criterion 
-abstract CCriterion <: Criterion
+abstract type Criterion end 
+abstract type CCriterion <: Criterion end
 immutable MSE <: CCriterion end
 immutable MISCLASS <: CCriterion end 
 immutable SILHOUETTE <: Criterion end 
@@ -24,11 +24,11 @@ immutable AUC <: CCriterion
 	n_thresholds::Integer
 end
 
-abstract GlobalOpt 
+abstract type GlobalOpt end 
 immutable CSA <: GlobalOpt end 
 immutable DS <: GlobalOpt
 	init_params::Vector 
 end
 
-DS() = DS(Array(Float64,0))
+DS() = DS(Array{Float64}(0))
 AUC() = AUC(100)

@@ -15,10 +15,10 @@
 # GNU General Public License for more details.
 #
 
-abstract Model
+abstract type Model end
 
-abstract Loss 
-abstract NonParametricLoss <: Loss
+abstract type Loss end 
+abstract type NonParametricLoss <: Loss end
 immutable HINGE <: NonParametricLoss end
 immutable LOGISTIC <: NonParametricLoss end
 immutable SQUARED_HINGE <: NonParametricLoss end
@@ -26,9 +26,9 @@ immutable MODIFIED_HUBER <: NonParametricLoss end
 immutable LEAST_SQUARES <: NonParametricLoss end
 immutable PINBALL <: Loss end
 
-abstract Algorithm 
-abstract RDA <: Algorithm
-abstract SGD <: Algorithm
+abstract type Algorithm end 
+abstract type RDA <: Algorithm end
+abstract type SGD <: Algorithm end
 immutable PEGASOS <: SGD end
 immutable L1RDA <: RDA end
 immutable R_L1RDA <: RDA end
@@ -48,7 +48,7 @@ RK_MEANS(k_clusters::Int) = RK_MEANS(PEGASOS,k_clusters,20,Euclidean())
 RK_MEANS{A <: Algorithm}(support_alg::Type{A}, model::RK_MEANS) = RK_MEANS(support_alg,model.k_clusters,model.max_iter,model.metric)
 RK_MEANS{M <: SemiMetric}(metric::M, model::RK_MEANS) = RK_MEANS(model.support_alg,model.k_clusters,model.max_iter,metric)
 
-abstract Mode
+abstract type Mode end
 immutable LINEAR <: Mode end
 immutable NONLINEAR <: Mode
     k_params::Vector
@@ -81,7 +81,7 @@ type OutputModel{M <: Mode}
 	cv_n_f::Int
 	cv_n::Int
 	
-    OutputModel() = new()
+    OutputModel{M}() where {M<:Mode} = new()
 end
 
 type SALSAModel{L <: Loss, A <: Algorithm, 

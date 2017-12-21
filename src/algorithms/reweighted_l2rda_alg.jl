@@ -74,9 +74,9 @@ function reweighted_l2rda_alg(dfunc::Function, X, Y, λ::Float64, ɛ::Float64, v
 
     # truncate solution
     if check
-        w[abs(w).<=varɛ] = 0
+        w[abs.(w).<=varɛ] = 0
     else
-        ind = abs(w.nzval) .> varɛ
+        ind = abs.(w.nzval) .> varɛ
         w = isempty(ind) ? w : reduce_sparsevec(w,find(ind))
     end
 
